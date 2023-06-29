@@ -9,6 +9,8 @@
     "lint": "next lint",
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
+    "test": "jest",
+    "cypress:open": "cypress open",
     "lint-staged": "lint-staged",
     "prepare": "husky install"
   },
