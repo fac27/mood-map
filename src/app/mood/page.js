@@ -25,36 +25,16 @@ export default function MoodPicker() {
         <Image src={emotion} alt="image" width={150} height={150} />
       </span>
       <div className={styles.flex}>
-        <button
-          className={styles.hiddenButton}
-          onClick={() => setEmotion(emo1)}
-        >
-          <Image src={emo1} alt="image" width={60} height={60} />
-        </button>
-        <button
-          className={styles.hiddenButton}
-          onClick={() => setEmotion(emo2)}
-        >
-          <Image src={emo2} alt="image" width={60} height={60} />
-        </button>
-        <button
-          className={styles.hiddenButton}
-          onClick={() => setEmotion(emo3)}
-        >
-          <Image src={emo3} alt="image" width={60} height={60} />
-        </button>
-        <button
-          className={styles.hiddenButton}
-          onClick={() => setEmotion(emo4)}
-        >
-          <Image src={emo4} alt="image" width={60} height={60} />
-        </button>
-        <button
-          className={styles.hiddenButton}
-          onClick={() => setEmotion(emo5)}
-        >
-          <Image src={emo5} alt="image" width={60} height={60} />
-        </button>
+        {[emo1, emo2, emo3, emo4, emo5].map((svg, i) => (
+          <button
+            key={i}
+            className={styles.hiddenButton}
+            onClick={() => setEmotion(svg)}
+          >
+            <Image src={svg} alt="image" width={60} height={60} />
+          </button>
+        ))}
+        ss
       </div>
       <Link href="/">
         <button>Give more detail?</button>
