@@ -1,3 +1,13 @@
+:root {
+  --background-color: #F6F0D9;
+  --font-color: #0D3B66;
+  --color-1: #FF7B7D;
+  --color-2: #FEAB23;
+  --color-3: #FFC900;
+  --color-4: #7DE3DC;
+  --color-5: #75D7A1;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
