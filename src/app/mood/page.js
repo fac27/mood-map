@@ -3,11 +3,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import emo1 from "../../images/emo1.png";
-import emo2 from "../../images/emo2.png";
-import emo3 from "../../images/emo3.png";
-import emo4 from "../../images/emo4.png";
-import emo5 from "../../images/emo5.png";
+import emo1 from "../../public/images/emo1.png";
+import emo2 from "../../public/images/emo2.png";
+import emo3 from "../../public/images/emo3.png";
+import emo4 from "../../public/images/emo4.png";
+import emo5 from "../../public/images/emo5.png";
 import styles from "./page.module.css";
 import Exit from "../../components/Exit";
 import { josefinSans } from "@/utils/fonts";

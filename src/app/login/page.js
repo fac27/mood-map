@@ -1,5 +1,5 @@
 import Image from "next/image";
-import image from "../../images/Untitled.jpg";
+import image from "../../public/images/Untitled.jpg";
 
 export default function login() {
   return (
