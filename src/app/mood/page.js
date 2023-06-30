@@ -9,7 +9,7 @@ import emo3 from "../../images/emo3.png";
 import emo4 from "../../images/emo4.png";
 import emo5 from "../../images/emo5.png";
 import styles from "./page.module.css";
-import Exit from "../components/Exit";
+import Exit from "../../components/Exit";
 import { josefinSans } from "@/utils/fonts";
 
 export default function MoodPicker() {
