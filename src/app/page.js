@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { josefinSans } from "./layout";
+import Navbar from "./components/Navbar";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <span className={josefinSans.className}>
         <Link href="login">Login</Link>
       </span>
+      <Navbar />
     </>
   );
 }
