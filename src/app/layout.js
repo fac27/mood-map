@@ -1,15 +1,5 @@
 import "./globals.css";
-import { Yeseva_One, Josefin_Sans } from "next/font/google";
-
-const yesevaOne = Yeseva_One({
-  weight: "400",
-  subsets: ["latin"],
-});
-
-export const josefinSans = Josefin_Sans({
-  weight: "400",
-  subsets: ["latin"],
-});
+import { yesevaOne, josefinSans } from "@/utils/fonts";
 
 export const metadata = {};
 

@@ -8,12 +8,16 @@ import emo3 from "../../images/emo3.png";
 import emo4 from "../../images/emo4.png";
 import emo5 from "../../images/emo5.png";
 import styles from "./page.module.css";
+import Exit from "../components/Exit";
+import { josefinSans } from "@/utils/fonts";
 
 export default function MoodPicker() {
   const [emotion, setEmotion] = useState(emo1);
   //   console.log(emotion);
   return (
     <>
+      <Exit path={"/"} />
+      <h1 className={josefinSans.className}>How are you feeling?</h1>
       <span className={styles.center}>
         <Image src={emotion} alt="image" width={500} height={500} />
       </span>
