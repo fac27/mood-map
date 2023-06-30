@@ -1,15 +1,20 @@
 :root {
-  --background-color: #F6F0D9;
-  --font-color: #0D3B66;
-  --color-1: #FF7B7D;
-  --color-2: #FEAB23;
-  --color-3: #FFC900;
-  --color-4: #7DE3DC;
-  --color-5: #75D7A1;
+  --background-color: #f6f0d9;
+  --font-color: #0d3b66;
+  --color-1: #ff7b7d;
+  --color-2: #feab23;
+  --color-3: #ffc900;
+  --color-4: #7de3dc;
+  --color-5: #75d7a1;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--font-color);
 }

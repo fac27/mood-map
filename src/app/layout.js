@@ -1,8 +1,13 @@
 import "./globals.css";
-import { Roboto } from "next/font/google";
+import { Yeseva_One, Josefin_Sans } from "next/font/google";
 
-const roboto = Roboto({
-  weight: "100",
+const yesevaOne = Yeseva_One({
+  weight: "400",
+  subsets: ["latin"],
+});
+
+export const josefinSans = Josefin_Sans({
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -11,7 +16,7 @@ export const metadata = {};
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={roboto.className}>{children}</body>
+      <body className={yesevaOne.className}>{children}</body>
     </html>
   );
 }
