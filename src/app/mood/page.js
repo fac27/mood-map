@@ -34,7 +34,6 @@ export default function MoodPicker() {
             <Image src={svg} alt="image" width={60} height={60} />
           </button>
         ))}
-        ss
       </div>
       <Link href="/">
         <button>Give more detail?</button>
