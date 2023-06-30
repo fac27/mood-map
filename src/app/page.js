@@ -4,8 +4,9 @@ import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <>
-      <h1>Hello Moodsters!</h1>;<Link href="login">Login</Link>
+    <> 
+      <h1>Hello Moodsters!</h1> 
+      <Link href="login">Login</Link>
     </>
-  );
+  )
 }
