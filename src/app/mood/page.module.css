@@ -10,7 +10,7 @@
 
 .flex {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   justify-content: space-around;
   margin-inline: 5rem;
 }
@@ -19,4 +19,9 @@
   display: flex;
   justify-content: space-around;
   margin-block: 5rem;
+}
+.title {
+  margin-block: 4rem;
+  font-size: 5ch;
+  text-align: center;
 }

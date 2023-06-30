@@ -6,6 +6,6 @@ export const yesevaOne = Yeseva_One({
 });
 
 export const josefinSans = Josefin_Sans({
-  weight: "400",
+  weight: "300",
   subsets: ["latin"],
 });
