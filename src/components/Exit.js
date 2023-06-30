@@ -3,7 +3,9 @@ import styles from "./Exit.module.css";
 export default function Exit({ path }) {
   return (
     <span className={styles.float}>
-      <Link href={path}>❌</Link>
+      <Link href={path} style={{ textDecoration: "none" }}>
+        ❌
+      </Link>
     </span>
   );
 }
