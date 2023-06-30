@@ -1,6 +1,12 @@
-import Image from "next/image";
-import image from "../../images/Untitled.jpg";
+import { Auth } from '@supabase/auth-ui-react'
+import {ThemeSupa} from '@supabase/auth-ui-shared'
+import supabase from '../supabaseClient';
 
 export default function login() {
-  return <Image src={image} alt="gif" width={100} height={100} />;
+  return (<Auth
+  supabaseClient={supabase}
+  appearance={{ theme: ThemeSupa }}
+  providers={['google', 'spotify']}
+  />
+  );
 }
