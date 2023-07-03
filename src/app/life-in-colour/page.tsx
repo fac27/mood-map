@@ -1,6 +1,8 @@
-export default function grid() {
-  const getDays = (year) => {
-    const dates = [];
+import { ReactElement, FC } from "react";
+
+const grid: FC = (): ReactElement => {
+  const getDays = (year: number): Date[] => {
+    const dates: Date[] = [];
     const startDate = new Date(year, 0, 1);
     while (startDate.getFullYear() === year) {
       dates.push(new Date(startDate));
@@ -9,6 +11,7 @@ export default function grid() {
     return dates;
   };
   const divDays = getDays(2023);
+
   return (
     <>
       <h1 style={{ textAlign: "center" }}>My Life in Colour</h1>
@@ -44,7 +47,7 @@ export default function grid() {
             gap: "2px",
           }}
         >
-          {divDays.map((day) => {
+          {divDays.map((day: Date) => {
             const dateOfMonth = day.getDate();
             const firstDayOfWeek = new Date(
               day.getFullYear(),
@@ -75,4 +78,6 @@ export default function grid() {
       </div>
     </>
   );
-}
+};
+
+export default grid;
