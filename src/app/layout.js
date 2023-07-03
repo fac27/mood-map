@@ -7,7 +7,9 @@ export default function RootLayout({ children }) {
   return (
     <>
       <html lang="en">
-        <body className={`${yesevaOne.className} ${josefinSans.className}`}>{children}</body>
+        <body className={`${yesevaOne.className} ${josefinSans.className}`}>
+          {children}
+        </body>
       </html>
     </>
   );
