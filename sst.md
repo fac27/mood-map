@@ -17,6 +17,7 @@ setting up Entry page
 Working 'blob' CSS modules standardized, getting typescript to work together. Spent time making things uniform.
 
 Reminders to all to Pull through + merge main
-Questions for Tony 
+Questions for Tony
+
 - in Next 13 how to test if a user is looged in on every route
 - styling libraries that play nice with typescript? Right now we're using module css but looking for an alternative
