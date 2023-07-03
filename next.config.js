@@ -1,11 +1,11 @@
-const path = require('path');
+const path = require("path");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    webpack: (config) => {
-        config.resolve.alias['@'] = path.join(__dirname, 'src');
-    
-        return config;
-      },
+  webpack: (config) => {
+    config.resolve.alias["@"] = path.join(__dirname, "src");
+
+    return config;
+  },
 };
 
 module.exports = nextConfig;
