@@ -30,7 +30,7 @@ export default function Home() {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>Hello, Emily </h1>
-        <p>Today's mood</p>
+        <p>Mood for the day</p>
       </div>
 
       <div className={styles.blobContainer}>{blobElements}</div>
