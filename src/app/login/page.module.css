@@ -1,0 +1,14 @@
+.wrapper {
+  margin: 3rem;
+}
+
+.wrapper form {
+  margin-top: 2rem;
+}
+
+.title {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 50px;
+  margin-top: 100px;
+}
