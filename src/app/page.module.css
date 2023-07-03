@@ -3,3 +3,16 @@
 .textFont {
   font-family: "Josefin Sans", sans-serif;
 }
+
+.shape {
+  width: 150px;
+  height: 150px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
