@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
-import Link from "next/link";
-import { josefinSans } from "@/utils/fonts";
+// import Link from "next/link";
+// import { josefinSans } from "@/utils/fonts";
 import Navbar from "@/components/Navbar";
 import supabase from "@/lib/supabaseClientServer";
 
