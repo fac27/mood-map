@@ -3,14 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import emo1 from "../../public/images/emo1.png";
-import emo2 from "../../public/images/emo2.png";
-import emo3 from "../../public/images/emo3.png";
-import emo4 from "../../public/images/emo4.png";
-import styles from "./page.module.css";
 import { josefinSans } from "@/utils/fonts";
 import Exit from "@/components/Exit";
-import emo5 from "@/public/images/emo5.png";
+import emo1 from "../../../public/images/emo1.png";
+import emo2 from "../../../public/images/emo2.png";
+import emo3 from "../../../public/images/emo3.png";
+import emo4 from "../../../public/images/emo4.png";
+import styles from "./page.module.css";
+import emo5 from "../../../public/images/emo5.png";
 
 export default function MoodPicker() {
   const [emotion, setEmotion] = useState(emo1);
