@@ -4,15 +4,26 @@
   font-family: "Josefin Sans", sans-serif;
 }
 
-.shape {
-  width: 150px;
-  height: 150px;
+.container {
+  margin: 2rem auto;
+  width: 70%;
+  text-align: center;
 }
 
-.container {
+.header {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.blobContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 60%;
+  margin: 1rem auto;
+}
+
+.blob {
+  width: 13rem;
+  height: 13rem;
 }

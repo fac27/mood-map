@@ -19,3 +19,30 @@ export const generateShapeProps = () => {
     edges: getRandomInt(3, 20),
   };
 };
+
+export const blobs = [
+  {
+    id: 1,
+    variant: "solid",
+    color: getRandomColor(),
+    shapeProps: generateShapeProps(),
+  },
+  {
+    id: 2,
+    variant: "gradient",
+    color: [getRandomColor(), getRandomColor()],
+    shapeProps: generateShapeProps(),
+  },
+  {
+    id: 3,
+    variant: "solid",
+    color: getRandomColor(),
+    shapeProps: generateShapeProps(),
+  },
+  {
+    id: 4,
+    variant: "gradient",
+    color: [getRandomColor(), getRandomColor()],
+    shapeProps: generateShapeProps(),
+  },
+];

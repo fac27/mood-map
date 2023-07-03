@@ -1,10 +1,29 @@
 import { SvgBlob } from "react-svg-blob";
 import styles from "@/app/page.module.css";
 import Navbar from "@/components/Navbar";
-
-import { getRandomColor, generateShapeProps } from "@/utils/blobGenerator";
+import { blobs } from "@/utils/blobGenerator";
 
 export default function Home() {
+  const blobElements = blobs.map((blob) => {
+    return blob.variant === "solid" ? (
+      <SvgBlob
+        key={blob.id}
+        variant={blob.variant}
+        shapeProps={blob.shapeProps}
+        color={blob.color}
+        className={styles.blob}
+      />
+    ) : (
+      <SvgBlob
+        key={blob.id}
+        variant={blob.variant}
+        shapeProps={blob.shapeProps}
+        colors={blob.color}
+        className={styles.blob}
+      />
+    );
+  });
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -12,21 +31,7 @@ export default function Home() {
         <p>Today's mood</p>
       </div>
 
-      <div className={styles.shape}>
-        <SvgBlob
-          color={getRandomColor()}
-          variant="solid"
-          shapeProps={generateShapeProps()}
-        />
-      </div>
-
-      <div className={styles.shape}>
-        <SvgBlob
-          variant="gradient"
-          colors={[getRandomColor(), getRandomColor()]}
-          shapeProps={generateShapeProps()}
-        />
-      </div>
+      <div className={styles.blobContainer}>{blobElements}</div>
       <Navbar />
     </div>
   );
