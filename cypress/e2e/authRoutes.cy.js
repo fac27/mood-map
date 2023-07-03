@@ -11,7 +11,3 @@ paths.forEach((path) => {
     });
   });
 });
-
-paths.forEach((path) => {
-  describe("Test every route redirects to login if no valid session", () => {});
-});
