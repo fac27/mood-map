@@ -1,6 +1,9 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "";
+// import { useState } from "react";
 
-export default function entry() {
+export default function Entry() {
+//   const [show, setShow] = useState(False);
+
   return (
     <>
       <h1>
@@ -11,7 +14,8 @@ export default function entry() {
           year: "numeric",
         })}
       </h1>
-
+      
+      
       <Navbar />
     </>
   );
