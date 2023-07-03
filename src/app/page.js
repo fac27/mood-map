@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { josefinSans } from "@/utils/fonts";
-import Navbar from "@/components/Navbar";
+import { josefinSans } from "@/src/utils/fonts";
+import Navbar from "@/src/components/Navbar";
 export default function Home() {
   return (
     <>
