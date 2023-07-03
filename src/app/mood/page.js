@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { josefinSans } from "@/utils/fonts";
-import Exit from "@/components/Exit";
+import Exit from "../components/Exit";
 import emo1 from "../../../public/images/emo1.png";
 import emo2 from "../../../public/images/emo2.png";
 import emo3 from "../../../public/images/emo3.png";

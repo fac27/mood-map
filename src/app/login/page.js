@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import supabase from "@/lib/supabaseClientBrowser";
+import { supabaseBrowser as supabaseClient } from "../../lib/supabaseClient";
 import styles from "./page.module.css";
 
 export default function login() {
@@ -13,7 +13,7 @@ export default function login() {
       <Link href="/"> home</Link>
       <div className={styles.wrapper}>
         <Auth
-          supabaseClient={supabase}
+          supabaseClient={supabaseClient}
           providers={["spotify"]}
           appearance={{
             // Your custom classes
