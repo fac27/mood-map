@@ -1,0 +1,27 @@
+.hiddenButton {
+  border: none;
+  border-radius: 50%;
+}
+
+.hiddenButton:hover,
+.hiddenButton:focus {
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+.flex {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-around;
+  margin-inline: 5rem;
+}
+
+.center {
+  display: flex;
+  justify-content: space-around;
+  margin-block: 5rem;
+}
+.title {
+  margin-block: 4rem;
+  font-size: 5ch;
+  text-align: center;
+}
