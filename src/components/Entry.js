@@ -2,7 +2,7 @@ import Navbar from "";
 // import { useState } from "react";
 
 export default function Entry() {
-//   const [show, setShow] = useState(False);
+  //   const [show, setShow] = useState(False);
 
   return (
     <>
@@ -14,8 +14,7 @@ export default function Entry() {
           year: "numeric",
         })}
       </h1>
-      
-      
+
       <Navbar />
     </>
   );
