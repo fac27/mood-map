@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import supabase from "@/lib/supabaseClientServer";
+import supabase from "@/lib/supabaseClientBrowser";
 import styles from "./page.module.css";
 
 export default function login() {
