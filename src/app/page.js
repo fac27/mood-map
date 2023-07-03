@@ -1,6 +1,5 @@
-// import { josefinSans } from "@/utils/fonts";
 import Navbar from "../components/Navbar";
-import { getSessionServer } from "../lib/supabaseSession";
+import { getSessionServer } from "../lib/server/session";
 
 export default async function Home() {
   const user = await getSessionServer();
