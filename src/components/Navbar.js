@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import calendar from "../public/images/calendar.png";
-import home from "../public/images/home.png";
-import graph from "../public/images/graph.png";
+import calendar from "../../public/images/calendar.png";
+import home from "../../public/images/home.png";
+import graph from "../../public/images/graph.png";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
