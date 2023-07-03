@@ -26,23 +26,27 @@ export const blobs = [
     variant: "solid",
     color: getRandomColor(),
     shapeProps: generateShapeProps(),
+    text: `Streak 7 days`,
   },
   {
     id: 2,
     variant: "gradient",
     color: [getRandomColor(), getRandomColor()],
     shapeProps: generateShapeProps(),
+    text: `Favourite song - toxic by Britney Spears`,
   },
   {
     id: 3,
     variant: "solid",
     color: getRandomColor(),
     shapeProps: generateShapeProps(),
+    text: `Better sleep is known to ward off stress & anxiety`,
   },
   {
     id: 4,
     variant: "gradient",
     color: [getRandomColor(), getRandomColor()],
     shapeProps: generateShapeProps(),
+    text: `The last week you haven't been happy let's change that`,
   },
 ];

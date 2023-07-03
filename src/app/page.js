@@ -6,21 +6,23 @@ import { blobs } from "@/utils/blobGenerator";
 export default function Home() {
   const blobElements = blobs.map((blob) => {
     return blob.variant === "solid" ? (
-      <SvgBlob
-        key={blob.id}
-        variant={blob.variant}
-        shapeProps={blob.shapeProps}
-        color={blob.color}
-        className={styles.blob}
-      />
+      <div key={blob.id} className={styles.blob}>
+        <p className={styles.blobText}>{blob.text}</p>
+        <SvgBlob
+          variant={blob.variant}
+          shapeProps={blob.shapeProps}
+          color={blob.color}
+        />
+      </div>
     ) : (
-      <SvgBlob
-        key={blob.id}
-        variant={blob.variant}
-        shapeProps={blob.shapeProps}
-        colors={blob.color}
-        className={styles.blob}
-      />
+      <div key={blob.id} className={styles.blob}>
+        <p className={styles.blobText}>{blob.text}</p>
+        <SvgBlob
+          variant={blob.variant}
+          shapeProps={blob.shapeProps}
+          colors={blob.color}
+        />
+      </div>
     );
   });
 
