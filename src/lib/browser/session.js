@@ -1,5 +1,5 @@
-import supabaseBrowser from "./browser/supabaseClient";
-import checkUser from "./checkUser";
+import supabaseBrowser from "./client";
+import checkUser from "../checkUser";
 
 export async function getSessionBrowser() {
   const {

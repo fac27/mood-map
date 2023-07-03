@@ -1,5 +1,5 @@
-import supabaseServer from "./supabaseClientServer";
-import checkUser from "./checkUser";
+import supabaseServer from "./client";
+import checkUser from "../checkUser";
 
 export async function getSessionServer() {
   const {
