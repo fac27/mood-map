@@ -41,7 +41,7 @@ export default function MoodPicker() {
       <div className={styles.emojiContainer}>{emojiElements}</div>
 
       <div className={styles.links}>
-        <Link href="/detail">
+        <Link href="/Detail">
           <button>Give more detail?</button>
         </Link>
         <Link href="/">

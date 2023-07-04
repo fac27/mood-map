@@ -1,0 +1,39 @@
+.container h2 {
+  color: #6e89a3;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.header {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.header h1 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.detailPeople {
+  margin-top: 2rem;
+}
+
+.detailPlace {
+  margin-top: 2rem;
+}
+
+.detailMusic {
+  margin-top: 2rem;
+}
+
+.iconContainer {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+}
