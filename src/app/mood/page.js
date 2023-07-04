@@ -13,10 +13,12 @@ import emo5 from "../../../public/images/emo5.svg";
 import styles from "./page.module.css";
 
 const today = new Date();
-const pad = num => num.toString().padStart(2, '0');
+const pad = (num) => num.toString().padStart(2, "0");
 const initialFormState = {
   mood: null,
-  mood_date: `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`,
+  mood_date: `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(
+    today.getDate()
+  )}`,
   journal_entry: "",
   context_people: "",
   context_location: "",
@@ -37,11 +39,11 @@ const DetailsModal = () => {
     const {
       data: { session },
     } = await supabaseBrowser.auth.getSession();
-    
+
     const user = session.user;
     mood.user_id = user.id;
-    
-    const {error} = await supabaseBrowser.from("entries").insert(mood);
+
+    const { error } = await supabaseBrowser.from("entries").insert(mood);
     console.log(`ERROR: ${error}`);
     // } catch (error) {
     // }
@@ -95,7 +97,7 @@ const DetailsModal = () => {
 
 export default function MoodPicker() {
   const [emotion, setEmotion] = useState(emo1);
-  const [showDetails, setShowDetails] = useState(false)
+  const [showDetails, setShowDetails] = useState(false);
 
   return (
     <>
