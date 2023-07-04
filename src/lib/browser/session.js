@@ -1,7 +1,7 @@
 import supabaseBrowser from "./client";
 import checkUser from "../checkUser";
 
-export async function getSessionBrowser() {
+export default async function getSessionBrowser() {
   const {
     data: { session },
   } = await supabaseBrowser.auth.getSession();

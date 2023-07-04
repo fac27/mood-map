@@ -1,20 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { josefinSans } from "@/utils/fonts";
-import Exit from "../components/Exit";
+import Exit from "../../components/Exit";
 import emo1 from "../../../public/images/emo1.png";
 import emo2 from "../../../public/images/emo2.png";
 import emo3 from "../../../public/images/emo3.png";
 import emo4 from "../../../public/images/emo4.png";
 import styles from "./page.module.css";
 import emo5 from "../../../public/images/emo5.png";
+import getSessionBrowser from "../../lib/browser/session";
+
+const checkSession = async () => {
+  await getSessionBrowser(); // redirect to login if not already logged in
+};
 
 export default function MoodPicker() {
   const [emotion, setEmotion] = useState(emo1);
-  //   console.log(emotion);
+
+  useEffect(() => {
+    checkSession();
+  }, []);
+
   return (
     <>
       <Exit path={"/"} />
