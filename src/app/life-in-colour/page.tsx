@@ -4,6 +4,20 @@ import { getDays } from "../../utils/getDays";
 
 const Grid: FC = (): ReactElement => {
   const divDays = getDays(2023);
+  const divDayElements: ReactElement[] = divDays.map((day: Date) => {
+    const dateOfMonth = day.getDate();
+    const firstDayOfWeek = new Date(
+      day.getFullYear(),
+      day.getMonth(),
+      1
+    ).getDay();
+    let gridColumn = ((firstDayOfWeek + 6) % 7) + 1;
+
+    if (dateOfMonth > 1) {
+      gridColumn = ((gridColumn + dateOfMonth - 2) % 7) + 1;
+    }
+    return <div className={styles.gridBox} key={day.toString()}></div>;
+  });
 
   return (
     <>
@@ -18,22 +32,7 @@ const Grid: FC = (): ReactElement => {
           <p>S</p>
           <p>S</p>
         </div>
-        <div className={styles.gridBoxes}>
-          {divDays.map((day: Date) => {
-            const dateOfMonth = day.getDate();
-            const firstDayOfWeek = new Date(
-              day.getFullYear(),
-              day.getMonth(),
-              1
-            ).getDay();
-            let gridColumn = ((firstDayOfWeek + 6) % 7) + 1;
-
-            if (dateOfMonth > 1) {
-              gridColumn = ((gridColumn + dateOfMonth - 2) % 7) + 1;
-            }
-            return <div className={styles.gridBox} key={day.toString()}></div>;
-          })}
-        </div>
+        <div className={styles.gridBoxes}>{divDayElements}</div>
       </div>
     </>
   );
