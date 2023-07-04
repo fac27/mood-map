@@ -7,7 +7,7 @@ const Entry: React.FC = () => {
   return (
     <>
       <div className={styles.modalContainer}>
-        <Exit path={"/life-in-colour"}/>
+        <Exit path={"/life-in-colour"} />
 
         <h1 className="dateHeader">
           {new Date().toLocaleDateString("en-UK", {
