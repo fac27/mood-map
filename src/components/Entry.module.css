@@ -1,0 +1,84 @@
+.modalContainer {
+  /* position: relative; */
+  height: 470px;
+  width: 300px;
+  border-radius: 10px;
+  border-color: grey;
+  border-style: solid;
+  margin: 20px;
+  padding: 20px;
+  position: fixed;
+  background-color: #f6f0d9;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.exit {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  text-decoration: none !important;
+}
+
+.dateHeader {
+  margin: 10px;
+  text-align: center;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 40px auto;
+  grid-template-rows: repeat(3, auto);
+  grid-gap: 10px;
+}
+
+.gridItem1 {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.gridItem2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.gridItem3 {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.gridItem4 {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.gridItem5 {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.gridItem6 {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.gridText {
+  align-self: start;
+  margin-top: auto;
+}
+
+.square {
+  height: 32px;
+  width: 32px;
+  border-radius: 10px;
+  border-color: grey;
+  border-style: solid;
+}
+
+.circle {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  border-color: grey;
+  border-style: solid;
+}

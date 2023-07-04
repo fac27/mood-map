@@ -1,8 +1,17 @@
+"use client";
+
+import { useState } from "react";
 import { ReactElement, FC } from "react";
 import styles from "./page.module.css";
+import Entry from "@/src/components/Entry";
 import { getMonths } from "../../utils/dateHelpers";
 
 const Grid: FC = (): ReactElement => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
   const monthData: { [key: string]: Date[] } = getMonths(2023);
   const dateElements: ReactElement[] = Object.entries(monthData).map(
     ([month, days], idx) => {
@@ -11,7 +20,7 @@ const Grid: FC = (): ReactElement => {
           <h4>{month}</h4>
           <ul className={styles.dayContainer}>
             {days.map((day, idx) => (
-              <li key={idx} className={styles.dayBox}></li>
+              <li key={idx} className={styles.dayBox} onClick={openModal}></li>
             ))}
           </ul>
         </div>
@@ -22,7 +31,8 @@ const Grid: FC = (): ReactElement => {
   return (
     <>
       <h1 className={styles.header}>My Life in Colour</h1>
-      <div className={styles.gridContainer}>{dateElements}</div>
+      <div className={styles.gridContainer}>{dateElements} </div>
+      {isOpen && <Entry onClose={closeModal} />}
     </>
   );
 };

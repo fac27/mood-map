@@ -1,17 +1,32 @@
 "use client";
 
+// import { redirect } from "next/navigation";
+import Link from "next/link";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import supabase from "../../utils/supabaseClient";
+import supabaseBrowser from "../../lib/browser/client";
 import styles from "./page.module.css";
+// import getSessionBrowser from "../../lib/browser/session";
+// import { useEffect } from "react";
 
-export default function Login() {
+// const checkSession = async () => {
+//   const user = await getSessionBrowser();
+//   console.log(user);
+//   if (user) redirect("/");
+// };
+
+export default function login() {
+  // useEffect(() => {
+  //   checkSession();
+  // }, []);
+
   return (
     <>
       <h1 className={styles.title}>Mood Map</h1>
+      <Link href="/"> home</Link>
       <div className={styles.wrapper}>
         <Auth
-          supabaseClient={supabase}
+          supabaseClient={supabaseBrowser}
           providers={["spotify"]}
           appearance={{
             theme: ThemeSupa,
