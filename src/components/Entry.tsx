@@ -1,13 +1,19 @@
 import React from "react";
-import Exit from "@/src/components/Exit";
+import { useState } from "react";
+// import Exit from "@/src/components/Exit";
 import styles from "./Entry.module.css";
+import Vector from "../../public/images/Vector.svg";
+import Image from "next/image";
 
 //may need to changeReact.FC but version 5.1 should be fine now?
-const Entry: React.FC = () => {
+const Entry: React.FC = ({ onClose }) => {
   return (
     <>
       <div className={styles.modalContainer}>
-        <Exit path={"/life-in-colour"} />
+        {/* <Exit path={"/life-in-colour"} /> */}
+        <span className={styles.exit} onClick={onClose}>
+          <Image src={Vector} alt="exit" width={20} height={20} />
+        </span>
 
         <h1 className="dateHeader">
           {new Date().toLocaleDateString("en-UK", {

@@ -13,8 +13,15 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.exit {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  text-decoration: none !important;
+}
 
 .dateHeader {
+  margin: 10px;
   text-align: center;
 }
 
