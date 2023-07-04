@@ -1,31 +1,44 @@
 .header {
+  margin-top: 1rem;
   text-align: center;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }
 
 .gridContainer {
-  text-align: center;
+  width: 80%;
+  margin: 2rem auto;
   display: grid;
-  grid-template-columns: repeat(7, 32px);
-  gap: 2px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 }
 
-.gridBoxes {
+.monthContainer h4 {
   text-align: center;
-  display: grid;
-  grid-template-columns: repeat(7, 32px);
-  gap: 2px;
 }
 
-.gridBox {
-  text-align: center;
-  height: 32px;
-  width: 32px;
-  border: 2px solid black;
+.dayContainer {
+  margin-top: 0.4rem;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.2rem;
+
+  list-style: none;
+}
+
+.dayBox {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+}
+
+@media screen and (max-width: 420px) {
+  .gridContainer {
+    width: 90%;
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+  }
+
+  .dayBox {
+    width: 20px;
+    height: 20px;
+  }
 }
