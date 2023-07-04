@@ -4,31 +4,57 @@ import styles from "./DetailsModal.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
+function InputElement({ formElement, value, state: [mood, setMood] }) {
+  const isRadio = formElement.type === "radio";
+
+  return (
+    <>
+      <label htmlFor={isRadio ? value : formElement.name}>
+        {isRadio ? value : formElement.heading}
+      </label>
+      <input
+        type={formElement.type}
+        name={formElement.name}
+        id={formElement.name}
+        value={value}
+        onChange={(e) => setMood({ ...mood, [e.target.name]: e.target.value })}
+      />
+    </>
+  );
+}
+
 const today = new Date();
-const pad = (num) => num.toString().padStart(2, "0");
+const trailingZero = (num) => num.toString().padStart(2, "0");
 const initialFormState = {
   mood: null,
-  mood_date: `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(
-    today.getDate()
-  )}`,
+  mood_date: `${today.getFullYear()}-${trailingZero(
+    today.getMonth() + 1
+  )}-${trailingZero(today.getDate())}`,
   journal_entry: "",
   context_people: "",
   context_location: "",
 };
 
-const formHeadings = [
-  { name: "mood_date", heading: "Date", inputType: "date" },
-  { name: "journal_entry", heading: "Journal Entry", inputType: "text" },
-  { name: "context_people", heading: "Who were you with?", inputType: "text" },
-  { name: "context_location", heading: "Where were you?", inputType: "text" },
+const formElements = [
+  { name: "mood_date", heading: "Date", type: "date" },
+  { name: "journal_entry", heading: "Journal Entry", type: "text" },
+  {
+    name: "context_people",
+    heading: "Who were you with?",
+    type: "radio",
+    options: ["Myself", "Friends", "Family"],
+  },
+  {
+    name: "context_location",
+    heading: "Where were you?",
+    type: "radio",
+    options: ["Home", "Work", "Transport", "Outside"],
+  },
 ];
 
 export default function DetailsModal({ emotion }) {
   const [mood, setMood] = useState(initialFormState);
   const link = useRef();
-  const handleChange = (e) => {
-    setMood({ ...mood, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,34 +67,44 @@ export default function DetailsModal({ emotion }) {
     mood.mood = emotion;
     const { error } = await supabaseBrowser.from("entries").insert(mood);
     console.log(`ERROR: ${JSON.stringify(error)}`);
-    if (error === null) {
-      //   redirect("/life-in-colour"); // idk why the f*** this doesnt work
-      link.current.click();
-    }
+    if (error === null) link.current.click();
+    //   redirect("/life-in-colour"); // idk why the f*** this doesnt work
   };
 
   return (
     <>
       <form className={styles.contextForm} onSubmit={handleSubmit}>
-        <label htmlFor="mood">Mood</label>
-        <Image
-          src={`/images/emo${emotion}.svg`}
-          alt={"you are a 1 out of 5 on a scale of happiness"}
-          height={60}
-          width={60}
-        />
-        <input type="hidden" name="mood" id="mood" value={emotion} />
-        {formHeadings.map((formElement) => (
-          <>
-            <label htmlFor={formElement.name}>{formElement.heading}</label>
-            <input
-              type={formElement.type}
-              name={formElement.name}
-              id={formElement.name}
-              value={mood[formElement.name]}
-              onChange={handleChange}
-            />
-          </>
+        <fieldset>
+          <label htmlFor="mood">Mood</label>
+          <Image
+            src={`/images/emo${emotion}.svg`}
+            alt={"you are a 1 out of 5 on a scale of happiness"}
+            height={60}
+            width={60}
+          />
+          <input type="hidden" name="mood" id="mood" value={emotion} />
+        </fieldset>
+        {formElements.map((formElement, elementIndex) => (
+          <fieldset key={elementIndex}>
+            {formElement.type === "radio" ? (
+              <>
+                {formElement.options.map((option, radioIndex) => (
+                  <InputElement
+                    key={`${elementIndex}${radioIndex}`}
+                    formElement={formElement}
+                    value={option}
+                    state={[mood, setMood]}
+                  />
+                ))}
+              </>
+            ) : (
+              <InputElement
+                formElement={formElement}
+                value={mood[formElement.name]}
+                state={[mood, setMood]}
+              />
+            )}
+          </fieldset>
         ))}
         <button type="submit">Submit</button>
       </form>
