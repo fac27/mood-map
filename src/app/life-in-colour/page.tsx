@@ -1,4 +1,5 @@
 import { ReactElement, FC } from "react";
+import styles from "./page.module.css";
 
 const grid: FC = (): ReactElement => {
   const getDays = (year: number): Date[] => {
@@ -14,23 +15,9 @@ const grid: FC = (): ReactElement => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>My Life in Colour</h1>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
-        <div
-          style={{
-            textAlign: "center",
-            display: "grid",
-            gridTemplateColumns: "repeat(7, 32px)",
-            gap: "2px",
-          }}
-        >
+      <h1 className={styles.header}>My Life in Colour</h1>
+      <div className={styles.container}>
+        <div className={styles.gridContainer}>
           <p>M</p>
           <p>T</p>
           <p>W</p>
@@ -39,14 +26,7 @@ const grid: FC = (): ReactElement => {
           <p>S</p>
           <p>S</p>
         </div>
-        <div
-          style={{
-            textAlign: "center",
-            display: "grid",
-            gridTemplateColumns: "repeat(7, 32px)",
-            gap: "2px",
-          }}
-        >
+        <div className={styles.gridBoxes}>
           {divDays.map((day: Date) => {
             const dateOfMonth = day.getDate();
             const firstDayOfWeek = new Date(
@@ -59,20 +39,7 @@ const grid: FC = (): ReactElement => {
             if (dateOfMonth > 1) {
               gridColumn = ((gridColumn + dateOfMonth - 2) % 7) + 1;
             }
-            return (
-              <div
-                style={{
-                  textAlign: "center",
-                  height: "32px",
-                  width: "32px",
-                  borderStyle: "solid",
-                  borderColor: "black",
-                  borderWidth: "2px",
-                  gridColumn,
-                }}
-                key={day.toString()}
-              ></div>
-            );
+            return <div className={styles.gridBox} key={day.toString()}></div>;
           })}
         </div>
       </div>

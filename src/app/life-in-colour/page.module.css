@@ -1,0 +1,31 @@
+.header {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.gridContainer {
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(7, 32px);
+  gap: 2px;
+}
+
+.gridBoxes {
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(7, 32px);
+  gap: 2px;
+}
+
+.gridBox {
+  text-align: center;
+  height: 32px;
+  width: 32px;
+  border: 2px solid black;
+}

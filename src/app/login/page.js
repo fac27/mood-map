@@ -14,11 +14,11 @@ export default function login() {
           supabaseClient={supabase}
           providers={["spotify"]}
           appearance={{
-            // Your custom classes
-            className: {
-              button: "shadow",
-              //..
-            },
+            // // Your custom classes
+            // className: {
+            //   button: "shadow",
+            //   //..
+            // },
             style: {
               label: { "padding-inline": 10 },
               input: {
