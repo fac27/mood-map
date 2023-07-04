@@ -1,0 +1,27 @@
+.pageHeader {
+  text-align: center;
+  margin: 20px;
+}
+
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.grid {
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(7, 32px);
+  gap: 2px;
+}
+
+.gridBox {
+  text-align: center;
+  height: 32px;
+  width: 32px;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+}

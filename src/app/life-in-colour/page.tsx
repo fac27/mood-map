@@ -1,7 +1,15 @@
-import { ReactElement, FC } from "react";
-import Entry from "@/src/components/Entry";
+"use client";
 
-const grid: FC = (): ReactElement => {
+import { ReactElement, FC, useState } from "react";
+import Entry from "@/src/components/Entry";
+import styles from "./page.module.css";
+
+const Grid: FC = (): ReactElement => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
   const getDays = (year: number): Date[] => {
     const dates: Date[] = [];
     const startDate = new Date(year, 0, 1);
@@ -15,23 +23,9 @@ const grid: FC = (): ReactElement => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>My Life in Colour</h1>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
-        <div
-          style={{
-            textAlign: "center",
-            display: "grid",
-            gridTemplateColumns: "repeat(7, 32px)",
-            gap: "2px",
-          }}
-        >
+      <h1 className={styles.pageHeader}>My Life in Colour</h1>
+      <div className={styles.pageContainer}>
+        <div className={styles.grid}>
           <p>M</p>
           <p>T</p>
           <p>W</p>
@@ -40,14 +34,7 @@ const grid: FC = (): ReactElement => {
           <p>S</p>
           <p>S</p>
         </div>
-        <div
-          style={{
-            textAlign: "center",
-            display: "grid",
-            gridTemplateColumns: "repeat(7, 32px)",
-            gap: "2px",
-          }}
-        >
+        <div className={styles.grid}>
           {divDays.map((day: Date) => {
             const dateOfMonth = day.getDate();
             const firstDayOfWeek = new Date(
@@ -62,24 +49,20 @@ const grid: FC = (): ReactElement => {
             }
             return (
               <div
+                className={styles.gridBox}
                 style={{
-                  textAlign: "center",
-                  height: "32px",
-                  width: "32px",
-                  borderStyle: "solid",
-                  borderColor: "black",
-                  borderWidth: "2px",
                   gridColumn,
                 }}
                 key={day.toString()}
+                onClick={openModal}
               ></div>
             );
           })}
         </div>
       </div>
-      <Entry />
+      {isOpen && <Entry onClose={closeModal} />}
     </>
   );
 };
 
-export default grid;
+export default Grid;
