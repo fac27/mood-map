@@ -1,17 +1,32 @@
 "use client";
 
+// import { redirect } from "next/navigation";
+import Link from "next/link";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import supabase from "../../utils/supabaseClient";
+import supabaseBrowser from "../../lib/browser/client";
 import styles from "./page.module.css";
+// import getSessionBrowser from "../../lib/browser/session";
+// import { useEffect } from "react";
+
+// const checkSession = async () => {
+//   const user = await getSessionBrowser();
+//   console.log(user);
+//   if (user) redirect("/");
+// };
 
 export default function login() {
+  // useEffect(() => {
+  //   checkSession();
+  // }, []);
+
   return (
     <>
       <h1 className={styles.title}>Mood Map</h1>
+      <Link href="/"> home</Link>
       <div className={styles.wrapper}>
         <Auth
-          supabaseClient={supabase}
+          supabaseClient={supabaseBrowser}
           providers={["spotify"]}
           appearance={{
             // Your custom classes
@@ -20,19 +35,19 @@ export default function login() {
               //..
             },
             style: {
-              label: { "padding-inline": 10 },
+              label: { paddingInline: 10 },
               input: {
-                "background-color": "rgb(210, 210, 210)",
-                "box-shadow": "0px 4px 4px 0px rgba(0, 0, 0, 0.4) !important",
+                backgroundColor: "rgb(210, 210, 210)",
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.4) !important",
                 display: "flex",
-                "align-self": "center",
+                alignSelf: "center",
               },
               button: {
                 border: "none",
-                "max-width": "50%",
-                "box-shadow": "0px 4px 4px 0px rgba(0, 0, 0, 0.4) !important",
+                maxWidth: "50%",
+                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.4) !important",
                 display: "flex",
-                "align-self": "center",
+                alignSelf: "center",
                 color: "#0d3b66",
               },
             },
