@@ -35,7 +35,6 @@ export default function MoodPicker() {
     checkSession();
   }, []);
 
-
   return (
     <>
       <div className={styles.header}>
