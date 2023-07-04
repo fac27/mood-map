@@ -14,7 +14,6 @@ export default function Login() {
   useEffect(() => {
     const checkSession = async () => {
       const user = await getSessionBrowser();
-      console.log(user);
       if (user) home.current.click();
     };
     checkSession();
