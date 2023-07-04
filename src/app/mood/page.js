@@ -12,32 +12,42 @@ import emo5 from "../../public/images/emo5.svg";
 import styles from "./page.module.css";
 
 export default function MoodPicker() {
-  const [emotion, setEmotion] = useState(emo1);
-  //   console.log(emotion);
+  const [emotion, setEmotion] = useState(emo4);
+
+  const emojiElements = [emo1, emo2, emo3, emo4, emo5].map((svg, i) => (
+    <Image
+      key={i}
+      className={styles.emojiBox}
+      onClick={() => setEmotion(svg)}
+      src={svg}
+      alt="image"
+      width={60}
+      height={60}
+    />
+  ));
+
   return (
     <>
-      <Exit path={"/"} />
-      <h1 className={styles.title}>How are you feeling?</h1>
-      <span className={styles.center}>
-        <Image src={emotion} alt="image" width={150} height={150} />
-      </span>
-      <div className={styles.flex}>
-        {[emo1, emo2, emo3, emo4, emo5].map((svg, i) => (
-          <button
-            key={i}
-            className={styles.hiddenButton}
-            onClick={() => setEmotion(svg)}
-          >
-            <Image src={svg} alt="image" width={60} height={60} />
-          </button>
-        ))}
+      <div className={styles.header}>
+        <Exit path={"/"} />
+        <h1 className={styles.title}>How are you feeling today?</h1>
+        <Image
+          className={styles.selectedImage}
+          src={emotion}
+          alt="defualt emotion"
+        />
       </div>
-      <Link href="/">
-        <button>Give more detail?</button>
-      </Link>
-      <Link href="/">
-        <button>Add mood</button>
-      </Link>
+
+      <div className={styles.emojiContainer}>{emojiElements}</div>
+
+      <div className={styles.links}>
+        <Link href="/detail">
+          <button>Give more detail?</button>
+        </Link>
+        <Link href="/">
+          <button className={styles.activeButton}>Add mood</button>
+        </Link>
+      </div>
     </>
   );
 }
