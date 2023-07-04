@@ -5,7 +5,7 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import supabase from "../../utils/supabaseClient";
 import styles from "./page.module.css";
 
-export default function login() {
+export default function Login() {
   return (
     <>
       <h1 className={styles.title}>Mood Map</h1>

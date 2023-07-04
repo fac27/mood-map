@@ -1,16 +1,8 @@
 import { ReactElement, FC } from "react";
 import styles from "./page.module.css";
+import { getDays } from "../../utils/getDays";
 
-const grid: FC = (): ReactElement => {
-  const getDays = (year: number): Date[] => {
-    const dates: Date[] = [];
-    const startDate = new Date(year, 0, 1);
-    while (startDate.getFullYear() === year) {
-      dates.push(new Date(startDate));
-      startDate.setDate(startDate.getDate() + 1);
-    }
-    return dates;
-  };
+const Grid: FC = (): ReactElement => {
   const divDays = getDays(2023);
 
   return (
@@ -47,4 +39,4 @@ const grid: FC = (): ReactElement => {
   );
 };
 
-export default grid;
+export default Grid;
