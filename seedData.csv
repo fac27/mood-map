@@ -1,0 +1,47 @@
+mood,mood_date,journal_entry,context_people,context_location
+2,2023-06-01,Feeling a bit down today.,Family,Home
+4,2023-06-02,,Friends,Beach
+5,2023-06-03,Had an amazing day!,,Garden
+3,2023-06-04,Feeling a bit tired.,Family,Work
+1,2023-06-05,Feeling angry after an argument.,Friends,
+5,2023-06-06,Celebrating a personal achievement.,Family,Park
+2,2023-06-07,Feeling frustrated with work.,Colleagues,Office
+4,2023-06-08,Enjoyed a relaxing day.,Partner,Spa
+3,2023-06-09,Feeling motivated to achieve my goals.,,Gym
+5,2023-06-10,Attended a great concert!,Friends,Concert Hall
+1,2023-06-11,Feeling sad about a loss.,Family,
+2,2023-06-12,Feeling overwhelmed with responsibilities.,Colleagues,Office
+4,2023-06-13,,Friends,Beach
+5,2023-06-14,Experienced pure joy today!,Family,Amusement Park
+3,2023-06-15,Feeling content and peaceful.,Partner,Home
+2,2023-06-16,Feeling a bit lonely today.,,Work
+1,2023-06-17,Feeling frustrated with the weather.,Family,Park
+5,2023-06-18,Enjoyed a fantastic day!,Friends,Mountains
+4,2023-06-19,Feeling excited about upcoming travel plans.,,Airport
+3,2023-06-20,Feeling productive and accomplished.,Colleagues,Office
+1,2023-06-21,Feeling disappointed with the outcome.,Family,Home
+5,2023-06-22,Celebrated a milestone achievement!,Friends,Restaurant
+2,2023-06-23,,Family,Beach
+4,2023-06-24,Had a great day exploring new places.,Friends,City
+3,2023-06-25,Feeling a mix of emotions.,Partner,Park
+1,2023-06-26,Feeling upset about a mistake.,,Work
+5,2023-06-27,Experienced pure happiness!,Family,Garden
+2,2023-06-28,Feeling stressed with deadlines.,Colleagues,Office
+4,2023-06-29,Enjoyed a quiet day of self-care.,Partner,Home
+3,2023-06-30,Feeling inspired and creative.,Friends,Art Gallery
+1,2023-07-01,Feeling lonely on a rainy day.,Family,Home
+5,2023-07-02,Had an unforgettable adventure!,Friends,Mountains
+3,2023-07-03,,Partner,Beach
+2,2023-07-04,Feeling restless and uncertain.,Colleagues,Office
+4,2023-07-05,Enjoyed a fun-filled day!,Friends,Amusement Park
+1,2023-07-06,Feeling upset about a disagreement.,Family,
+5,2023-07-07,Celebrated a special occasion!,Friends,Restaurant
+3,2023-07-08,Feeling tired but satisfied.,Partner,Home
+2,2023-07-09,Feeling a bit anxious today.,,Work
+4,2023-07-10,,Friends,Park
+3,2023-07-11,Feeling reflective and contemplative.,Family,Beach
+1,2023-07-12,Feeling frustrated with technical issues.,Colleagues,Office
+5,2023-07-13,Had an amazing day of relaxation!,Partner,Spa
+2,2023-07-14,Feeling uncertain about the future.,,Home
+4,2023-07-15,Enjoyed a day full of laughter.,Friends,Comedy Club
+3,2023-07-16,,Family,Park

@@ -1,14 +1,40 @@
-import Link from "next/link";
-import { josefinSans } from "@/src/utils/fonts";
-import Navbar from "@/src/components/Navbar";
+import { SvgBlob } from "react-svg-blob";
+import styles from "@/app/page.module.css";
+import Navbar from "@/components/Navbar";
+import { blobs } from "@/utils/blobGenerator";
+
 export default function Home() {
+  const blobElements = blobs.map((blob) => {
+    return blob.variant === "solid" ? (
+      <div key={blob.id} className={styles.blob}>
+        <p className={styles.blobText}>{blob.text}</p>
+        <SvgBlob
+          variant={blob.variant}
+          shapeProps={blob.shapeProps}
+          color={blob.color}
+        />
+      </div>
+    ) : (
+      <div key={blob.id} className={styles.blob}>
+        <p className={styles.blobText}>{blob.text}</p>
+        <SvgBlob
+          variant={blob.variant}
+          shapeProps={blob.shapeProps}
+          colors={blob.color}
+        />
+      </div>
+    );
+  });
+
   return (
-    <>
-      <h1>Hello Moodster! 🤺</h1>
-      <span className={josefinSans.className}>
-        <Link href="login">Login</Link>
-      </span>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h1>Hello, Emily </h1>
+        <p>Mood for the day</p>
+      </div>
+
+      <div className={styles.blobContainer}>{blobElements}</div>
       <Navbar />
-    </>
+    </div>
   );
 }
