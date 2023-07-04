@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar";
+import Navbar from "../../../components/Navbar";
 
 export default function entry() {
   return (
@@ -11,6 +11,7 @@ export default function entry() {
           year: "numeric",
         })}
       </h1>
+
       <Navbar />
     </>
   );
