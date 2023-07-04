@@ -5,7 +5,7 @@ export const getMonths = (year: number): { [key: string]: Date[] } => {
   for (let month = 0; month < 12; month++) {
     const endDate = new Date(year, month + 1, 0);
     const currentMonth = startDate.toLocaleString("default", { month: "long" });
-    let currentDate = new Date(startDate);
+    const currentDate = new Date(startDate);
 
     while (currentDate <= endDate) {
       if (!months[currentMonth]) {
