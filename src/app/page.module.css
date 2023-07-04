@@ -1,3 +1,31 @@
-.textFont {
-  font-family: var(--text-font), sans-serif;
+.container {
+  margin: 2rem auto;
+  width: 70%;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.blobContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 60%;
+  margin: 1rem auto;
+}
+
+.blob {
+  position: relative;
+  width: 13rem;
+  height: 13rem;
+}
+
+.blobText {
+  position: absolute;
+  font-size: 0.8rem;
+  color: #000;
+  top: 5rem;
 }

@@ -9,8 +9,8 @@ import emo1 from "../../../public/images/emo1.png";
 import emo2 from "../../../public/images/emo2.png";
 import emo3 from "../../../public/images/emo3.png";
 import emo4 from "../../../public/images/emo4.png";
-import styles from "./page.module.css";
 import emo5 from "../../../public/images/emo5.png";
+import styles from "./page.module.css";
 import getSessionBrowser from "../../lib/browser/session";
 
 const checkSession = async () => {
@@ -27,9 +27,7 @@ export default function MoodPicker() {
   return (
     <>
       <Exit path={"/"} />
-      <h1 className={`${josefinSans.className} ${styles.title}`}>
-        How are you feeling?
-      </h1>
+      <h1 className={styles.title}>How are you feeling?</h1>
       <span className={styles.center}>
         <Image src={emotion} alt="image" width={150} height={150} />
       </span>
