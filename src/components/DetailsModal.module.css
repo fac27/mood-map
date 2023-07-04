@@ -1,0 +1,16 @@
+.contextForm {
+  height: 570px;
+  width: 500px;
+  border-radius: 10px;
+  border-color: grey;
+  border-style: solid;
+  border-width: px;
+  margin: 20px;
+  padding: 20px;
+  position: fixed;
+  background-color: var(--background-color);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
