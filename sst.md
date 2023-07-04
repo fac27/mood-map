@@ -21,3 +21,5 @@ Questions for Tony
 
 - in Next 13 how to test if a user is looged in on every route
 - styling libraries that play nice with typescript? Right now we're using module css but looking for an alternative
+
+04/07/2023
