@@ -1,4 +1,5 @@
 import { ReactElement, FC } from "react";
+import Entry from "@/src/components/Entry";
 
 const grid: FC = (): ReactElement => {
   const getDays = (year: number): Date[] => {
@@ -76,6 +77,7 @@ const grid: FC = (): ReactElement => {
           })}
         </div>
       </div>
+      <Entry />
     </>
   );
 };
