@@ -1,4 +1,5 @@
-const paths = ["/", "/detail", "/life-in-color", "/mood"];
+// const paths = ["/", "/detail", "/life-in-color", "/mood"];
+const paths = ["/", "/mood"];
 const url = "https://mood-map.vercel.app";
 
 paths.forEach((path) => {
