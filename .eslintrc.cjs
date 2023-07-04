@@ -15,6 +15,7 @@ module.exports = {
       files: ["*.cy.js", "*.test.js"],
       rules: {
         "require-jsdoc": "off",
+        "react/no-unescaped-entities": ["error", { forbid: [">", "}"] }],
       },
     },
   ],
