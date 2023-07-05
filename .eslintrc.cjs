@@ -16,7 +16,7 @@ module.exports = {
   plugins: ["@typescript-eslint", "cypress", "jest"],
   root: true,
   rules: {
-    "no-console":"warn",
+    "no-console": "warn",
   },
   overrides: [
     {
