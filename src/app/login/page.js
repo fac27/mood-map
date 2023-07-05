@@ -34,7 +34,6 @@ export default function Login() {
   return (
     <>
       <h1 className={styles.title}>Mood Map</h1>
-      <Link href="/"> home</Link>
       <div className={styles.wrapper}>
         <Auth
           supabaseClient={supabaseBrowser}
