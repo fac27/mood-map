@@ -3,6 +3,7 @@
 import { ReactElement, FC, useState } from "react";
 import Entry from "../../components/Entry";
 import styles from "./page.module.css";
+import { getDays } from "@/utils/dateHelpers";
 
 const Grid: FC = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
