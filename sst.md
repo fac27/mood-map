@@ -21,3 +21,15 @@ Questions for Tony
 
 - in Next 13 how to test if a user is looged in on every route
 - styling libraries that play nice with typescript? Right now we're using module css but looking for an alternative
+
+04/07/2023
+Finished up styling for all pages
+Wrote 4 tests (3 jest, 1 cypress)
+Finished Mood input page and getting data from that page into the database
+Changed form for details page (radio buttons)
+
+Thinking of next steps, getting life-in-colour modals getting real data
+Styling text and blobs to be readable - blob to inherit grid size?
+Come back to refactoring modals to be one component
+
+05/03/2023

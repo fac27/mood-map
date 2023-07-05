@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { ReactElement, FC } from "react";
+import { ReactElement, FC, useState } from "react";
+import Entry from "../../components/Entry";
 import styles from "./page.module.css";
-import Entry from "@/src/components/Entry";
-import { getDays } from "../../utils/dateHelpers";
+import { getDays } from "@/utils/dateHelpers";
 
 const Grid: FC = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,6 +46,7 @@ const Grid: FC = (): ReactElement => {
                   gridColumn,
                 }}
                 key={day.toString()}
+                data-testid="myDiv"
                 onClick={openModal}
               ></div>
             );
