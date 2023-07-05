@@ -12,12 +12,23 @@ export default function Login() {
   const home = useRef(null);
 
   useEffect(() => {
+    const checkSignedIn = () => {
+      supabaseBrowser.auth.onAuthStateChange((event, session) => {
+        console.log(event, session);
+        if (event == "SIGNED_IN") home.current.click();
+      });
+    };
+
+    const submitListener = document.addEventListener("submit", checkSignedIn);
     const checkSession = async () => {
       const user = await getSessionBrowser();
       console.log(user);
       if (user) home.current.click();
     };
     checkSession();
+    return () => {
+      removeEventListener(submitListener, checkSignedIn);
+    };
   }, []);
 
   return (
