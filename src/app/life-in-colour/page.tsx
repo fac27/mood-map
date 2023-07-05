@@ -1,8 +1,10 @@
 "use client";
 
-import { ReactElement, FC, useState } from "react";
-import Entry from "@/src/components/Entry";
+import { useState } from "react";
+import { ReactElement, FC } from "react";
 import styles from "./page.module.css";
+import Entry from "@/src/components/Entry";
+import { getDays } from "../../utils/dateHelpers";
 
 const Grid: FC = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,15 +12,6 @@ const Grid: FC = (): ReactElement => {
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
-  const getDays = (year: number): Date[] => {
-    const dates: Date[] = [];
-    const startDate = new Date(year, 0, 1);
-    while (startDate.getFullYear() === year) {
-      dates.push(new Date(startDate));
-      startDate.setDate(startDate.getDate() + 1);
-    }
-    return dates;
-  };
   const divDays = getDays(2023);
 
   return (
