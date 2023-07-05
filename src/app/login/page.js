@@ -29,28 +29,6 @@ export default function Login() {
           supabaseClient={supabaseBrowser}
           providers={["spotify"]}
           appearance={{
-            // Your custom classes
-            className: {
-              button: "shadow",
-              //..
-            },
-            style: {
-              label: { paddingInline: 10 },
-              input: {
-                backgroundColor: "rgb(210, 210, 210)",
-                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.4) !important",
-                display: "flex",
-                alignSelf: "center",
-              },
-              button: {
-                border: "none",
-                maxWidth: "50%",
-                boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.4) !important",
-                display: "flex",
-                alignSelf: "center",
-                color: "#0d3b66",
-              },
-            },
             theme: ThemeSupa,
           }}
           localization={{
