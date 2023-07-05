@@ -8,7 +8,7 @@ import { getDays } from "../../utils/dateHelpers";
 // import {entries} from '@/lib/getEntries';
 import getUserEntries from "@/lib/getEntries";
 
-const Grid: FC = (): ReactElement =>  {
+const Grid: FC = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => setIsOpen(true);
@@ -18,7 +18,7 @@ const Grid: FC = (): ReactElement =>  {
 
   useEffect(() => {
     // Fetch entries and set them to state once they're loaded
-    getUserEntries().then(data => {
+    getUserEntries().then((data) => {
       setEntriesData(data);
     });
   }, []);
@@ -64,10 +64,9 @@ const Grid: FC = (): ReactElement =>  {
           })}
         </div>
       </div>
-      {isOpen && <Entry onClose={closeModal} entries={entriesData}/>}
+      {isOpen && <Entry onClose={closeModal} entries={entriesData} />}
     </>
   );
 };
 
 export default Grid;
-

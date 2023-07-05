@@ -10,9 +10,9 @@ interface UserEntryTable {
   created_at: Date; // timestamp with timezone can be represented with Date
   mood: number; // smallint is a number
   mood_date: Date; // date can be represented with Date
-  journal_entry: string; 
-  context_people: string; 
-  context_location: string; 
+  journal_entry: string;
+  context_people: string;
+  context_location: string;
   user_id: string; // uuid is a string in JavaScript/TypeScript
 }
 
@@ -23,10 +23,10 @@ interface ModalProps {
 
 //may need to changeReact.FC but version 5.1 should be fine now?
 const Entry: FC<ModalProps> = ({ onClose, entries }): ReactElement => {
-console.log(entries)
-if (!entries) {
-  return <div>No entries available.</div>; // Replace with your own placeholder
-}
+  console.log(entries);
+  if (!entries) {
+    return <div>No entries available.</div>; // Replace with your own placeholder
+  }
   return (
     <>
       <div className={styles.modalContainer}>
@@ -45,13 +45,19 @@ if (!entries) {
         </h1>
         <div className={styles.gridContainer}>
           <div className={`${styles.square} ${styles.gridItem1}`}></div>
-          <p className={`${styles.gridText} ${styles.gridItem2}`}>{entries.mood}</p>
+          <p className={`${styles.gridText} ${styles.gridItem2}`}>
+            {entries.mood}
+          </p>
 
           <div className={`${styles.circle} ${styles.gridItem3}`}></div>
-          <p className={`${styles.gridText} ${styles.gridItem4}`}>{entries.context_people}</p>
+          <p className={`${styles.gridText} ${styles.gridItem4}`}>
+            {entries.context_people}
+          </p>
 
           <div className={`${styles.circle} ${styles.gridItem5}`}></div>
-          <p className={`${styles.gridText} ${styles.gridItem6}`}>{entries.context_location}</p>
+          <p className={`${styles.gridText} ${styles.gridItem6}`}>
+            {entries.context_location}
+          </p>
         </div>
       </div>
     </>

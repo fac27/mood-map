@@ -17,15 +17,14 @@ export default async function getUserEntries(id) {
     console.error("Error fetching user entries:", error);
     throw error;
   }
-  console.log(data)
+  console.log(data);
   return data;
 }
 
 export const entries = async () => {
-  const {id} = await getSessionServer()
-  return getUserEntries(id)
-}
-
+  const { id } = await getSessionServer();
+  return getUserEntries(id);
+};
 
 //   //other chatGPT part
 //   export default async function getSessionServer() {
@@ -41,7 +40,6 @@ export const entries = async () => {
 
 //     return user;
 //   }
-
 
 // const {
 
