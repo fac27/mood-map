@@ -2,6 +2,13 @@
 
 Mood Map is an app that allows you to log your mood every day.
 
+Please note: 
+- Spotify login is currently not working.
+- Adding a mood will add it to the database but currently there is no user feedback that you've recorded a mood.
+- The home page currently only has static data
+- the 'life-in-colours' page currently opens a modal but only has static data
+- there is currently no insights/analytics page built
+
 #### User Stories
 
 1. As a user, I want to be able to create a user account and have the app store my credentials so that I can access the app securely
