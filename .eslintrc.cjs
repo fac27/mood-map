@@ -15,6 +15,9 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint", "cypress", "jest"],
   root: true,
+  rules: {
+    "no-console":"warn",
+  },
   overrides: [
     {
       files: ["*.cy.js", "*.test.js"],
