@@ -1,16 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ReactElement, FC } from "react";
 import styles from "./page.module.css";
-import Entry from "@/src/components/Entry";
+import Entry from "@/components/Entry";
 import { getDays } from "../../utils/dateHelpers";
+// import {entries} from '@/lib/getEntries';
+import getUserEntries from "@/lib/getEntries";
 
-const Grid: FC = (): ReactElement => {
+const Grid: FC = (): ReactElement =>  {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
+
+  const [entriesData, setEntriesData] = useState(null); // This will hold your entries once they're loaded
+
+  useEffect(() => {
+    // Fetch entries and set them to state once they're loaded
+    getUserEntries().then(data => {
+      setEntriesData(data);
+    });
+  }, []);
 
   const divDays = getDays(2023);
 
@@ -53,9 +64,10 @@ const Grid: FC = (): ReactElement => {
           })}
         </div>
       </div>
-      {isOpen && <Entry onClose={closeModal} />}
+      {isOpen && <Entry onClose={closeModal} entries={entriesData}/>}
     </>
   );
 };
 
 export default Grid;
+
