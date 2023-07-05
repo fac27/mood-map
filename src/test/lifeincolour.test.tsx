@@ -14,12 +14,11 @@ describe("Grid", () => {
     expect(divElements.length).toBe(365);
   });
 
-  it("opens the modal when a day is clicked", () => {
+  it("opens the modal when a day is clicked", async () => {
     render(<Grid />);
-    const gridDay = screen.getByTestId("myDiv");
-    fireEvent.click(gridDay);
-    // Assuming the Entry component renders an element with "Entry" text.
-    const entryElement = screen.getByText(/Good/i);
+    const gridDays = screen.queryAllByTestId("myDiv");
+    fireEvent.click(gridDays[0]);
+    const entryElement = await screen.findByText(/Good/i);
     expect(entryElement).toBeInTheDocument();
   });
 });
