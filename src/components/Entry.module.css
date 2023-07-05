@@ -1,6 +1,6 @@
 .modalContainer {
-  height: 470px;
-  width: 300px;
+  height: 500px;
+  width: 500px;
   border-radius: 10px;
   border-color: grey;
   border-style: solid;
@@ -12,11 +12,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .exit {
   position: absolute;
-  top: 1rem;
+  top: 1.8rem;
   right: 1rem;
   text-decoration: none !important;
+  cursor: pointer;
 }
 
 .dateHeader {
@@ -25,9 +27,10 @@
 }
 
 .gridContainer {
+  margin-top: 2rem;
   display: grid;
   grid-template-columns: 40px auto;
-  grid-template-rows: repeat(3, auto);
+  grid-template-rows: repeat(2, auto);
   grid-gap: 10px;
 }
 

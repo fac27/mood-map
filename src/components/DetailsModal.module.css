@@ -15,6 +15,13 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
+.exit {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
 .contextForm > fieldset {
   display: flex;
   gap: 1rem;
@@ -22,4 +29,43 @@
   padding: 10px;
   align-items: center;
   border: none;
+  font-size: 1.1rem;
+}
+
+.contextForm > fieldset input {
+  padding: 0.3rem;
+  border: transparent;
+  border: 1px solid rgb(129, 114, 96);
+  border-radius: 0.3rem;
+}
+
+.contextForm > fieldset input:focus {
+  outline: 1px solid #ff7b7d;
+  border: 1px solid #ff7b7d;
+}
+
+.moodFieldset {
+  margin-top: 2rem !important;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.moodFieldset label {
+  font-size: 2rem;
+}
+
+.submitBtn {
+  margin: 4rem 20px 0 20px;
+  padding: 0.4rem 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  border: 1px solid gray;
+}
+
+.submitBtn:hover {
+  border: 1px solid #75d7a1;
+  background: #75d7a1;
+  color: #fff;
 }
