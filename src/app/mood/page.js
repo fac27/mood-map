@@ -13,17 +13,18 @@ export default function MoodPicker() {
 
   const closeModal = () => setShowDetails(false);
 
-  const EmojiElements = [1, 2, 3, 4, 5].map((emotion) => (
-    <Image
-      key={emotion}
-      className={styles.emojiBox}
-      onClick={() => setEmotion(emotion + 1)}
-      src={`/images/emo${emotion}.svg`}
-      alt="image"
-      width={60}
-      height={60}
-    />
-  ));
+  const EmojiElements = () =>
+    [1, 2, 3, 4, 5].map((emotion) => (
+      <Image
+        key={emotion}
+        className={styles.emojiBox}
+        onClick={() => setEmotion(emotion + 1)}
+        src={`/images/emo${emotion}.svg`}
+        alt="image"
+        width={60}
+        height={60}
+      />
+    ));
 
   return (
     <>
@@ -34,6 +35,8 @@ export default function MoodPicker() {
           className={styles.selectedImage}
           src={`/images/emo${emotion}.svg`}
           alt="default emotion"
+          width={60}
+          height={60}
         />
       </div>
 
