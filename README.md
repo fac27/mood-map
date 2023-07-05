@@ -1,6 +1,6 @@
 # Mood-Map
 
-Mood Map is an app that allows you to log your mood every day.
+Mood Map is an app that allows you to visually record your moods or mediations so that you have something to look back on weekly, monthly, and annually.
 
 Please note: 
 - Spotify login is currently not working.
