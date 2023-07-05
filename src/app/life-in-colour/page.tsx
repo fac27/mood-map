@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ReactElement, FC } from "react";
 import styles from "./page.module.css";
 import Entry from "@/src/components/Entry";
-import { getMonths } from "../../utils/dateHelpers";
+import { getDays } from "../../utils/dateHelpers";
 
 const Grid: FC = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,26 +12,47 @@ const Grid: FC = (): ReactElement => {
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
-  const monthData: { [key: string]: Date[] } = getMonths(2023);
-  const dateElements: ReactElement[] = Object.entries(monthData).map(
-    ([month, days], idx) => {
-      return (
-        <div key={idx} className={styles.monthContainer}>
-          <h4>{month}</h4>
-          <ul className={styles.dayContainer}>
-            {days.map((day, idx) => (
-              <li key={idx} className={styles.dayBox} onClick={openModal}></li>
-            ))}
-          </ul>
-        </div>
-      );
-    }
-  );
+  const divDays = getDays(2023);
 
   return (
     <>
-      <h1 className={styles.header}>My Life in Colour</h1>
-      <div className={styles.gridContainer}>{dateElements} </div>
+      <h1 className={styles.pageHeader}>My Life in Colour</h1>
+      <div className={styles.pageContainer}>
+        <div className={styles.grid}>
+          <p>M</p>
+          <p>T</p>
+          <p>W</p>
+          <p>T</p>
+          <p>F</p>
+          <p>S</p>
+          <p>S</p>
+        </div>
+        <div className={styles.grid}>
+          {divDays.map((day: Date) => {
+            const dateOfMonth = day.getDate();
+            const firstDayOfWeek = new Date(
+              day.getFullYear(),
+              day.getMonth(),
+              1
+            ).getDay();
+            let gridColumn = ((firstDayOfWeek + 6) % 7) + 1;
+
+            if (dateOfMonth > 1) {
+              gridColumn = ((gridColumn + dateOfMonth - 2) % 7) + 1;
+            }
+            return (
+              <div
+                className={styles.gridBox}
+                style={{
+                  gridColumn,
+                }}
+                key={day.toString()}
+                onClick={openModal}
+              ></div>
+            );
+          })}
+        </div>
+      </div>
       {isOpen && <Entry onClose={closeModal} />}
     </>
   );
