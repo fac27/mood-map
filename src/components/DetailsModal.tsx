@@ -1,32 +1,43 @@
 import supabaseBrowser from "../lib/browser/client";
-import { useRef, useState, FC, Dispatch,SetStateAction, ReactElement  } from "react";
+import {
+  useRef,
+  useState,
+  FC,
+  Dispatch,
+  SetStateAction,
+  ReactElement,
+} from "react";
 import styles from "./DetailsModal.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
 interface IFormElement {
-    name: string,
-    heading: string,
-    type: string,
-    options?: string[]
-  }
+  name: string;
+  heading: string;
+  type: string;
+  options?: string[];
+}
 
 interface IInputElement {
-  formElement: IFormElement, 
-  value: string, 
-  state: [IInitialFormState, Dispatch<SetStateAction<IInitialFormState>>] //idk if this is how it works?
+  formElement: IFormElement;
+  value: string;
+  state: [IInitialFormState, Dispatch<SetStateAction<IInitialFormState>>]; //idk if this is how it works?
 }
 
 interface IInitialFormState {
-  user_id: undefined | string,
-  mood: number,
-  mood_date: string,
-  journal_entry:string,
-  context_people: string,
-  context_location: string,
-};
+  user_id: undefined | string;
+  mood: number;
+  mood_date: string;
+  journal_entry: string;
+  context_people: string;
+  context_location: string;
+}
 
-const InputElement: FC<IInputElement>  = ({ formElement, value, state: [mood, setMood] } ): ReactElement => {
+const InputElement: FC<IInputElement> = ({
+  formElement,
+  value,
+  state: [mood, setMood],
+}): ReactElement => {
   const isRadio: boolean = formElement.type === "radio";
 
   return (
@@ -43,7 +54,7 @@ const InputElement: FC<IInputElement>  = ({ formElement, value, state: [mood, se
       />
     </>
   );
-}
+};
 
 const today = new Date();
 const trailingZero = (num: number) => num.toString().padStart(2, "0");
@@ -76,7 +87,7 @@ const formElements: IFormElement[] = [
   },
 ];
 
-const DetailsModal = ({ emotion }: {emotion: number}): ReactElement => {
+const DetailsModal = ({ emotion }: { emotion: number }): ReactElement => {
   const [mood, setMood] = useState(initialFormState);
   const link = useRef();
 
@@ -84,10 +95,10 @@ const DetailsModal = ({ emotion }: {emotion: number}): ReactElement => {
     e.preventDefault();
     const {
       data: { session },
-      error: sessionError
+      error: sessionError,
     } = await supabaseBrowser.auth.getSession();
 
-    if (sessionError) return
+    if (sessionError) return;
     const user = session!.user; // the '!' shows that we have accounted for possibilty of null object
     mood.user_id = user.id;
     mood.mood = emotion;
@@ -137,6 +148,6 @@ const DetailsModal = ({ emotion }: {emotion: number}): ReactElement => {
       <Link href={"/life-in-colour"} ref={link} />
     </>
   );
-}
+};
 
-export default DetailsModal
+export default DetailsModal;
