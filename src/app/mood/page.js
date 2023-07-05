@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Exit from "@/components/Exit";
@@ -15,6 +15,8 @@ import DetailsModal from "@/components/DetailsModal";
 export default function MoodPicker() {
   const [emotion, setEmotion] = useState(emo4);
   const [showDetails, setShowDetails] = useState(false);
+
+  const closeModal = () => setShowDetails(false);
 
   const emojiElements = [emo1, emo2, emo3, emo4, emo5].map((svg, i) => (
     <Image
@@ -49,7 +51,7 @@ export default function MoodPicker() {
         </Link>
       </div>
 
-      {showDetails && <DetailsModal emotion={emotion} />}
+      {showDetails && <DetailsModal emotion={emotion} onClose={closeModal} />}
     </>
   );
 }
