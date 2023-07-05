@@ -1,11 +1,33 @@
 import supabaseBrowser from "../lib/browser/client";
-import { useRef, useState } from "react";
+import { useRef, useState, FC, Dispatch,SetStateAction, ReactElement  } from "react";
 import styles from "./DetailsModal.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
-function InputElement({ formElement, value, state: [mood, setMood] }) {
-  const isRadio = formElement.type === "radio";
+interface IFormElement {
+    name: string,
+    heading: string,
+    type: string,
+    options?: string[]
+  }
+
+interface IInputElement {
+  formElement: IFormElement, 
+  value: string, 
+  state: [IInitialFormState, Dispatch<SetStateAction<IInitialFormState>>] //idk if this is how it works?
+}
+
+interface IInitialFormState {
+  user_id: undefined | string,
+  mood: number,
+  mood_date: string,
+  journal_entry:string,
+  context_people: string,
+  context_location: string,
+};
+
+const InputElement: FC<IInputElement>  = ({ formElement, value, state: [mood, setMood] } ): ReactElement => {
+  const isRadio: boolean = formElement.type === "radio";
 
   return (
     <>
@@ -24,9 +46,11 @@ function InputElement({ formElement, value, state: [mood, setMood] }) {
 }
 
 const today = new Date();
-const trailingZero = (num) => num.toString().padStart(2, "0");
+const trailingZero = (num: number) => num.toString().padStart(2, "0");
+
 const initialFormState = {
-  mood: null,
+  user_id: undefined,
+  mood: 4,
   mood_date: `${today.getFullYear()}-${trailingZero(
     today.getMonth() + 1
   )}-${trailingZero(today.getDate())}`,
@@ -35,7 +59,7 @@ const initialFormState = {
   context_location: "",
 };
 
-const formElements = [
+const formElements: IFormElement[] = [
   { name: "mood_date", heading: "Date", type: "date" },
   { name: "journal_entry", heading: "Journal Entry", type: "text" },
   {
@@ -52,7 +76,7 @@ const formElements = [
   },
 ];
 
-export default function DetailsModal({ emotion }) {
+const DetailsModal = ({ emotion }: {emotion: number}): ReactElement => {
   const [mood, setMood] = useState(initialFormState);
   const link = useRef();
 
@@ -60,9 +84,11 @@ export default function DetailsModal({ emotion }) {
     e.preventDefault();
     const {
       data: { session },
+      error: sessionError
     } = await supabaseBrowser.auth.getSession();
 
-    const user = session.user;
+    if (sessionError) return
+    const user = session!.user; // the '!' shows that we have accounted for possibilty of null object
     mood.user_id = user.id;
     mood.mood = emotion;
     const { error } = await supabaseBrowser.from("entries").insert(mood);
@@ -88,7 +114,7 @@ export default function DetailsModal({ emotion }) {
           <fieldset key={elementIndex}>
             {formElement.type === "radio" ? (
               <>
-                {formElement.options.map((option, radioIndex) => (
+                {formElement!.options.map((option, radioIndex) => (
                   <InputElement
                     key={`${elementIndex}${radioIndex}`}
                     formElement={formElement}
@@ -112,3 +138,5 @@ export default function DetailsModal({ emotion }) {
     </>
   );
 }
+
+export default DetailsModal
