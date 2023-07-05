@@ -1,6 +1,6 @@
 import { SvgBlob } from "react-svg-blob";
 import styles from "@/app/page.module.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "../components/Navbar";
 import { blobs } from "@/utils/blobGenerator";
 import getSessionServer from "../lib/server/session";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement, FC, useState } from "react";
-import Entry from "@/src/components/Entry";
+import Entry from "../../components/Entry";
 import styles from "./page.module.css";
 
 const Grid: FC = (): ReactElement => {
@@ -54,6 +54,7 @@ const Grid: FC = (): ReactElement => {
                   gridColumn,
                 }}
                 key={day.toString()}
+                data-testid="myDiv"
                 onClick={openModal}
               ></div>
             );
