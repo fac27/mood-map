@@ -8,6 +8,15 @@ export const getDays = (year: number): Date[] => {
   return dates;
 };
 
+export const getDaysInRange = (startDate: Date, endDate: Date): Date[] => {
+  const dates: Date[] = [];
+  while (startDate <= endDate) {
+    dates.push(new Date(startDate));
+    startDate.setDate(startDate.getDate() + 1);
+  }
+  return dates;
+};
+
 // export const getMonths = (year: number): { [key: string]: Date[] } => {
 //   const months: { [key: string]: Date[] } = {};
 //   const startDate = new Date(year, 0, 1);

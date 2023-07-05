@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { ReactElement, FC } from "react";
 import styles from "./page.module.css";
 import Entry from "@/components/Entry";
-import { getDays } from "../../utils/dateHelpers";
+import { getDays, getDaysInRange } from "../../utils/dateHelpers";
 // import {entries} from '@/lib/getEntries';
 import getUserEntries from "@/lib/getEntries";
 
@@ -17,13 +17,37 @@ const Grid: FC = (): ReactElement => {
   const [entriesData, setEntriesData] = useState(null); // This will hold your entries once they're loaded
 
   useEffect(() => {
-    // Fetch entries and set them to state once they're loaded
-    getUserEntries().then((data) => {
-      setEntriesData(data);
+    getUserEntries().then((entries) => {
+      // Sort entries by date
+      const entriesSortedByDate = entries.sort((a, b) => {
+        const dateA = new Date(a.mood_date);
+        const dateB = new Date(b.mood_date);
+
+        if (dateA < dateB) {
+          return -1;
+        }
+        if (dateA > dateB) {
+          return 1;
+        }
+        return 0;
+      });
+
+      setEntriesData(entriesSortedByDate);
     });
   }, []);
 
-  const divDays = getDays(2023);
+  if (!entriesData) {
+    return <div className={styles.information}>Loading...</div>;
+  }
+
+  const latestEntry = new Date(entriesData[entriesData.length - 1].mood_date);
+  const earliestEntry = new Date(entriesData[0].mood_date);
+
+  console.log(`latestEntry: ${latestEntry}`);
+  console.log(`earliestEntry: ${earliestEntry}`);
+  console.log(`entriesData: ${JSON.stringify(entriesData)}`);
+
+  const divDays = getDaysInRange(earliestEntry, latestEntry);
 
   return (
     <>
@@ -40,6 +64,15 @@ const Grid: FC = (): ReactElement => {
         </div>
         <div className={styles.grid}>
           {divDays.map((day: Date) => {
+            const getMatchingEntry = entriesData.find((entry) => {
+              const entryDate = new Date(entry.mood_date);
+              return (
+                entryDate.getDate() === day.getDate() &&
+                entryDate.getMonth() === day.getMonth() &&
+                entryDate.getFullYear() === day.getFullYear()
+              );
+            });
+
             const dateOfMonth = day.getDate();
             const firstDayOfWeek = new Date(
               day.getFullYear(),
@@ -56,10 +89,13 @@ const Grid: FC = (): ReactElement => {
                 className={styles.gridBox}
                 style={{
                   gridColumn,
+                  backgroundColor: getMatchingEntry
+                    ? `var(--color-${getMatchingEntry.mood})`
+                    : "var(--background-color))",
                 }}
                 key={day.toString()}
                 onClick={openModal}
-              ></div>
+              >{`${day.getDate()}/${day.getMonth() + 1}`}</div>
             );
           })}
         </div>

@@ -23,7 +23,7 @@ interface ModalProps {
 
 //may need to changeReact.FC but version 5.1 should be fine now?
 const Entry: FC<ModalProps> = ({ onClose, entries }): ReactElement => {
-  console.log(entries);
+  console.log(`entries from Entry.tsx: ${entries}`);
   if (!entries) {
     return <div>No entries available.</div>; // Replace with your own placeholder
   }
