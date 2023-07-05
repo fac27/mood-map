@@ -18,7 +18,7 @@ export default function MoodPicker() {
       <Image
         key={emotion}
         className={styles.emojiBox}
-        onClick={() => setEmotion(emotion + 1)}
+        onClick={() => setEmotion(emotion)}
         src={`/images/emo${emotion}.svg`}
         alt="image"
         width={60}
