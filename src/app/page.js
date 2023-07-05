@@ -1,31 +1,26 @@
-import { SvgBlob } from "react-svg-blob";
 import styles from "@/app/page.module.css";
 import Navbar from "@/components/Navbar";
-import { blobs } from "@/utils/blobGenerator";
+import { generateBlobs } from "../utils/blobHelpers";
 import getSessionServer from "../lib/server/session";
 
 export default async function Home() {
   const user = await getSessionServer();
 
-  const blobElements = blobs.map((blob) => {
-    return blob.variant === "solid" ? (
-      <div key={blob.id} className={styles.blob}>
-        <p className={styles.blobText}>{blob.text}</p>
-        <SvgBlob
-          variant={blob.variant}
-          shapeProps={blob.shapeProps}
-          color={blob.color}
+  const blobs = generateBlobs();
+  const blobElements = blobs.map((svg) => {
+    return (
+      <svg
+        key={svg.id}
+        className={styles.blob}
+        viewBox={svg.viewBox}
+        xmlns={svg.xmlns}
+      >
+        <path
+          fill={svg.path.fill}
+          d={svg.path.d}
+          transform={svg.path.transform}
         />
-      </div>
-    ) : (
-      <div key={blob.id} className={styles.blob}>
-        <p className={styles.blobText}>{blob.text}</p>
-        <SvgBlob
-          variant={blob.variant}
-          shapeProps={blob.shapeProps}
-          colors={blob.color}
-        />
-      </div>
+      </svg>
     );
   });
 

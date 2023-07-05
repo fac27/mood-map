@@ -11,14 +11,14 @@ import { useEffect, useRef } from "react";
 export default function Login() {
   const home = useRef(null);
 
-  useEffect(() => {
-    const checkSession = async () => {
-      const user = await getSessionBrowser();
-      console.log(user);
-      if (user) home.current.click();
-    };
-    checkSession();
-  }, []);
+  // useEffect(() => {
+  //   const checkSession = async () => {
+  //     const user = await getSessionBrowser();
+  //     console.log(user);
+  //     if (user) home.current.click();
+  //   };
+  //   checkSession();
+  // }, []);
 
   return (
     <>
