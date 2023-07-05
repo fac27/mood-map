@@ -1,29 +1,80 @@
-.hiddenButton {
-  border: none;
-  border-radius: 50%;
+.title {
+  margin-block: 4rem;
+  font-size: 5ch;
+  text-align: center;
 }
 
-.hiddenButton:hover,
-.hiddenButton:focus {
+.emojiBox {
+  cursor: pointer;
+  border: 1px solid whitesmoke;
+  background: #ddd8c3;
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+}
+
+.emojiBox:hover,
+.emojiBox:focus,
+.links button:hover {
   box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.3);
 }
 
-.flex {
+.selectedImage {
+  display: block;
+  margin: 0 auto 2rem auto;
+  width: 11rem;
+  height: 11rem;
+}
+
+.emojiContainer {
   display: flex;
   gap: 0.5rem;
   justify-content: space-around;
   margin-inline: 5rem;
 }
 
-.center {
+.links {
+  margin-top: 4rem;
   display: flex;
-  justify-content: space-around;
-  margin-block: 5rem;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
 }
-.title {
-  margin-block: 4rem;
-  font-size: 5ch;
-  text-align: center;
+
+.links button {
+  padding: 0.4rem 0.6rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  border: 1px solid #9eb1c2;
+  color: #0d3b66;
+}
+
+.links .activeButton {
+  background: #3d6285;
+  color: #fff;
+}
+
+@media screen and (max-width: 420px) {
+  .header {
+    padding: 0.5rem;
+  }
+
+  .title {
+    margin-block: 0.7rem;
+    font-size: 2ch;
+    text-align: left;
+  }
+
+  .emojiContainer {
+    gap: 0.5rem;
+    margin-inline: 2rem;
+  }
+
+  .emojiBox {
+    width: 4rem;
+    height: 4rem;
+  }
 }
 
 .contextForm {
