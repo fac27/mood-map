@@ -67,7 +67,7 @@ export default function DetailsModal({ emotion, onClose }) {
     mood.user_id = user.id;
     mood.mood = emotion;
     const { error } = await supabaseBrowser.from("entries").insert(mood);
-    console.log(`ERROR: ${JSON.stringify(error)}`);
+    console.error(`ERROR: ${JSON.stringify(error)}`);
     if (error === null) link.current.click();
     //   redirect("/life-in-colour"); // idk why the f*** this doesnt work
   };

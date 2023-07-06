@@ -11,19 +11,27 @@ import { useEffect, useRef } from "react";
 export default function Login() {
   const home = useRef(null);
 
-  // useEffect(() => {
-  //   const checkSession = async () => {
-  //     const user = await getSessionBrowser();
-  //     console.log(user);
-  //     if (user) home.current.click();
-  //   };
-  //   checkSession();
-  // }, []);
+  useEffect(() => {
+    const checkSignedIn = () => {
+      supabaseBrowser.auth.onAuthStateChange((event) => {
+        if (event == "SIGNED_IN") home.current.click();
+      });
+    };
+
+    const submitListener = document.addEventListener("submit", checkSignedIn);
+    const checkSession = async () => {
+      const user = await getSessionBrowser();
+      if (user) home.current.click();
+    };
+    checkSession();
+    return () => {
+      removeEventListener(submitListener, checkSignedIn);
+    };
+  }, []);
 
   return (
     <>
       <h1 className={styles.title}>Mood Map</h1>
-      <Link href="/"> home</Link>
       <div className={styles.wrapper}>
         <Auth
           supabaseClient={supabaseBrowser}
