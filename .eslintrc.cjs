@@ -1,4 +1,9 @@
 module.exports = {
+  env: {
+    browser: true,
+    es2021: true,
+    "jest/globals": true,
+  },
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -8,8 +13,11 @@ module.exports = {
     "plugin:cypress/recommended",
   ],
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "cypress"],
+  plugins: ["@typescript-eslint", "cypress", "jest"],
   root: true,
+  rules: {
+    "no-console": "warn",
+  },
   overrides: [
     {
       files: ["*.cy.js", "*.test.js"],

@@ -93,6 +93,7 @@ const Grid: FC = (): ReactElement => {
                     : "var(--background-color))",
                 }}
                 key={day.toString()}
+                data-testid="myDiv"
                 onClick={openModal}
               >{`${day.getDate()}/${day.getMonth() + 1}`}</div>
             );

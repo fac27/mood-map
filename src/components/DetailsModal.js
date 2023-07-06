@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import styles from "./DetailsModal.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import Vector from "../../public/images/Vector.svg";
 
 function InputElement({ formElement, value, state: [mood, setMood] }) {
   const isRadio = formElement.type === "radio";
@@ -52,7 +53,7 @@ const formElements = [
   },
 ];
 
-export default function DetailsModal({ emotion }) {
+export default function DetailsModal({ emotion, onClose }) {
   const [mood, setMood] = useState(initialFormState);
   const link = useRef();
 
@@ -66,7 +67,7 @@ export default function DetailsModal({ emotion }) {
     mood.user_id = user.id;
     mood.mood = emotion;
     const { error } = await supabaseBrowser.from("entries").insert(mood);
-    console.log(`ERROR: ${JSON.stringify(error)}`);
+    console.error(`ERROR: ${JSON.stringify(error)}`);
     if (error === null) link.current.click();
     //   redirect("/life-in-colour"); // idk why the f*** this doesnt work
   };
@@ -74,7 +75,10 @@ export default function DetailsModal({ emotion }) {
   return (
     <>
       <form className={styles.contextForm} onSubmit={handleSubmit}>
-        <fieldset>
+        <span className={styles.exit} onClick={onClose}>
+          <Image src={Vector} alt="exit" width={20} height={20} />
+        </span>
+        <fieldset className={styles.moodFieldset}>
           <label htmlFor="mood">Mood</label>
           <Image
             src={`/images/emo${emotion}.svg`}
@@ -84,6 +88,7 @@ export default function DetailsModal({ emotion }) {
           />
           <input type="hidden" name="mood" id="mood" value={emotion} />
         </fieldset>
+        <hr />
         {formElements.map((formElement, elementIndex) => (
           <fieldset key={elementIndex}>
             {formElement.type === "radio" ? (
@@ -106,7 +111,9 @@ export default function DetailsModal({ emotion }) {
             )}
           </fieldset>
         ))}
-        <button type="submit">Submit</button>
+        <button className={styles.submitBtn} type="submit">
+          Submit
+        </button>
       </form>
       <Link href={"/life-in-colour"} ref={link} />
     </>
