@@ -1,6 +1,6 @@
 .container {
-  margin: 2rem auto;
-  width: 70%;
+  margin: 1rem auto 0 auto;
+  width: 80%;
   text-align: center;
 }
 
@@ -13,19 +13,33 @@
 .blobContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 60%;
-  margin: 1rem auto;
+  width: 65%;
+  margin: 1rem auto 0 auto;
+  place-items: center;
 }
 
 .blob {
   position: relative;
-  width: 13rem;
-  height: 13rem;
+  width: 15rem;
+  border-radius: 50%;
 }
 
-.blobText {
-  position: absolute;
-  font-size: 0.8rem;
-  color: #000;
+.textContainer {
   top: 5rem;
+  left: 4rem;
+  position: absolute;
+}
+
+.textContainer p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.textContainer .lightText {
+  color: #fff;
+}
+
+.textContainer .darkText {
+  color: #000;
 }
