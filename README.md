@@ -2,7 +2,8 @@
 
 Mood Map is an app that allows you to visually record your moods or mediations so that you have something to look back on weekly, monthly, and annually.
 
-Please note: 
+Please note:
+
 - Spotify login is currently not working.
 - Adding a mood will add it to the database but currently there is no user feedback that you've recorded a mood.
 - The home page currently only has static data
