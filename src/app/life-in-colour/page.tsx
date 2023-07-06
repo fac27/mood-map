@@ -45,7 +45,6 @@ const Grid: FC = (): ReactElement => {
 
   console.log(`latestEntry: ${latestEntry}`);
   console.log(`earliestEntry: ${earliestEntry}`);
-  console.log(`entriesData: ${JSON.stringify(entriesData)}`);
 
   const divDays = getDaysInRange(earliestEntry, latestEntry);
 
@@ -64,8 +63,8 @@ const Grid: FC = (): ReactElement => {
         </div>
         <div className={styles.grid}>
           {divDays.map((day: Date) => {
-            const getMatchingEntry = entriesData.find((entry) => {
-              const entryDate = new Date(entry.mood_date);
+            const getMatchingEntry = (entriesData as []).find((entry) => {
+              const entryDate = new Date(entry["mood_date"]);
               return (
                 entryDate.getDate() === day.getDate() &&
                 entryDate.getMonth() === day.getMonth() &&
