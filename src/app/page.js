@@ -3,10 +3,10 @@ import Navbar from "@/components/Navbar";
 import { formatText, generateBlobs } from "../utils/blobHelpers";
 import { getSessionServer } from "../lib/server/session";
 import { josefinSans } from "../utils/fonts";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const session = await getSessionServer();
-  console.log("🔥", { session });
   const user = session.user;
 
   const blobs = generateBlobs();
