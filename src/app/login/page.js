@@ -5,29 +5,25 @@ import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import supabaseBrowser from "../../lib/browser/client";
 import styles from "./page.module.css";
-import getSessionBrowser from "../../lib/browser/session";
-import { useEffect, useRef } from "react";
+import { getSessionBrowser } from "../../lib/browser/session";
+import { useEffect, useRef, useState } from "react";
 
 export default function Login() {
   const home = useRef(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  supabaseBrowser.auth.onAuthStateChange((event) => {
+    if (event == "SIGNED_IN") setIsLoggedIn(true);
+  });
 
   useEffect(() => {
-    const checkSignedIn = () => {
-      supabaseBrowser.auth.onAuthStateChange((event) => {
-        if (event == "SIGNED_IN") home.current.click();
-      });
+    const validateUser = async () => {
+      const session = await getSessionBrowser();
+      const user = session.user;
+      if (isLoggedIn || user) home.current.click();
     };
-
-    const submitListener = document.addEventListener("submit", checkSignedIn);
-    const checkSession = async () => {
-      const user = await getSessionBrowser();
-      if (user) home.current.click();
-    };
-    checkSession();
-    return () => {
-      removeEventListener(submitListener, checkSignedIn);
-    };
-  }, []);
+    validateUser();
+  }, [isLoggedIn]);
 
   return (
     <>

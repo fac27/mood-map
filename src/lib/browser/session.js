@@ -1,9 +1,16 @@
 import supabaseBrowser from "./client";
-import checkUser from "../checkUser";
+import { redirect } from "next/navigation";
 
-export default async function getSessionBrowser() {
+export async function getSessionBrowser() {
   const {
     data: { session },
   } = await supabaseBrowser.auth.getSession();
-  return checkUser(session);
+  console.log(session);
+  return session;
+}
+
+export async function protectBrowserRoute() {
+  const session = await getSessionBrowser();
+  if (!session?.access_token) return redirect("/login");
+  return session;
 }

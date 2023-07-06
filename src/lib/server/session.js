@@ -1,9 +1,16 @@
 import supabaseServer from "./client";
-import checkUser from "../checkUser";
+import { redirect } from "next/navigation";
 
-export default async function getSessionServer() {
+export async function getSessionServer() {
   const {
     data: { session },
   } = await supabaseServer().auth.getSession();
-  return checkUser(session);
+  return session;
+}
+
+export async function protectServerRoute() {
+  const session = await getSessionServer();
+  console.log("server session", session);
+  if (!session?.access_token) return redirect("/login");
+  return session;
 }

@@ -4,6 +4,7 @@ import styles from "./DetailsModal.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import Vector from "../../public/images/Vector.svg";
+import { getSessionBrowser } from "@/lib/browser/session";
 
 function InputElement({ formElement, value, state: [mood, setMood] }) {
   const isRadio = formElement.type === "radio";
@@ -59,14 +60,11 @@ export default function DetailsModal({ emotion, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {
-      data: { session },
-    } = await supabaseBrowser.auth.getSession();
+    const user = await getSessionBrowser().user;
 
-    const user = session.user;
-    mood.user_id = user.id;
-    mood.mood = emotion;
-    const { error } = await supabaseBrowser.from("entries").insert(mood);
+    const { error } = await supabaseBrowser
+      .from("entries")
+      .insert({ ...mood, user_id: user.id, mood: emotion });
     console.error(`ERROR: ${JSON.stringify(error)}`);
     if (error === null) link.current.click();
     //   redirect("/life-in-colour"); // idk why the f*** this doesnt work
