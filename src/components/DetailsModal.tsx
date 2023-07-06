@@ -118,8 +118,8 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
           context_location: mood.context_location,
         };
 
-        console.log(await updatedEntry)
 
+      
         const { error } = await supabaseBrowser
           .from("entries")
           .update(updatedEntry)
