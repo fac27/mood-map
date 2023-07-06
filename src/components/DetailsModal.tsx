@@ -107,9 +107,9 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
         .eq("user_id", mood.user_id)
         .single();
 
-      console.log(existingEntry);
+      console.log(await existingEntry);
 
-      if (existingEntry !== null) {
+      if (existingEntry) {
         const updatedEntry = {
           ...existingEntry,
           mood: mood.mood,
@@ -117,6 +117,8 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
           context_people: mood.context_people,
           context_location: mood.context_location,
         };
+
+        console.log(await updatedEntry)
 
         const { error } = await supabaseBrowser
           .from("entries")
@@ -169,7 +171,7 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
               <>
                 {formElement.options.map((option, radioIndex) => (
                   <InputElement
-                    key={`${elementIndex}${radioIndex}`}
+                    key={`${formElement.name}-${radioIndex}`}
                     formElement={formElement}
                     value={option}
                     state={[mood, setMood]}
@@ -178,6 +180,7 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
               </>
             ) : (
               <InputElement
+                key={formElement.name}
                 formElement={formElement}
                 value={mood[formElement.name]}
                 state={[mood, setMood]}
