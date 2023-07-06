@@ -109,7 +109,7 @@ const Grid: FC = (): ReactElement => {
           })}
         </div>
       </div>
-      {/*isOpen && <Entry onClose={closeModal} entries={entriesData} />*/}
+      {isOpen && <Entry onClose={closeModal} entries={entriesData} />}
     </>
   );
 };
