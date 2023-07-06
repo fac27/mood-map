@@ -7,6 +7,7 @@ import Entry from "@/components/Entry";
 import { getDays, getDaysInRange } from "../../utils/dateHelpers";
 // import {entries} from '@/lib/getEntries';
 import getUserEntries from "@/lib/getEntries";
+import { protectBrowserRoute } from "../../lib/browser/session";
 
 interface Entry {
   mood: number;
@@ -18,6 +19,7 @@ interface Entry {
 
 const Grid: FC = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
+  protectBrowserRoute()
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
