@@ -1,9 +1,20 @@
 "use client";
 
-import { ReactElement, FC, useState } from "react";
-import Entry from "../../components/Entry";
+import { useState, useEffect } from "react";
+import { ReactElement, FC } from "react";
 import styles from "./page.module.css";
-import { getDays } from "@/utils/dateHelpers";
+import Entry from "@/components/Entry";
+import { getDays, getDaysInRange } from "../../utils/dateHelpers";
+// import {entries} from '@/lib/getEntries';
+import getUserEntries from "@/lib/getEntries";
+
+interface Entry {
+  mood: number;
+  mood_date: string;
+  journal_entry: string;
+  context_people: string;
+  context_location: string;
+}
 
 const Grid: FC = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +22,40 @@ const Grid: FC = (): ReactElement => {
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
-  const divDays = getDays(2023);
+  const [entriesData, setEntriesData] = useState<Entry[]>([]);
+
+  useEffect(() => {
+    getUserEntries().then((entries) => {
+      // Sort entries by date
+      const entriesSortedByDate = entries.sort((a, b) => {
+        const dateA = new Date(a.mood_date);
+        const dateB = new Date(b.mood_date);
+
+        if (dateA < dateB) {
+          return -1;
+        }
+        if (dateA > dateB) {
+          return 1;
+        }
+        return 0;
+      });
+      setEntriesData(entriesSortedByDate);
+    });
+  }, []);
+
+  if (entriesData.length === 0) {
+    return <div className={styles.information}>Loading...</div>;
+  }
+
+  const latestEntry = new Date(
+    entriesData[entriesData.length - 1]["mood_date"]
+  );
+  const earliestEntry = new Date(entriesData[0]["mood_date"]);
+
+  console.log(`latestEntry: ${latestEntry}`);
+  console.log(`earliestEntry: ${earliestEntry}`);
+
+  const divDays = getDaysInRange(earliestEntry, latestEntry);
 
   return (
     <>
@@ -28,6 +72,15 @@ const Grid: FC = (): ReactElement => {
         </div>
         <div className={styles.grid}>
           {divDays.map((day: Date) => {
+            const getMatchingEntry = (entriesData as []).find((entry) => {
+              const entryDate = new Date(entry["mood_date"]);
+              return (
+                entryDate.getDate() === day.getDate() &&
+                entryDate.getMonth() === day.getMonth() &&
+                entryDate.getFullYear() === day.getFullYear()
+              );
+            });
+
             const dateOfMonth = day.getDate();
             const firstDayOfWeek = new Date(
               day.getFullYear(),
@@ -44,16 +97,19 @@ const Grid: FC = (): ReactElement => {
                 className={styles.gridBox}
                 style={{
                   gridColumn,
+                  backgroundColor: getMatchingEntry
+                    ? `var(--color-${getMatchingEntry["mood"]})`
+                    : "var(--background-color))",
                 }}
                 key={day.toString()}
                 data-testid="myDiv"
                 onClick={openModal}
-              ></div>
+              >{`${day.getDate()}/${day.getMonth() + 1}`}</div>
             );
           })}
         </div>
       </div>
-      {isOpen && <Entry onClose={closeModal} />}
+      {/*isOpen && <Entry onClose={closeModal} entries={entriesData} />*/}
     </>
   );
 };
