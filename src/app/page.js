@@ -11,9 +11,16 @@ export default async function Home() {
   const blobElements = blobs.map((svg) => {
     return (
       <div key={svg.id} className={styles.blob}>
-        <div className={styles.textContainer}>
+        <div className={`${styles.textContainer} ${josefinSans.className}`}>
           {formatText(svg.text).map((line, idx) => (
-            <p className={josefinSans.className} key={idx}>
+            <p
+              className={
+                svg.colour === "light"
+                  ? `${styles.darkText}`
+                  : `${styles.lightText}`
+              }
+              key={idx}
+            >
               {line.join("")}
             </p>
           ))}
