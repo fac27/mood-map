@@ -11,7 +11,6 @@
 }
 
 .blobContainer {
-  outline: 1px solid red;
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 65%;
@@ -20,15 +19,19 @@
 }
 
 .blob {
-  outline: 1px solid black;
   position: relative;
   width: 15rem;
   border-radius: 50%;
 }
 
-/* .blobText {
-  position: absolute;
-  font-size: 0.8rem;
-  color: #000;
+.textContainer {
   top: 5rem;
-} */
+  left: 4rem;
+  position: absolute;
+}
+
+.textContainer p {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  color: #fff;
+}

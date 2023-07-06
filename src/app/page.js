@@ -1,7 +1,8 @@
 import styles from "@/app/page.module.css";
 import Navbar from "@/components/Navbar";
-import { generateBlobs } from "../utils/blobHelpers";
+import { formatText, generateBlobs } from "../utils/blobHelpers";
 import getSessionServer from "../lib/server/session";
+import { josefinSans } from "../utils/fonts";
 
 export default async function Home() {
   const user = await getSessionServer();
@@ -9,18 +10,22 @@ export default async function Home() {
   const blobs = generateBlobs();
   const blobElements = blobs.map((svg) => {
     return (
-      <svg
-        key={svg.id}
-        className={styles.blob}
-        viewBox={svg.viewBox}
-        xmlns={svg.xmlns}
-      >
-        <path
-          fill={svg.path.fill}
-          d={svg.path.d}
-          transform={svg.path.transform}
-        />
-      </svg>
+      <div key={svg.id} className={styles.blob}>
+        <div className={styles.textContainer}>
+          {formatText(svg.text).map((line, idx) => (
+            <p className={josefinSans.className} key={idx}>
+              {line.join("")}
+            </p>
+          ))}
+        </div>
+        <svg viewBox={svg.viewBox} xmlns={svg.xmlns}>
+          <path
+            fill={svg.path.fill}
+            d={svg.path.d}
+            transform={svg.path.transform}
+          />
+        </svg>
+      </div>
     );
   });
 
