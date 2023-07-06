@@ -8,13 +8,20 @@ import { getDays, getDaysInRange } from "../../utils/dateHelpers";
 // import {entries} from '@/lib/getEntries';
 import getUserEntries from "@/lib/getEntries";
 
+interface Entry {
+  mood: number;
+  mood_date: string;
+  journal_entry: string;
+  context_people: string;
+  context_location: string;}
+
 const Grid: FC = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
-  const [entriesData, setEntriesData] = useState(null); // This will hold your entries once they're loaded
+  const [entriesData, setEntriesData] = useState<Entry[]>([]); 
 
   useEffect(() => {
     getUserEntries().then((entries) => {
@@ -30,18 +37,17 @@ const Grid: FC = (): ReactElement => {
           return 1;
         }
         return 0;
-      });
-
+      });      
       setEntriesData(entriesSortedByDate);
     });
   }, []);
 
-  if (!entriesData) {
+  if (entriesData.length === 0) {
     return <div className={styles.information}>Loading...</div>;
   }
 
-  const latestEntry = new Date(entriesData[entriesData.length - 1].mood_date);
-  const earliestEntry = new Date(entriesData[0].mood_date);
+  const latestEntry = new Date(entriesData[entriesData.length - 1]["mood_date"]);
+  const earliestEntry = new Date(entriesData[0]["mood_date"]);
 
   console.log(`latestEntry: ${latestEntry}`);
   console.log(`earliestEntry: ${earliestEntry}`);
@@ -89,7 +95,7 @@ const Grid: FC = (): ReactElement => {
                 style={{
                   gridColumn,
                   backgroundColor: getMatchingEntry
-                    ? `var(--color-${getMatchingEntry.mood})`
+                    ? `var(--color-${getMatchingEntry["mood"]})`
                     : "var(--background-color))",
                 }}
                 key={day.toString()}
@@ -100,7 +106,7 @@ const Grid: FC = (): ReactElement => {
           })}
         </div>
       </div>
-      {isOpen && <Entry onClose={closeModal} entries={entriesData} />}
+      {/*isOpen && <Entry onClose={closeModal} entries={entriesData} />*/}
     </>
   );
 };
