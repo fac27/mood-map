@@ -13,7 +13,8 @@ interface Entry {
   mood_date: string;
   journal_entry: string;
   context_people: string;
-  context_location: string;}
+  context_location: string;
+}
 
 const Grid: FC = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,7 @@ const Grid: FC = (): ReactElement => {
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
-  const [entriesData, setEntriesData] = useState<Entry[]>([]); 
+  const [entriesData, setEntriesData] = useState<Entry[]>([]);
 
   useEffect(() => {
     getUserEntries().then((entries) => {
@@ -37,7 +38,7 @@ const Grid: FC = (): ReactElement => {
           return 1;
         }
         return 0;
-      });      
+      });
       setEntriesData(entriesSortedByDate);
     });
   }, []);
@@ -46,7 +47,9 @@ const Grid: FC = (): ReactElement => {
     return <div className={styles.information}>Loading...</div>;
   }
 
-  const latestEntry = new Date(entriesData[entriesData.length - 1]["mood_date"]);
+  const latestEntry = new Date(
+    entriesData[entriesData.length - 1]["mood_date"]
+  );
   const earliestEntry = new Date(entriesData[0]["mood_date"]);
 
   console.log(`latestEntry: ${latestEntry}`);
