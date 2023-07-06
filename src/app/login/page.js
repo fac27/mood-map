@@ -19,7 +19,7 @@ export default function Login() {
   useEffect(() => {
     const validateUser = async () => {
       const session = await getSessionBrowser();
-      const user = session.user;
+      const user = session?.user;
       if (isLoggedIn || user) home.current.click();
     };
     validateUser();

@@ -5,7 +5,6 @@ export async function getSessionBrowser() {
   const {
     data: { session },
   } = await supabaseBrowser.auth.getSession();
-  console.log(session);
   return session;
 }
 

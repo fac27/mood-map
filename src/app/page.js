@@ -1,12 +1,11 @@
 import styles from "@/app/page.module.css";
 import Navbar from "@/components/Navbar";
 import { formatText, generateBlobs } from "../utils/blobHelpers";
-import { getSessionServer } from "../lib/server/session";
+import { protectServerRoute } from "../lib/server/session";
 import { josefinSans } from "../utils/fonts";
-import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const session = await getSessionServer();
+  const session = await protectServerRoute();
   const user = session.user;
 
   const blobs = generateBlobs();

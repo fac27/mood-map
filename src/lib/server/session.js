@@ -10,7 +10,6 @@ export async function getSessionServer() {
 
 export async function protectServerRoute() {
   const session = await getSessionServer();
-  console.log("server session", session);
   if (!session?.access_token) return redirect("/login");
   return session;
 }
