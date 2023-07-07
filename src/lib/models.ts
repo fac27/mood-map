@@ -22,7 +22,6 @@ export async function updateOrCreateEntry(entry: IUsersEntry) {
   return existingEntry
     ? await updateEntry(entry, existingEntry.id)
     : await createEntry(entry);
-
 }
 
 async function createEntry(entry: IUsersEntry) {

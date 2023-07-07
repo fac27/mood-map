@@ -34,7 +34,6 @@ export default function MoodPicker() {
     ));
 
   async function addMood() {
-    console.log("Adding");
     if (!session) setIsError(true);
     const error = await updateOrCreateEntry({
       mood: emotion,
@@ -48,9 +47,9 @@ export default function MoodPicker() {
     });
     if (error) return setIsError(true);
     setIsError(false);
-    // console.log("redirect");
     router.push("/life-in-colour");
   }
+
   useEffect(() => {
     const getUser = async () => {
       const session = await protectBrowserRoute();

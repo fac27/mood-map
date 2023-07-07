@@ -8,9 +8,9 @@ export interface IEntry {
 }
 
 export interface IUsersEntry extends IEntry {
-  userId: string
+  user_id: string;
 }
 
 export interface IEntryWithID extends IEntry {
-  id: number
+  id: number;
 }

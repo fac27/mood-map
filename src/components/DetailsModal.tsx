@@ -5,13 +5,11 @@ import {
   ReactElement,
   useEffect,
 } from "react";
-// import supabaseBrowser from "../lib/browser/client";
 import styles from "./DetailsModal.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import Vector from "../../public/images/Vector.svg";
 import { useRouter } from "next/navigation";
-import { getSessionBrowser } from "@/lib/browser/session";
 import { updateOrCreateEntry } from "@/lib/models";
 
 interface FormElement {
