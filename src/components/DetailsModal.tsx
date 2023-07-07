@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Vector from "../../public/images/Vector.svg";
 import { useRouter } from "next/navigation";
-// import { ExitStatus, idText } from "typescript";
+import { getSessionBrowser } from "@/lib/browser/session";
 
 interface FormElement {
   name: string;
@@ -81,6 +81,12 @@ const formElements = [
     options: ["Home", "Work", "Transport", "Outside"],
   },
 ];
+const capitaliseWords = (str) => {
+  return str
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
 
 export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
   emotion,
@@ -88,57 +94,62 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
 }): ReactElement => {
   const [mood, setMood] = useState<Record<string, any>>(initialFormState);
   const link = useRef<HTMLAnchorElement>(null);
+  const [error, setError] = useState("");
   const router = useRouter();
+
+  //could be refactored again with Mark's updates
+  const createOrUpdateEntry = async (
+    existingEntry: object,
+    updatedMood: object
+  ) => {
+    if (existingEntry.data) {
+      const { data: updatedEntry, error } = await supabaseBrowser
+        .from("entries")
+        .update({
+          mood: updatedMood.mood,
+          journal_entry: updatedMood.journal_entry,
+          context_people: updatedMood.context_people,
+          context_location: updatedMood.context_location,
+        })
+        .eq("id", existingEntry.data.id);
+
+      return { data: updatedEntry, error };
+    } else {
+      return await supabaseBrowser.from("entries").insert(updatedMood);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const {
       data: { session },
     } = await supabaseBrowser.auth.getSession();
 
-    if (session) {
-      const user = session.user;
-      setMood({ ...mood, user_id: user.id, mood: emotion });
+    if (!session) return;
 
-      const updatedMood = { ...mood, user_id: user.id, mood: emotion };
+    const user = session.user;
+    const updatedMood = { ...mood, user_id: user.id, mood: emotion };
+    setMood(updatedMood);
 
-      const existingEntry = await supabaseBrowser
-        .from("entries")
-        .select("*")
-        .eq("mood_date", updatedMood.mood_date)
-        .eq("user_id", updatedMood.user_id)
-        .single();
+    const existingEntry = await supabaseBrowser
+      .from("entries")
+      .select("*")
+      .eq("mood_date", updatedMood.mood_date)
+      .eq("user_id", updatedMood.user_id)
+      .single();
 
-      if (existingEntry.data) {
-        const { data: updatedEntry, error } = await supabaseBrowser
-          .from("entries")
-          .update({
-            mood: updatedMood.mood,
-            journal_entry: updatedMood.journal_entry,
-            context_people: updatedMood.context_people,
-            context_location: updatedMood.context_location,
-          })
-          .eq("id", existingEntry.data.id);
+    const { error } = await createOrUpdateEntry(existingEntry, updatedMood);
 
-        if (error) {
-          console.error(`ERROR: ${JSON.stringify(error)}`);
-          router.push("/");
-        } else {
-          if (link.current !== null) {
-            link.current.click();
-          }
-        }
-      } else {
-        const { error } = await supabaseBrowser.from("entries").insert(mood);
-
-        if (error) {
-          console.error(`ERROR: ${JSON.stringify(error)}`);
-          router.push("/");
-        } else {
-          if (link.current !== null) {
-            link.current.click();
-          }
-        }
+    if (error) {
+      console.error(`ERROR: ${JSON.stringify(error)}`);
+      Object.keys(mood).forEach((row) =>
+        error.message.includes(row) ? setError(row) : false
+      );
+      router.push("/");
+    } else {
+      if (link.current !== null) {
+        link.current.click();
       }
     }
   };
@@ -159,40 +170,41 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
           <input type="hidden" name="mood" id="mood" value={emotion} />
         </fieldset>
         <hr />
-        {formElements.map((formElement, elementIndex) => {
-          return (
-            <fieldset key={elementIndex}>
-              {formElement.type === "radio" ? (
-                formElement.options && (
-                  <>
-                    {formElement.options.map((option, radioIndex) => {
-                      return (
-                        <InputElement
-                          key={`${formElement.name}-${radioIndex}-${option}`}
-                          formElement={formElement}
-                          value={option}
-                          state={[mood, setMood]}
-                        />
-                      );
-                    })}
-                  </>
-                )
-              ) : (
-                <InputElement
-                  key={`${formElement.name}-${mood}`}
-                  formElement={formElement}
-                  value={mood[formElement.name]}
-                  state={[mood, setMood]}
-                />
-              )}
-            </fieldset>
-          );
-        })}
+        {formElements.map((formElement, elementIndex) => (
+          <fieldset
+            key={elementIndex}
+            className={error == formElement.name ? styles.error : ""}
+          >
+            {formElement.type === "radio" ? (
+              <>
+                {formElement.options.map((option, radioIndex) => (
+                  <InputElement
+                    key={`${elementIndex}${radioIndex}`}
+                    formElement={formElement}
+                    value={option}
+                    state={[mood, setMood]}
+                  />
+                ))}
+              </>
+            ) : (
+              <InputElement
+                formElement={formElement}
+                value={mood[formElement.name]}
+                state={[mood, setMood]}
+              />
+            )}
+          </fieldset>
+        ))}
         <button className={styles.submitBtn} type="submit">
           Submit
         </button>
+        {error ? (
+          <b className={styles.errorDescription}>
+            Invalid: {capitaliseWords(error.replaceAll("_", " "))}
+          </b>
+        ) : null}
       </form>
-      <Link href={"/"} ref={link} />
+      <Link href={"/life-in-colour"} ref={link} />
     </>
   );
 };

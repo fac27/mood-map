@@ -1,11 +1,12 @@
 import styles from "@/app/page.module.css";
 import Navbar from "@/components/Navbar";
 import { formatText, generateBlobs } from "../utils/blobHelpers";
-import getSessionServer from "../lib/server/session";
+import { protectServerRoute } from "../lib/server/session";
 import { josefinSans } from "../utils/fonts";
 
 export default async function Home() {
-  const user = await getSessionServer();
+  const session = await protectServerRoute();
+  const user = session.user;
 
   const blobs = generateBlobs();
   const blobElements = blobs.map((svg) => {
@@ -19,7 +20,7 @@ export default async function Home() {
                   ? `${styles.darkText}`
                   : `${styles.lightText}`
               }
-              key={idx}
+              key={`${svg.id}/${idx}`}
             >
               {line.join("")}
             </p>
