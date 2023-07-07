@@ -15,7 +15,7 @@ const Grid: FC = (): ReactElement => {
 
   const openModal = (e: React.MouseEvent) => {
     const id = e.currentTarget.id;
-    if (id === "no-entry") {
+    if (id.includes("no-entry")) {
       setEntryClicked(null);
       setIsOpen(false);
       return;
@@ -36,13 +36,7 @@ const Grid: FC = (): ReactElement => {
         const dateA = new Date(a.mood_date);
         const dateB = new Date(b.mood_date);
 
-        if (dateA < dateB) {
-          return -1;
-        }
-        if (dateA > dateB) {
-          return 1;
-        }
-        return 0;
+        return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
       });
       setEntriesData(entriesSortedByDate);
     });
@@ -106,7 +100,11 @@ const Grid: FC = (): ReactElement => {
                     ? `var(--color-${matchingEntry["mood"]})`
                     : "var(--background-color))",
                 }}
-                id={matchingEntry ? matchingEntry["id"] : "no-entry"}
+                id={
+                  matchingEntry
+                    ? matchingEntry["id"]
+                    : `no-entry-${day.toDateString()}`
+                }
                 key={day.toString()}
                 data-testid="myDiv"
                 onClick={openModal}
