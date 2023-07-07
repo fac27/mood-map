@@ -98,10 +98,7 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
   const router = useRouter();
 
   //could be refactored again with Mark's updates
-  const createOrUpdateEntry = async (
-    existingEntry: any,
-    updatedMood: any
-  ) => {
+  const createOrUpdateEntry = async (existingEntry: any, updatedMood: any) => {
     if (existingEntry.data) {
       const { data: updatedEntry, error } = await supabaseBrowser
         .from("entries")
