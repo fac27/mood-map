@@ -4,9 +4,8 @@ import { useState, useEffect } from "react";
 import { ReactElement, FC } from "react";
 import styles from "./page.module.css";
 import Entry from "@/components/Entry";
-import { getDays, getDaysInRange } from "../../utils/dateHelpers";
-// import {entries} from '@/lib/getEntries';
-import { getAllEntries, getEntry } from "@/lib/getEntries";
+import { getDaysInRange } from "../../utils/dateHelpers";
+import { getAllEntries } from "@/lib/getEntries";
 import { IEntry } from "@/types/types";
 
 const Grid: FC = (): ReactElement => {
