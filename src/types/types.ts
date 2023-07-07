@@ -1,4 +1,5 @@
 export interface IEntry {
+  user_id?: string;
   mood: number;
   mood_date: string;
   journal_entry?: string;

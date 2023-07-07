@@ -11,6 +11,7 @@ import Link from "next/link";
 import Vector from "../../public/images/Vector.svg";
 import { useRouter } from "next/navigation";
 import { updateOrCreateEntry } from "@/lib/models";
+import { IEntry } from "@/types/types";
 
 interface FormElement {
   name: string;
@@ -101,7 +102,7 @@ const DetailsModal: FunctionComponent<DetailsModalProps> = ({
   onClose,
   session,
 }): ReactElement => {
-  const [mood, setMood] = useState<Record<string, any>>(initialFormState);
+  const [mood, setMood] = useState(initialFormState);
   const [error, setError] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const link = useRef<HTMLAnchorElement>(null);
