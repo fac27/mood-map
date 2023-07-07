@@ -99,8 +99,8 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
 
   //could be refactored again with Mark's updates
   const createOrUpdateEntry = async (
-    existingEntry: object,
-    updatedMood: object
+    existingEntry: any,
+    updatedMood: any
   ) => {
     if (existingEntry.data) {
       const { data: updatedEntry, error } = await supabaseBrowser
