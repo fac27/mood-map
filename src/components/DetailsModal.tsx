@@ -134,7 +134,15 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
     if (!session) return;
 
     const user = session.user;
-    const updatedMood: Mood = { ...mood, user_id: user.id, mood: emotion };
+    const updatedMood: Mood = {
+      ...mood,
+      user_id: user.id,
+      mood: emotion,
+      mood_date: mood.mood_date,
+      journal_entry: mood.journal_entry,
+      context_people: mood.context_people,
+      context_location: mood.context_location,
+    };
     setMood(updatedMood);
 
     const existingEntry = await supabaseBrowser
