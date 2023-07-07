@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Vector from "../../public/images/Vector.svg";
 import { useRouter } from "next/navigation";
-import { getSessionBrowser } from "@/lib/browser/session";
+// import { getSessionBrowser } from "@/lib/browser/session";
 
 interface FormElement {
   name: string;
@@ -81,10 +81,10 @@ const formElements = [
     options: ["Home", "Work", "Transport", "Outside"],
   },
 ];
-const capitaliseWords = (str) => {
+const capitaliseWords = (str: string) => {
   return str
     .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .map((word:string) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 };
 
