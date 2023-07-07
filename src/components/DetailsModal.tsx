@@ -23,7 +23,7 @@ interface FormElement {
 interface InputElementProps {
   formElement: FormElement;
   value: string;
-  state: [Record<string, any>, (mood: Record<string, any>) => void];
+  state: [any, any];
 }
 
 interface DetailsModalProps {
@@ -94,7 +94,7 @@ const DetailsModal: FunctionComponent<DetailsModalProps> = ({
   session,
 }): ReactElement => {
   const [mood, setMood] = useState({
-    user_id: '',
+    user_id: "",
     mood: emotion,
     mood_date: `${today.getFullYear()}-${trailingZero(
       today.getMonth() + 1
