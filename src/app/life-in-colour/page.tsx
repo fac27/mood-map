@@ -7,6 +7,7 @@ import Entry from "@/components/Entry";
 import { getDays, getDaysInRange } from "../../utils/dateHelpers";
 // import {entries} from '@/lib/getEntries';
 import getUserEntries from "@/lib/getEntries";
+import Navbar from "@/components/Navbar";
 
 interface Entry {
   mood: number;
@@ -110,6 +111,7 @@ const Grid: FC = (): ReactElement => {
         </div>
       </div>
       {/*isOpen && <Entry onClose={closeModal} entries={entriesData} />*/}
+      <Navbar/>
     </>
   );
 };

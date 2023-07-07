@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Vector from "../../public/images/Vector.svg";
 import { useRouter } from "next/navigation";
-import { ExitStatus, idText } from "typescript";
+// import { ExitStatus, idText } from "typescript";
 
 interface FormElement {
   name: string;
