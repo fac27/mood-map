@@ -124,7 +124,7 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
     }
   };
 
-  const handleSubmit = async (e: Event) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const {
