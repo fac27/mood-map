@@ -1,10 +1,8 @@
-import supabaseBrowser from "./browser/client";
+import { getSessionBrowser } from "../browser/session";
+import supabaseBrowser from "../browser/client";
 
 export default async function getUserEntries() {
-  const {
-    data: { session },
-  } = await supabaseBrowser.auth.getSession();
-
+  const session = await getSessionBrowser();
   const user = session.user;
 
   const { data, error } = await supabaseBrowser

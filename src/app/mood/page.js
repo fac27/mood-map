@@ -1,15 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Exit from "@/components/Exit";
 import styles from "./page.module.css";
 import DetailsModal from "@/components/DetailsModal";
+import createEntry from "@/lib/db/createEntry";
 
 export default function MoodPicker() {
   const [emotion, setEmotion] = useState(4);
   const [showDetails, setShowDetails] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const redirect = useRef();
 
   const closeModal = () => setShowDetails(false);
 
@@ -25,6 +28,13 @@ export default function MoodPicker() {
         height={60}
       />
     ));
+
+  async function addMood() {
+    const error = await createEntry({ mood: emotion, mood_date: new Date() });
+    if (error) return setIsError(true);
+    setIsError(false);
+    console.log(error);
+  }
 
   return (
     <>
@@ -46,10 +56,14 @@ export default function MoodPicker() {
 
       <div className={styles.links}>
         <button onClick={() => setShowDetails(true)}>Give more detail?</button>
-        <Link href="/">
-          <button className={styles.activeButton}>Add mood</button>
-        </Link>
+        <button className={styles.activeButton} onClick={addMood}>
+          Add mood
+        </button>
       </div>
+      {isError ? (
+        <b className={styles.errorDescription}>Already given your mood today</b>
+      ) : null}
+      <Link href="/" ref={redirect} />
 
       {showDetails && <DetailsModal emotion={emotion} onClose={closeModal} />}
     </>

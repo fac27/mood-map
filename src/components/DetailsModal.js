@@ -1,10 +1,9 @@
-import supabaseBrowser from "../lib/browser/client";
 import { useRef, useState } from "react";
 import styles from "./DetailsModal.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import Vector from "../../public/images/Vector.svg";
-import { getSessionBrowser } from "@/lib/browser/session";
+import createEntry from "@/lib/db/createEntry";
 
 function InputElement({ formElement, value, state: [mood, setMood] }) {
   const isRadio = formElement.type === "radio";
@@ -68,12 +67,7 @@ export default function DetailsModal({ emotion, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const session = await getSessionBrowser();
-    const user = session.user;
-
-    const { error } = await supabaseBrowser
-      .from("entries")
-      .insert({ ...mood, user_id: user.id, mood: emotion });
+    const error = await createEntry({ ...mood, mood: emotion });
     if (error === null) return link.current.click();
     Object.keys(mood).forEach((row) =>
       error.message.includes(row) ? setError(row) : false
