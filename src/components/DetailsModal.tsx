@@ -190,7 +190,7 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
           >
             {formElement.type === "radio" ? (
               <>
-                {formElement.options.map((option, radioIndex) => (
+                {formElement.options?.map((option, radioIndex) => (
                   <InputElement
                     key={`${elementIndex}${radioIndex}`}
                     formElement={formElement}
