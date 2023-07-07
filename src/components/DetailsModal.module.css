@@ -69,3 +69,12 @@
   background: #75d7a1;
   color: #fff;
 }
+
+.error {
+  border: 1px solid red !important;
+  border-radius: 1em;
+}
+
+.errorDescription {
+  color: red;
+}
