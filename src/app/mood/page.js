@@ -6,7 +6,7 @@ import Link from "next/link";
 import Exit from "@/components/Exit";
 import styles from "./page.module.css";
 // import DetailsModal from "@/components/DetailsModal";
-import { DetailsModal } from "@/components/DetailsModal.tsx"
+import { DetailsModal } from "@/components/DetailsModal.tsx";
 
 export default function MoodPicker() {
   const [emotion, setEmotion] = useState(4);
