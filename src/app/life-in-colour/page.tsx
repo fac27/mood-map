@@ -5,9 +5,10 @@ import { ReactElement, FC } from "react";
 import styles from "./page.module.css";
 import Entry from "@/components/Entry";
 import { getDaysInRange } from "../../utils/dateHelpers";
-import { getAllEntries } from "@/lib/getEntries";
+import { getAllEntries } from "@/lib/models";
 import { IEntry } from "@/types/types";
 import Navbar from "@/components/Navbar";
+import { protectBrowserRoute } from "@/lib/browser/session";
 
 const Grid: FC = (): ReactElement => {
   const [entryClicked, setEntryClicked] = useState<IEntry | null>(null);
@@ -31,16 +32,20 @@ const Grid: FC = (): ReactElement => {
   const [entriesData, setEntriesData] = useState<IEntry[]>([]);
 
   useEffect(() => {
-    getAllEntries().then((entries) => {
-      // Sort entries by date
-      const entriesSortedByDate = entries.sort((a, b) => {
-        const dateA = new Date(a.mood_date);
-        const dateB = new Date(b.mood_date);
+    const getUser = async () => {
+      const session = await protectBrowserRoute();
+      getAllEntries(session.user.id).then((entries) => {
+        // Sort entries by date
+        const entriesSortedByDate = entries.sort((a, b) => {
+          const dateA = new Date(a.mood_date);
+          const dateB = new Date(b.mood_date);
 
-        return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
+          return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
+        });
+        setEntriesData(entriesSortedByDate);
       });
-      setEntriesData(entriesSortedByDate);
-    });
+    };
+    getUser();
   }, []);
 
   if (entriesData.length === 0) {
@@ -114,6 +119,7 @@ const Grid: FC = (): ReactElement => {
           })}
         </div>
       </div>
+      <Navbar />
       {isOpen && <Entry onClose={closeModal} entry={entryClicked} />}
     </>
   );

@@ -1,5 +1,5 @@
 import styles from "@/app/page.module.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/Navbar.tsx";
 import { formatText, generateBlobs } from "../utils/blobHelpers";
 import { protectServerRoute } from "../lib/server/session";
 import { josefinSans } from "../utils/fonts";
