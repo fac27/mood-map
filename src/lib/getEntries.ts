@@ -23,11 +23,12 @@ export async function getAllEntries(): Promise<IEntry[]> {
 }
 
 export async function getEntry(id: number): Promise<IEntry> {
+  
   const {
     data: { session },
   } = await supabaseBrowser.auth.getSession();
 
-  const user = session?.user;
+  const user = session?.user;  
 
   const { data, error } = await supabaseBrowser
     .from("entries")
@@ -40,6 +41,6 @@ export async function getEntry(id: number): Promise<IEntry> {
   if (error) {
     console.error("Error fetching user entries:", error);
     throw error;
-  }
+  }  
   return data[0];
 }

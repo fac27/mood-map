@@ -10,18 +10,22 @@ import { getAllEntries, getEntry } from "@/lib/getEntries";
 import { IEntry } from "@/types/types";
 
 const Grid: FC = (): ReactElement => {
+  const [entryClicked, setEntryClicked] = useState<IEntry | null>(null);
+
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = (e: React.MouseEvent) => {
+  const openModal = async (e: React.MouseEvent) => {
     const id = e.currentTarget.id;
-    console.log(`id: ${id}`);
     if (id === "no-entry") {
+      setEntryClicked(null);
+      setIsOpen(false);
       return;
     }
-    const entry = getEntry(+id).then((entry) => console.log(`entry: ${entry}`));
 
+    setEntryClicked(await getEntry(+id));
     setIsOpen(true);
   };
+  
   const closeModal = () => setIsOpen(false);
 
   const [entriesData, setEntriesData] = useState<IEntry[]>([]);
@@ -54,8 +58,8 @@ const Grid: FC = (): ReactElement => {
   );
   const earliestEntry = new Date(entriesData[0]["mood_date"]);
 
-  console.log(`latestEntry: ${latestEntry}`);
-  console.log(`earliestEntry: ${earliestEntry}`);
+  // console.log(`latestEntry: ${latestEntry}`);
+  // console.log(`earliestEntry: ${earliestEntry}`);
 
   const divDays = getDaysInRange(earliestEntry, latestEntry);
 
@@ -103,7 +107,7 @@ const Grid: FC = (): ReactElement => {
                     ? `var(--color-${matchingEntry["mood"]})`
                     : "var(--background-color))",
                 }}
-                id={matchingEntry ? matchingEntry["id"].toString() : "no-entry"}
+                id={matchingEntry ? matchingEntry["id"] : "no-entry"}
                 key={day.toString()}
                 data-testid="myDiv"
                 onClick={openModal}
@@ -112,7 +116,7 @@ const Grid: FC = (): ReactElement => {
           })}
         </div>
       </div>
-      {/*isOpen && <Entry onClose={closeModal} entries={entriesData} />*/}
+      {isOpen && <Entry onClose={closeModal} entry={entryClicked} />}
     </>
   );
 };
