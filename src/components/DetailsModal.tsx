@@ -64,15 +64,6 @@ const InputElement: FunctionComponent<InputElementProps> = ({
 
 const today = new Date();
 const trailingZero = (num: number) => num.toString().padStart(2, "0");
-const initialFormState = {
-  mood: null,
-  mood_date: `${today.getFullYear()}-${trailingZero(
-    today.getMonth() + 1
-  )}-${trailingZero(today.getDate())}`,
-  journal_entry: "",
-  context_people: "",
-  context_location: "",
-};
 
 const formElements = [
   { name: "mood_date", heading: "Date", type: "date" },
@@ -102,7 +93,15 @@ const DetailsModal: FunctionComponent<DetailsModalProps> = ({
   onClose,
   session,
 }): ReactElement => {
-  const [mood, setMood] = useState(initialFormState);
+  const [mood, setMood] = useState({
+    mood: emotion,
+    mood_date: `${today.getFullYear()}-${trailingZero(
+      today.getMonth() + 1
+    )}-${trailingZero(today.getDate())}`,
+    journal_entry: "",
+    context_people: "",
+    context_location: "",
+  });
   const [error, setError] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const link = useRef<HTMLAnchorElement>(null);
