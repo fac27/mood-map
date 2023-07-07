@@ -6,26 +6,30 @@ import styles from "./page.module.css";
 import Entry from "@/components/Entry";
 import { getDays, getDaysInRange } from "../../utils/dateHelpers";
 // import {entries} from '@/lib/getEntries';
-import getUserEntries from "@/lib/getEntries";
-
-interface Entry {
-  mood: number;
-  mood_date: string;
-  journal_entry: string;
-  context_people: string;
-  context_location: string;
-}
+import { getAllEntries, getEntry } from "@/lib/getEntries";
+import { IEntry } from "@/types/types";
 
 const Grid: FC = (): ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = () => setIsOpen(true);
+  const openModal = (e: React.MouseEvent) => {
+    const id = e.currentTarget.id;
+    console.log(`id: ${id}`);
+    if (id === "no-entry") {
+      return;
+    }
+    const entry = getEntry(+id)
+    .then(entry =>  console.log(`entry: ${entry}`));
+   
+
+    setIsOpen(true);
+  };
   const closeModal = () => setIsOpen(false);
 
-  const [entriesData, setEntriesData] = useState<Entry[]>([]);
+  const [entriesData, setEntriesData] = useState<IEntry[]>([]);
 
   useEffect(() => {
-    getUserEntries().then((entries) => {
+    getAllEntries().then((entries) => {
       // Sort entries by date
       const entriesSortedByDate = entries.sort((a, b) => {
         const dateA = new Date(a.mood_date);
@@ -72,7 +76,7 @@ const Grid: FC = (): ReactElement => {
         </div>
         <div className={styles.grid}>
           {divDays.map((day: Date) => {
-            const getMatchingEntry = (entriesData as []).find((entry) => {
+            const matchingEntry = (entriesData as []).find((entry) => {
               const entryDate = new Date(entry["mood_date"]);
               return (
                 entryDate.getDate() === day.getDate() &&
@@ -97,10 +101,11 @@ const Grid: FC = (): ReactElement => {
                 className={styles.gridBox}
                 style={{
                   gridColumn,
-                  backgroundColor: getMatchingEntry
-                    ? `var(--color-${getMatchingEntry["mood"]})`
+                  backgroundColor: matchingEntry
+                    ? `var(--color-${matchingEntry["mood"]})`
                     : "var(--background-color))",
                 }}
+                id={matchingEntry ? matchingEntry["id"].toString() : "no-entry"}
                 key={day.toString()}
                 data-testid="myDiv"
                 onClick={openModal}
