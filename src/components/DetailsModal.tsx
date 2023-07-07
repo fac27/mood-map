@@ -94,6 +94,7 @@ const DetailsModal: FunctionComponent<DetailsModalProps> = ({
   session,
 }): ReactElement => {
   const [mood, setMood] = useState({
+    user_id: '',
     mood: emotion,
     mood_date: `${today.getFullYear()}-${trailingZero(
       today.getMonth() + 1

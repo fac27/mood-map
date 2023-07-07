@@ -1,7 +1,7 @@
 import supabaseBrowser from "./browser/client";
 import { IEntry, IUsersEntry } from "@/types/types";
 
-export async function getUserEntries(userId) {
+export async function getUserEntries(userId: string) {
   const { data, error } = await supabaseBrowser
     .from("entries")
     .select("mood, mood_date, journal_entry, context_people, context_location")
