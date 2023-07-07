@@ -36,6 +36,7 @@ interface Mood {
   journal_entry: string;
   context_people: string;
   context_location: string;
+  user_id: any;
 }
 
 const InputElement: FunctionComponent<InputElementProps> = ({
