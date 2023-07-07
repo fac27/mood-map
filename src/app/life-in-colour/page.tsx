@@ -14,7 +14,7 @@ const Grid: FC = (): ReactElement => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = async (e: React.MouseEvent) => {
+  const openModal = (e: React.MouseEvent) => {
     const id = e.currentTarget.id;
     if (id === "no-entry") {
       setEntryClicked(null);
@@ -22,7 +22,7 @@ const Grid: FC = (): ReactElement => {
       return;
     }
 
-    setEntryClicked(await getEntry(+id));
+    setEntryClicked(getEntryById(+id, entriesData));
     setIsOpen(true);
   };
 
@@ -119,6 +119,14 @@ const Grid: FC = (): ReactElement => {
       {isOpen && <Entry onClose={closeModal} entry={entryClicked} />}
     </>
   );
+};
+
+const getEntryById = (id: number, entries: IEntry[]): IEntry | null => {
+  const entry = entries.find((entry) => entry.id === id);
+  if (entry) {
+    return entry;
+  }
+  return null;
 };
 
 export default Grid;
