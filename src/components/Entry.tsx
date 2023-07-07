@@ -52,6 +52,13 @@ const Entry: FC<ModalProps> = ({ onClose, entry }): ReactElement => {
           <p className={`${styles.gridText} ${styles.gridItem6}`}>
             Location: {entry.context_location}
           </p>
+
+          <div className={`${styles.circle} ${styles.gridItem7}`}></div>
+          <p className={`${styles.gridText}`}>
+            {entry.journal_entry
+              ? `Journal entry: ${entry.journal_entry}`
+              : "No journal entry recorded"}
+          </p>
         </div>
       </div>
     </>
