@@ -30,6 +30,13 @@ interface DetailsModalProps {
   emotion: string;
   onClose: () => void;
 }
+interface Mood {
+  mood: number | string;
+  mood_date: string;
+  journal_entry: string;
+  context_people: string;
+  context_location: string;
+}
 
 const InputElement: FunctionComponent<InputElementProps> = ({
   formElement,
@@ -126,7 +133,7 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
     if (!session) return;
 
     const user = session.user;
-    const updatedMood = { ...mood, user_id: user.id, mood: emotion };
+    const updatedMood:Mood = { ...mood, user_id: user.id, mood: emotion };
     setMood(updatedMood);
 
     const existingEntry = await supabaseBrowser
