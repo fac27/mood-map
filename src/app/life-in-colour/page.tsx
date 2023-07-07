@@ -25,7 +25,7 @@ const Grid: FC = (): ReactElement => {
     setEntryClicked(await getEntry(+id));
     setIsOpen(true);
   };
-  
+
   const closeModal = () => setIsOpen(false);
 
   const [entriesData, setEntriesData] = useState<IEntry[]>([]);

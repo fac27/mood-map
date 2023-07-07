@@ -6,8 +6,6 @@ import { FC } from "react";
 import { IEntry } from "@/types/types";
 // import entries from "@/lib/getEntries"
 
-
-
 interface ModalProps {
   onClose: () => void;
   entry: IEntry | null;
@@ -35,14 +33,19 @@ const Entry: FC<ModalProps> = ({ onClose, entry }): ReactElement => {
           })}
         </h1>
         <div className={styles.gridContainer}>
-          <div className={`${styles.square} ${styles.gridItem1}`} style={{backgroundColor: `var(--color-${entry.mood})`}}></div>
+          <div
+            className={`${styles.square} ${styles.gridItem1}`}
+            style={{ backgroundColor: `var(--color-${entry.mood})` }}
+          ></div>
           <p className={`${styles.gridText} ${styles.gridItem2}`}>
             Your mood was {entry.mood}
           </p>
 
           <div className={`${styles.circle} ${styles.gridItem3}`}></div>
           <p className={`${styles.gridText} ${styles.gridItem4}`}>
-            {entry.context_people === 'Alone' ? 'You were alone' : `You were with ${entry.context_people}`}
+            {entry.context_people === "Alone"
+              ? "You were alone"
+              : `You were with ${entry.context_people}`}
           </p>
 
           <div className={`${styles.circle} ${styles.gridItem5}`}></div>
