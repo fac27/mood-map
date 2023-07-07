@@ -169,7 +169,7 @@ const DetailsModal: FunctionComponent<DetailsModalProps> = ({
             ) : (
               <InputElement
                 formElement={formElement}
-                value={mood[formElement.name]}
+                value={mood[formElement.name as keyof typeof mood] as string}
                 state={[mood, setMood]}
               />
             )}
