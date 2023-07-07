@@ -35,9 +35,9 @@ Come back to refactoring modals to be one component
 05/03/2023
 
 07/07/2023
-BIG refactoring day. 
-fixed & updated detailsModal componenet 
+BIG refactoring day.
+fixed & updated detailsModal componenet
 added models to get data from database and passing through pages & components
-adding in type file to keep track of our types :D 
+adding in type file to keep track of our types :D
 worked on tests and configuring files to make jest play nice with react and typescript
 edited navbar to be more intuitive
