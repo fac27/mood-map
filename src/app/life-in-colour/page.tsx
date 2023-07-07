@@ -7,7 +7,7 @@ import Entry from "@/components/Entry";
 import { getDaysInRange } from "../../utils/dateHelpers";
 import { getAllEntries } from "@/lib/models";
 import { IEntry } from "@/types/types";
-import Navbar from "@/components/Navbar.tsx";
+import Navbar from "@/components/Navbar";
 import { protectBrowserRoute } from "@/lib/browser/session";
 
 const Grid: FC = (): ReactElement => {
