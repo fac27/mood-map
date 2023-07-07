@@ -4,41 +4,40 @@ import { useState, useEffect } from "react";
 import { ReactElement, FC } from "react";
 import styles from "./page.module.css";
 import Entry from "@/components/Entry";
-import { getDays, getDaysInRange } from "../../utils/dateHelpers";
-// import {entries} from '@/lib/getEntries';
-import getUserEntries from "@/lib/getEntries";
+import { getDaysInRange } from "../../utils/dateHelpers";
+import { getAllEntries } from "@/lib/getEntries";
+import { IEntry } from "@/types/types";
 import Navbar from "@/components/Navbar";
 
-interface Entry {
-  mood: number;
-  mood_date: string;
-  journal_entry: string;
-  context_people: string;
-  context_location: string;
-}
-
 const Grid: FC = (): ReactElement => {
+  const [entryClicked, setEntryClicked] = useState<IEntry | null>(null);
+
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = () => setIsOpen(true);
+  const openModal = (e: React.MouseEvent) => {
+    const id = e.currentTarget.id;
+    if (id.includes("no-entry")) {
+      setEntryClicked(null);
+      setIsOpen(false);
+      return;
+    }
+
+    setEntryClicked(getEntryById(+id, entriesData));
+    setIsOpen(true);
+  };
+
   const closeModal = () => setIsOpen(false);
 
-  const [entriesData, setEntriesData] = useState<Entry[]>([]);
+  const [entriesData, setEntriesData] = useState<IEntry[]>([]);
 
   useEffect(() => {
-    getUserEntries().then((entries) => {
+    getAllEntries().then((entries) => {
       // Sort entries by date
       const entriesSortedByDate = entries.sort((a, b) => {
         const dateA = new Date(a.mood_date);
         const dateB = new Date(b.mood_date);
 
-        if (dateA < dateB) {
-          return -1;
-        }
-        if (dateA > dateB) {
-          return 1;
-        }
-        return 0;
+        return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
       });
       setEntriesData(entriesSortedByDate);
     });
@@ -53,8 +52,8 @@ const Grid: FC = (): ReactElement => {
   );
   const earliestEntry = new Date(entriesData[0]["mood_date"]);
 
-  console.log(`latestEntry: ${latestEntry}`);
-  console.log(`earliestEntry: ${earliestEntry}`);
+  // console.log(`latestEntry: ${latestEntry}`);
+  // console.log(`earliestEntry: ${earliestEntry}`);
 
   const divDays = getDaysInRange(earliestEntry, latestEntry);
 
@@ -73,7 +72,7 @@ const Grid: FC = (): ReactElement => {
         </div>
         <div className={styles.grid}>
           {divDays.map((day: Date) => {
-            const getMatchingEntry = (entriesData as []).find((entry) => {
+            const matchingEntry = (entriesData as []).find((entry) => {
               const entryDate = new Date(entry["mood_date"]);
               return (
                 entryDate.getDate() === day.getDate() &&
@@ -98,10 +97,15 @@ const Grid: FC = (): ReactElement => {
                 className={styles.gridBox}
                 style={{
                   gridColumn,
-                  backgroundColor: getMatchingEntry
-                    ? `var(--color-${getMatchingEntry["mood"]})`
+                  backgroundColor: matchingEntry
+                    ? `var(--color-${matchingEntry["mood"]})`
                     : "var(--background-color))",
                 }}
+                id={
+                  matchingEntry
+                    ? matchingEntry["id"]
+                    : `no-entry-${day.toDateString()}`
+                }
                 key={day.toString()}
                 data-testid="myDiv"
                 onClick={openModal}
@@ -110,10 +114,17 @@ const Grid: FC = (): ReactElement => {
           })}
         </div>
       </div>
-      {/*isOpen && <Entry onClose={closeModal} entries={entriesData} />*/}
-      <Navbar />
+      {isOpen && <Entry onClose={closeModal} entry={entryClicked} />}
     </>
   );
+};
+
+const getEntryById = (id: number, entries: IEntry[]): IEntry | null => {
+  const entry = entries.find((entry) => entry.id === id);
+  if (entry) {
+    return entry;
+  }
+  return null;
 };
 
 export default Grid;

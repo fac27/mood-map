@@ -64,6 +64,16 @@
   grid-row: 3;
 }
 
+.gridItem7 {
+  grid-column: 1;
+  grid-row: 4;
+}
+
+.gridItem8 {
+  grid-column: 1;
+  grid-row: 4;
+}
+
 .gridText {
   align-self: start;
   margin-top: auto;
