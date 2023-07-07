@@ -7,6 +7,7 @@ import Entry from "@/components/Entry";
 import { getDaysInRange } from "../../utils/dateHelpers";
 import { getAllEntries } from "@/lib/getEntries";
 import { IEntry } from "@/types/types";
+import Navbar from "@/components/Navbar";
 
 const Grid: FC = (): ReactElement => {
   const [entryClicked, setEntryClicked] = useState<IEntry | null>(null);
