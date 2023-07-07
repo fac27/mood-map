@@ -54,20 +54,30 @@ const formElements = [
   },
 ];
 
+function capitaliseWords(str) {
+  return str
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 export default function DetailsModal({ emotion, onClose }) {
   const [mood, setMood] = useState(initialFormState);
   const link = useRef();
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = await getSessionBrowser().user;
+    const session = await getSessionBrowser();
+    const user = session.user;
 
     const { error } = await supabaseBrowser
       .from("entries")
       .insert({ ...mood, user_id: user.id, mood: emotion });
-    console.error(`ERROR: ${JSON.stringify(error)}`);
-    if (error === null) link.current.click();
-    //   redirect("/life-in-colour"); // idk why the f*** this doesnt work
+    if (error === null) return link.current.click();
+    Object.keys(mood).forEach((row) =>
+      error.message.includes(row) ? setError(row) : false
+    );
   };
 
   return (
@@ -88,7 +98,10 @@ export default function DetailsModal({ emotion, onClose }) {
         </fieldset>
         <hr />
         {formElements.map((formElement, elementIndex) => (
-          <fieldset key={elementIndex}>
+          <fieldset
+            key={elementIndex}
+            className={error == formElement.name ? styles.error : ""}
+          >
             {formElement.type === "radio" ? (
               <>
                 {formElement.options.map((option, radioIndex) => (
@@ -112,6 +125,11 @@ export default function DetailsModal({ emotion, onClose }) {
         <button className={styles.submitBtn} type="submit">
           Submit
         </button>
+        {error ? (
+          <b className={styles.errorDescription}>
+            Invalid: {capitaliseWords(error.replaceAll("_", " "))}
+          </b>
+        ) : null}
       </form>
       <Link href={"/life-in-colour"} ref={link} />
     </>

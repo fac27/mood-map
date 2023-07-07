@@ -1,6 +1,6 @@
 import supabaseBrowser from "./browser/client";
 
-export default async function getUserEntries(id) {
+export default async function getUserEntries() {
   const {
     data: { session },
   } = await supabaseBrowser.auth.getSession();
