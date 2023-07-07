@@ -6,7 +6,9 @@ import styles from "./page.module.css";
 import Entry from "@/components/Entry";
 import { getDays, getDaysInRange } from "../../utils/dateHelpers";
 // import {entries} from '@/lib/getEntries';
-import getUserEntries from "@/lib/db/getEntries";
+import {getUserEntries} from "@/lib/models";
+import Navbar from "@/components/Navbar.tsx";
+import { protectBrowserRoute } from "@/lib/browser/session";
 
 interface Entry {
   mood: number;
@@ -25,7 +27,9 @@ const Grid: FC = (): ReactElement => {
   const [entriesData, setEntriesData] = useState<Entry[]>([]);
 
   useEffect(() => {
-    getUserEntries().then((entries) => {
+    const getUser = async () => {
+    const session = await protectBrowserRoute();
+    getUserEntries(session.user.id).then((entries) => {
       // Sort entries by date
       const entriesSortedByDate = entries.sort((a, b) => {
         const dateA = new Date(a.mood_date);
@@ -41,6 +45,8 @@ const Grid: FC = (): ReactElement => {
       });
       setEntriesData(entriesSortedByDate);
     });
+  };
+  getUser();
   }, []);
 
   if (entriesData.length === 0) {
@@ -110,6 +116,7 @@ const Grid: FC = (): ReactElement => {
         </div>
       </div>
       {/*isOpen && <Entry onClose={closeModal} entries={entriesData} />*/}
+      <Navbar />
     </>
   );
 };

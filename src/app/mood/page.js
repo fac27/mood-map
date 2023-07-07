@@ -1,18 +1,22 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Exit from "@/components/Exit";
 import styles from "./page.module.css";
-import DetailsModal from "@/components/DetailsModal";
-import createEntry from "@/lib/db/createEntry";
+import DetailsModal from "@/components/DetailsModal.tsx";
+import { updateOrCreateEntry } from "@/lib/models";
+import { protectBrowserRoute } from "@/lib/browser/session";
+import { useRouter } from "next/navigation";
 
 export default function MoodPicker() {
   const [emotion, setEmotion] = useState(4);
   const [showDetails, setShowDetails] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [session, setSession] = useState({});
   const redirect = useRef();
+  const router = useRouter();
 
   const closeModal = () => setShowDetails(false);
 
@@ -30,11 +34,30 @@ export default function MoodPicker() {
     ));
 
   async function addMood() {
-    const error = await createEntry({ mood: emotion, mood_date: new Date() });
+    console.log("Adding");
+    if (!session) setIsError(true);
+    const error = await updateOrCreateEntry({
+      mood: emotion,
+      mood_date: new Date().toLocaleDateString("en-UK", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      }),
+      user_id: session.user.id,
+    });
     if (error) return setIsError(true);
     setIsError(false);
-    console.log(error);
+    // console.log("redirect");
+    router.push("/life-in-colour");
   }
+  useEffect(() => {
+    const getUser = async () => {
+      const session = await protectBrowserRoute();
+      setSession({ ...session });
+    };
+    getUser();
+  }, []);
 
   return (
     <>
@@ -65,7 +88,13 @@ export default function MoodPicker() {
       ) : null}
       <Link href="/" ref={redirect} />
 
-      {showDetails && <DetailsModal emotion={emotion} onClose={closeModal} />}
+      {showDetails && (
+        <DetailsModal
+          emotion={emotion}
+          onClose={closeModal}
+          session={session}
+        />
+      )}
     </>
   );
 }
