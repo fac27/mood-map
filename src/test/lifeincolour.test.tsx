@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Grid from "../app/life-in-colour/page"; // Replace this with the actual path to your Grid component
+import Grid from "../app/life-in-colour/page";
 
 describe("Grid", () => {
   it("renders the header correctly", () => {
