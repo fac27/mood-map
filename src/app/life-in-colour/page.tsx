@@ -18,9 +18,7 @@ const Grid: FC = (): ReactElement => {
     if (id === "no-entry") {
       return;
     }
-    const entry = getEntry(+id)
-    .then(entry =>  console.log(`entry: ${entry}`));
-   
+    const entry = getEntry(+id).then((entry) => console.log(`entry: ${entry}`));
 
     setIsOpen(true);
   };
