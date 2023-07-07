@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import styles from "./Entry.module.css";
-import Vector from "../../public/images/Vector.svg";
+import Vector from "@/../public/images/Vector.svg";
 import Image from "next/image";
 import { FC } from "react";
 import { IEntry } from "@/types/types";
