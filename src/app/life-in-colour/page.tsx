@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 import Entry from "@/components/Entry";
 import { getDays, getDaysInRange } from "../../utils/dateHelpers";
 // import {entries} from '@/lib/getEntries';
-import {getUserEntries} from "@/lib/models";
+import { getUserEntries } from "@/lib/models";
 import Navbar from "@/components/Navbar.tsx";
 import { protectBrowserRoute } from "@/lib/browser/session";
 
@@ -28,25 +28,25 @@ const Grid: FC = (): ReactElement => {
 
   useEffect(() => {
     const getUser = async () => {
-    const session = await protectBrowserRoute();
-    getUserEntries(session.user.id).then((entries) => {
-      // Sort entries by date
-      const entriesSortedByDate = entries.sort((a, b) => {
-        const dateA = new Date(a.mood_date);
-        const dateB = new Date(b.mood_date);
+      const session = await protectBrowserRoute();
+      getUserEntries(session.user.id).then((entries) => {
+        // Sort entries by date
+        const entriesSortedByDate = entries.sort((a, b) => {
+          const dateA = new Date(a.mood_date);
+          const dateB = new Date(b.mood_date);
 
-        if (dateA < dateB) {
-          return -1;
-        }
-        if (dateA > dateB) {
-          return 1;
-        }
-        return 0;
+          if (dateA < dateB) {
+            return -1;
+          }
+          if (dateA > dateB) {
+            return 1;
+          }
+          return 0;
+        });
+        setEntriesData(entriesSortedByDate);
       });
-      setEntriesData(entriesSortedByDate);
-    });
-  };
-  getUser();
+    };
+    getUser();
   }, []);
 
   if (entriesData.length === 0) {

@@ -25,7 +25,6 @@ export async function updateOrCreateEntry(entry) {
 
 async function createEntry(entry) {
   const { error } = await supabaseBrowser.from("entries").insert(entry);
-  console.log(error);
   return error;
 }
 
@@ -34,6 +33,5 @@ async function updateEntry(entry, id) {
     .from("entries")
     .update(entry)
     .eq("id", id);
-  console.log(error);
   return error;
 }

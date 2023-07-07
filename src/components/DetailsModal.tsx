@@ -101,7 +101,7 @@ const capitaliseWords = (str: string) => {
 const DetailsModal: FunctionComponent<DetailsModalProps> = ({
   emotion,
   onClose,
-  session
+  session,
 }): ReactElement => {
   const [mood, setMood] = useState<Record<string, any>>(initialFormState);
   const [error, setError] = useState("");
@@ -118,19 +118,21 @@ const DetailsModal: FunctionComponent<DetailsModalProps> = ({
       user_id: user.id,
       mood: emotion,
     });
-    setHasSubmitted(true)
+    setHasSubmitted(true);
   };
 
   useEffect(() => {
-    if (!hasSubmitted) return
-    const func = async () => {
-      const supabaseError = await updateOrCreateEntry(mood)
-      
-      if (!supabaseError) return router.push('/life-in-colour')
-      Object.keys(mood).forEach((row) => supabaseError.message.includes(row) ? setError(row) : false);
-    }
-    func()
-  }, [mood])
+    if (!hasSubmitted) return;
+    const handleMoodEntry = async () => {
+      const supabaseError = await updateOrCreateEntry(mood);
+
+      if (!supabaseError) return router.push("/life-in-colour");
+      Object.keys(mood).forEach((row) =>
+        supabaseError.message.includes(row) ? setError(row) : false
+      );
+    };
+    handleMoodEntry();
+  }, [mood]);
 
   return (
     <>
