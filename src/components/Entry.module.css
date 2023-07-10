@@ -1,14 +1,14 @@
 .modalContainer {
-  height: 500px;
-  width: 500px;
+  height: auto;
+  width: 90vw;
+  max-width: 520px;
   border-radius: 10px;
   border-color: grey;
   border-style: solid;
-  margin: 20px;
   padding: 20px;
   position: fixed;
   background-color: #f6f0d9;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
