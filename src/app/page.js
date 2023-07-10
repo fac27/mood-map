@@ -3,15 +3,26 @@ import Navbar from "@/components/Navbar.tsx";
 import { formatText, generateBlobs } from "../utils/blobHelpers";
 import { protectServerRoute } from "../lib/server/session";
 import { josefinSans } from "../utils/fonts";
+import { v4 as uuidv4 } from "uuid";
+import { getTodaysEntry } from "@/lib/models";
+import { redirect } from "next/navigation";
+
+async function checkEntryForToday(userId) {
+  const entry = await getTodaysEntry(userId);
+  console.log(entry);
+  if (!entry) redirect("/mood");
+}
 
 export default async function Home() {
   const session = await protectServerRoute();
   const user = session.user;
 
+  await checkEntryForToday(user.id);
+
   const blobs = generateBlobs();
   const blobElements = blobs.map((svg) => {
     return (
-      <div key={svg.id} className={styles.blob}>
+      <div key={uuidv4()} className={styles.blob}>
         <div className={`${styles.textContainer} ${josefinSans.className}`}>
           {formatText(svg.text).map((line, idx) => (
             <p
@@ -20,7 +31,7 @@ export default async function Home() {
                   ? `${styles.darkText}`
                   : `${styles.lightText}`
               }
-              key={`${svg.id}/${idx}`}
+              key={uuidv4()}
             >
               {line.join("")}
             </p>
