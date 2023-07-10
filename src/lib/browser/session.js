@@ -2,10 +2,8 @@ import supabaseBrowser from "./client";
 import { redirect } from "next/navigation";
 
 export async function getSessionBrowser() {
-  const {
-    data: { session },
-  } = await supabaseBrowser.auth.getSession();
-  return session;
+  const {data} = await supabaseBrowser.auth.getSession();
+  return data;
 }
 
 export async function protectBrowserRoute() {

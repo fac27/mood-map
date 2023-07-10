@@ -7,6 +7,9 @@ import supabaseBrowser from "../../lib/browser/client";
 import styles from "./page.module.css";
 import { getSessionBrowser } from "../../lib/browser/session";
 import { useEffect, useRef, useState } from "react";
+import { AuthSession } from "@supabase/auth-ui-react/dist/components/Auth/UserContext";
+
+// import { supabase } from "@supabase/auth-ui-shared";
 
 export default function Login() {
   const home = useRef(null);
@@ -18,10 +21,11 @@ export default function Login() {
 
   useEffect(() => {
     const validateUser = async () => {
-      const session = await getSessionBrowser();
-      const user = session?.user;
+      const data = await getSessionBrowser();
+      const user = data.session?.user;
       if (isLoggedIn || user) home.current.click();
     };
+
     validateUser();
   }, [isLoggedIn]);
 
@@ -35,6 +39,7 @@ export default function Login() {
           appearance={{
             theme: ThemeSupa,
           }}
+          redirectTo={"http://localhost:3000"}
           localization={{
             variables: {
               sign_in: {
