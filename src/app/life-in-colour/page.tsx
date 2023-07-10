@@ -99,12 +99,18 @@ const Grid: FC = (): ReactElement => {
             }
             return (
               <div
-                className={styles.gridBox}
+                className={`${styles.gridBox}
+                ${day.getMonth() % 2 === 1 ? styles.alternateMonth : ''}
+                ${matchingEntry ? styles.gridPopulated : ''}`}
+
                 style={{
                   gridColumn,
                   backgroundColor: matchingEntry
                     ? `var(--color-${matchingEntry["mood"]})`
                     : "var(--background-color))",
+                    color: matchingEntry
+                    ? `var(--color-${matchingEntry["mood"]})`
+                    : "var(--background-color))"
                 }}
                 id={
                   matchingEntry
@@ -114,7 +120,7 @@ const Grid: FC = (): ReactElement => {
                 key={day.toString()}
                 data-testid="myDiv"
                 onClick={openModal}
-              >{`${day.getDate()}/${day.getMonth() + 1}`}</div>
+              >{matchingEntry ? `${day.getDate()}/${day.getMonth()+1}` : ''}</div>
             );
           })}
         </div>
@@ -127,10 +133,7 @@ const Grid: FC = (): ReactElement => {
 
 const getEntryById = (id: number, entries: IEntry[]): IEntry | null => {
   const entry = entries.find((entry) => entry.id === id);
-  if (entry) {
-    return entry;
-  }
-  return null;
+  return entry ? entry : null;
 };
 
 export default Grid;

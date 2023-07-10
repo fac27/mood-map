@@ -15,15 +15,29 @@
   display: grid;
   grid-template-columns: repeat(7, 32px);
   gap: 2px;
+  font-size: 12px;
 }
 
 .gridBox {
+  font-family: sans-serif;
   text-align: center;
   height: 32px;
   width: 32px;
+  line-height: 28px;
   border-style: solid;
-  border-color: black;
+  border-color: var(--color-month-border);
   border-width: 2px;
+  outline: 2px solid rgba(255, 143, 31, 0.3);
+}
+
+.gridPopulated:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  color: #000 !important;
+}
+
+.alternateMonth {
+  outline: 2px solid rgba(255, 102, 252, 0.3);
 }
 
 .information {
