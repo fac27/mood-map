@@ -2,16 +2,15 @@ import {
   FunctionComponent,
   useRef,
   useState,
-  ChangeEvent,
   ReactElement,
+  useEffect,
 } from "react";
-import supabaseBrowser from "../lib/browser/client";
 import styles from "./DetailsModal.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import Vector from "../../public/images/Vector.svg";
 import { useRouter } from "next/navigation";
-// import { getSessionBrowser } from "@/lib/browser/session";
+import { updateOrCreateEntry } from "@/lib/models";
 
 interface FormElement {
   name: string;
@@ -23,15 +22,16 @@ interface FormElement {
 interface InputElementProps {
   formElement: FormElement;
   value: string;
-  state: [Record<string, any>, (mood: Record<string, any>) => void];
+  state: [any, any];
 }
 
 interface DetailsModalProps {
-  emotion: string;
+  emotion: number;
   onClose: () => void;
+  session: any; //supabase session object
 }
 interface Mood {
-  mood: number | string;
+  mood: number;
   mood_date: string;
   journal_entry: string;
   context_people: string;
@@ -45,6 +45,12 @@ const InputElement: FunctionComponent<InputElementProps> = ({
   state: [mood, setMood],
 }) => {
   const isRadio = formElement.type === "radio";
+  const currentDate = new Date()
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+
+  const formattedDate = `${year}-${month}-${day}`;
   return (
     <>
       <label htmlFor={isRadio ? value : formElement.name}>
@@ -52,6 +58,7 @@ const InputElement: FunctionComponent<InputElementProps> = ({
       </label>
       <input
         type={formElement.type}
+        max={formElement.type === 'date' ? formattedDate : ''}
         name={formElement.name}
         id={formElement.name}
         value={value}
@@ -63,15 +70,6 @@ const InputElement: FunctionComponent<InputElementProps> = ({
 
 const today = new Date();
 const trailingZero = (num: number) => num.toString().padStart(2, "0");
-const initialFormState = {
-  mood: null,
-  mood_date: `${today.getFullYear()}-${trailingZero(
-    today.getMonth() + 1
-  )}-${trailingZero(today.getDate())}`,
-  journal_entry: "",
-  context_people: "",
-  context_location: "",
-};
 
 const formElements = [
   { name: "mood_date", heading: "Date", type: "date" },
@@ -96,76 +94,52 @@ const capitaliseWords = (str: string) => {
     .join(" ");
 };
 
-export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
+const DetailsModal: FunctionComponent<DetailsModalProps> = ({
   emotion,
   onClose,
+  session,
 }): ReactElement => {
-  const [mood, setMood] = useState<Record<string, any>>(initialFormState);
-  const link = useRef<HTMLAnchorElement>(null);
+  const [mood, setMood] = useState({
+    user_id: "",
+    mood: emotion,
+    mood_date: `${today.getFullYear()}-${trailingZero(
+      today.getMonth() + 1
+    )}-${trailingZero(today.getDate())}`,
+    journal_entry: "",
+    context_people: "",
+    context_location: "",
+  });
   const [error, setError] = useState("");
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const link = useRef<HTMLAnchorElement>(null);
   const router = useRouter();
-
-  //could be refactored again with Mark's updates
-  const createOrUpdateEntry = async (existingEntry: any, updatedMood: any) => {
-    if (existingEntry.data) {
-      const { data: updatedEntry, error } = await supabaseBrowser
-        .from("entries")
-        .update({
-          mood: updatedMood.mood,
-          journal_entry: updatedMood.journal_entry,
-          context_people: updatedMood.context_people,
-          context_location: updatedMood.context_location,
-        })
-        .eq("id", existingEntry.data.id);
-
-      return { data: updatedEntry, error };
-    } else {
-      return await supabaseBrowser.from("entries").insert(updatedMood);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const {
-      data: { session },
-    } = await supabaseBrowser.auth.getSession();
-
-    if (!session) return;
-
+    
     const user = session.user;
-    const updatedMood: Mood = {
+
+    setMood({
       ...mood,
       user_id: user.id,
       mood: emotion,
-      mood_date: mood.mood_date,
-      journal_entry: mood.journal_entry,
-      context_people: mood.context_people,
-      context_location: mood.context_location,
-    };
-    setMood(updatedMood);
-
-    const existingEntry = await supabaseBrowser
-      .from("entries")
-      .select("*")
-      .eq("mood_date", updatedMood.mood_date)
-      .eq("user_id", updatedMood.user_id)
-      .single();
-
-    const { error } = await createOrUpdateEntry(existingEntry, updatedMood);
-
-    if (error) {
-      console.error(`ERROR: ${JSON.stringify(error)}`);
-      Object.keys(mood).forEach((row) =>
-        error.message.includes(row) ? setError(row) : false
-      );
-      router.push("/");
-    } else {
-      if (link.current !== null) {
-        link.current.click();
-      }
-    }
+    });
+    setHasSubmitted(true);
   };
+
+  useEffect(() => {
+    if (!hasSubmitted) return;
+    const handleMoodEntry = async () => {
+      const supabaseError = await updateOrCreateEntry(mood);
+
+      if (!supabaseError) return router.push("/life-in-colour");
+      Object.keys(mood).forEach((row) =>
+        supabaseError.message.includes(row) ? setError(row) : false
+      );
+    };
+    handleMoodEntry();
+  }, [mood]);
+
   return (
     <>
       <form className={styles.contextForm} onSubmit={handleSubmit}>
@@ -202,7 +176,7 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
             ) : (
               <InputElement
                 formElement={formElement}
-                value={mood[formElement.name]}
+                value={mood[formElement.name as keyof typeof mood] as string}
                 state={[mood, setMood]}
               />
             )}
@@ -221,3 +195,5 @@ export const DetailsModal: FunctionComponent<DetailsModalProps> = ({
     </>
   );
 };
+
+export default DetailsModal;
