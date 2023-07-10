@@ -1,5 +1,6 @@
 import supabaseBrowser from "./browser/client";
 import { IEntry, IUsersEntry } from "@/types/types";
+import date from "./date";
 
 export async function getUserEntries(userId: string) {
   const { data, error } = await supabaseBrowser
@@ -60,6 +61,22 @@ export async function getEntry(id: number, userId: string): Promise<IEntry> {
     )
     .eq("user_id", userId)
     .eq("id", id);
+
+  if (error) {
+    console.error("Error fetching user entries:", error);
+    throw error;
+  }
+  return data[0];
+}
+
+export async function getTodaysEntry(userId: string): Promise<IEntry> {
+  const { data, error } = await supabaseBrowser
+    .from("entries")
+    .select(
+      "id, mood, mood_date, journal_entry, context_people, context_location"
+    )
+    .eq("user_id", userId)
+    .eq("mood_date", date());
 
   if (error) {
     console.error("Error fetching user entries:", error);
