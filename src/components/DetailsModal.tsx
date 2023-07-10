@@ -45,10 +45,10 @@ const InputElement: FunctionComponent<InputElementProps> = ({
   state: [mood, setMood],
 }) => {
   const isRadio = formElement.type === "radio";
-  const currentDate = new Date()
+  const currentDate = new Date();
   const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-  const day = String(currentDate.getDate()).padStart(2, '0');
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const day = String(currentDate.getDate()).padStart(2, "0");
 
   const formattedDate = `${year}-${month}-${day}`;
   return (
@@ -58,7 +58,7 @@ const InputElement: FunctionComponent<InputElementProps> = ({
       </label>
       <input
         type={formElement.type}
-        max={formElement.type === 'date' ? formattedDate : ''}
+        max={formElement.type === "date" ? formattedDate : ""}
         name={formElement.name}
         id={formElement.name}
         value={value}
@@ -116,7 +116,7 @@ const DetailsModal: FunctionComponent<DetailsModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const user = session.user;
 
     setMood({
