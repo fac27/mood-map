@@ -2,7 +2,7 @@ import supabaseBrowser from "./client";
 import { redirect } from "next/navigation";
 
 export async function getSessionBrowser() {
-  const {data} = await supabaseBrowser.auth.getSession();
+  const { data } = await supabaseBrowser.auth.getSession();
   return data;
 }
 
