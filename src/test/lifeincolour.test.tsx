@@ -1,14 +1,13 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Grid from "../app/life-in-colour/page";
 
-jest.mock("next/router", () => ({
-  useRouter: () => ({
+jest.mock("next/navigation", () => ({
+  redirect: () => ({
     route: "/test",
     pathname: "/test",
     query: "",
     asPath: "",
-    replace: jest.fn(),
-    push: jest.fn(),
+    redirect: jest.fn(),
   }),
 }));
 

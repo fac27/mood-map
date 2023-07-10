@@ -12,7 +12,6 @@ import { protectBrowserRoute } from "@/lib/browser/session";
 
 const Grid: FC = (): ReactElement => {
   const [entryClicked, setEntryClicked] = useState<IEntry | null>(null);
-
   const [isOpen, setIsOpen] = useState(false);
 
   const openModal = (e: React.MouseEvent) => {
