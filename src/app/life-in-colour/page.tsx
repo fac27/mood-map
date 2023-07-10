@@ -34,16 +34,17 @@ const Grid: FC = (): ReactElement => {
   useEffect(() => {
     const getUser = async () => {
       const session = await protectBrowserRoute();
-      getAllEntries(session.user.id).then((entries) => {
-        // Sort entries by date
-        const entriesSortedByDate = entries.sort((a, b) => {
-          const dateA = new Date(a.mood_date);
-          const dateB = new Date(b.mood_date);
+      if (typeof session !== "boolean" && session !== undefined) {
+        getAllEntries(session.user.id).then((entries) => {
+          const entriesSortedByDate = entries.sort((a, b) => {
+            const dateA = new Date(a.mood_date);
+            const dateB = new Date(b.mood_date);
 
-          return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
+            return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
+          });
+          setEntriesData(entriesSortedByDate);
         });
-        setEntriesData(entriesSortedByDate);
-      });
+      }
     };
     getUser();
   }, []);
