@@ -12,6 +12,7 @@ import Vector from "../../public/images/Vector.svg";
 import { useRouter } from "next/navigation";
 import { updateOrCreateEntry } from "@/lib/models";
 import { IEntry } from "@/types/types";
+import date from "@/lib/date";
 
 interface FormElement {
   name: string;
@@ -46,12 +47,6 @@ const InputElement: FunctionComponent<InputElementProps> = ({
   state: [mood, setMood],
 }) => {
   const isRadio = formElement.type === "radio";
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-  const day = String(currentDate.getDate()).padStart(2, "0");
-
-  const formattedDate = `${year}-${month}-${day}`;
   return (
     <>
       <label htmlFor={isRadio ? value : formElement.name}>
@@ -59,7 +54,7 @@ const InputElement: FunctionComponent<InputElementProps> = ({
       </label>
       <input
         type={formElement.type}
-        max={formElement.type === "date" ? formattedDate : ""}
+        max={formElement.type === "date" ? date() : ""}
         name={formElement.name}
         id={formElement.name}
         value={value}
