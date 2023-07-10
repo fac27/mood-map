@@ -2,7 +2,8 @@ import nextJest from "next/jest";
 const createJestConfig = nextJest({ dir: "./" });
 
 const customJestConfig = {
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  setupFilesAfterEnv: ['./jest.setup.js'],
+  testEnvironment: "jsdom",
   verbose: true,
   collectCoverage: true,
   coveragePathIgnorePatterns: [
@@ -12,11 +13,11 @@ const customJestConfig = {
     "src/lib/server/client.js",
   ],
   moduleNameMapper: {
-    jose: "<rootDir>/node_modules/jose/dist/browser/index.js",
+    '^jose$': require.resolve('jose'),
   },
   collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}"],
   coverageDirectory: "coverage",
-  testEnvironment: "jsdom",
+ 
   transform: {
     "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "ts-jest",
   },

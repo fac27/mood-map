@@ -57,9 +57,6 @@ const Grid: FC = (): ReactElement => {
   );
   const earliestEntry = new Date(entriesData[0]["mood_date"]);
 
-  // console.log(`latestEntry: ${latestEntry}`);
-  // console.log(`earliestEntry: ${earliestEntry}`);
-
   const divDays = getDaysInRange(earliestEntry, latestEntry);
 
   return (

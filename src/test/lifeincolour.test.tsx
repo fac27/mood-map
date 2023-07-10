@@ -1,6 +1,17 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Grid from "../app/life-in-colour/page";
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    route: '/test',
+    pathname: '/test',
+    query: '',
+    asPath: '',
+    replace: jest.fn(),
+    push: jest.fn(),
+  }),
+}))
+
 describe("Grid", () => {
   it("renders the header correctly", () => {
     render(<Grid />);
