@@ -11,6 +11,7 @@ import Link from "next/link";
 import Vector from "../../public/images/Vector.svg";
 import { useRouter } from "next/navigation";
 import { updateOrCreateEntry } from "@/lib/models";
+import { IEntry } from "@/types/types";
 
 interface FormElement {
   name: string;
@@ -116,7 +117,6 @@ const DetailsModal: FunctionComponent<DetailsModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const user = session.user;
 
     setMood({
