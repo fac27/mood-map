@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar.tsx";
 import { formatText, generateBlob } from "../utils/blobHelpers";
 import { protectServerRoute } from "../lib/server/session";
 import { josefinSans } from "../utils/fonts";
+import { v4 as uuidv4 } from "uuid";
 import { getTodaysEntry } from "@/lib/models";
 import { redirect } from "next/navigation";
 import Image from "next/image";
@@ -24,7 +25,7 @@ export default async function Home() {
     const svg = generateBlob();
 
     return (
-      <div key={idx} className={styles.blob}>
+      <div key={uuidv4()} className={styles.blob}>
         <div className={`${styles.textContainer} ${josefinSans.className}`}>
           {formatText(info).map((line) => (
             <p
@@ -33,7 +34,7 @@ export default async function Home() {
                   ? `${styles.darkText}`
                   : `${styles.lightText}`
               }
-              key={line}
+              key={uuidv4()}
             >
               {line.join("")}
             </p>
