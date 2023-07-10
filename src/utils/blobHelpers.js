@@ -31,32 +31,19 @@ export const formatText = (text) => {
   return charGroups;
 };
 
-export const generateBlobs = () => {
-  const info = [
-    `Streak 7 days`,
-    `Favourite song - toxic by Britney Spears`,
-    `Better sleep is known to ward off stress & anxiety`,
-    `The last week you haven't been happy let's change that`,
-  ];
-  const blobs = [];
+export const generateBlob = () => {
+  const randomBlobColour = getRandomColor();
+  const randomBlobInt = Math.floor(Math.random() * blobSvgs.length);
+  const randomBlob = blobSvgs[randomBlobInt];
+  randomBlob.path.fill = randomBlobColour;
 
-  for (let i = 0; i < 4; i++) {
-    const randomBlobColour = getRandomColor();
-    const randomBlobInt = Math.floor(Math.random() * blobSvgs.length);
-    const randomBlob = blobSvgs[randomBlobInt];
-    randomBlob.path.fill = randomBlobColour;
+  // check the brightness of the random colour of the blob
+  const rgbColour = hexToRgb(randomBlob.path.fill);
+  const colourBrightness = checkBrightness(rgbColour);
 
-    // check the brightness of the random colour of the blob
-    const rgbColour = hexToRgb(randomBlob.path.fill);
-    const colourBrightness = checkBrightness(rgbColour);
+  colourBrightness < 135
+    ? (randomBlob.colour = "dark")
+    : (randomBlob.colour = "light");
 
-    colourBrightness < 130
-      ? (randomBlob.colour = "dark")
-      : (randomBlob.colour = "light");
-
-    randomBlob.text = info[i];
-    blobs.push(randomBlob);
-  }
-
-  return blobs;
+  return randomBlob;
 };
