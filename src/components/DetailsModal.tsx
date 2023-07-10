@@ -12,6 +12,7 @@ import Vector from "../../public/images/Vector.svg";
 import { useRouter } from "next/navigation";
 import { updateOrCreateEntry } from "@/lib/models";
 import { IEntry } from "@/types/types";
+import date from "@/lib/date";
 
 interface FormElement {
   name: string;
@@ -53,6 +54,7 @@ const InputElement: FunctionComponent<InputElementProps> = ({
       </label>
       <input
         type={formElement.type}
+        max={formElement.type === "date" ? date() : ""}
         name={formElement.name}
         id={formElement.name}
         value={value}
