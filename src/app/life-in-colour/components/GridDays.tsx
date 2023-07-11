@@ -1,6 +1,9 @@
+"use client";
+
+
 import { useState, useEffect } from "react";
 import { ReactElement, FC } from "react";
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 import { getDaysInRange } from "@/utils/dateHelpers";
 import { getAllEntries } from "@/lib/models";
 import { IEntry } from "@/types/types";
@@ -30,6 +33,7 @@ const GridDays: FC = (): ReactElement => {
     };
     getUser();
   }, []);
+  console.log(entriesData)
 
   const openModal = (e: React.MouseEvent) => {
     const id = e.currentTarget.id;
@@ -45,27 +49,24 @@ const GridDays: FC = (): ReactElement => {
 
   const closeModal = () => setIsOpen(false);
 
-
   const getEntryById = (id: number, entries: IEntry[]): IEntry | null => {
     const entry = entries.find((entry) => entry.id === id);
     return entry ? entry : null;
   };
-
 
   const latestEntry = new Date(
     entriesData[entriesData.length - 1]["mood_date"]
   );
   const earliestEntry = new Date(entriesData[0]["mood_date"]);
 
-
-  return entriesData.length === 0 
-  ? <div className={styles.information}>Loading...</div> 
-  : (
+  return entriesData.length === 0 ? (
+    <div className={styles.information}>Loading...</div>
+  ) : (
     <>
-    {getDaysInRange(earliestEntry, latestEntry).map((day: Date) => {
-      const matchingEntry = (entriesData as []).find((entry) => {
-        const entryDate = new Date(entry["mood_date"]);
-        return (
+      {getDaysInRange(earliestEntry, latestEntry).map((day: Date) => {
+        const matchingEntry = (entriesData as []).find((entry) => {
+          const entryDate = new Date(entry["mood_date"]);
+          return (
             entryDate.getDate() === day.getDate() &&
             entryDate.getMonth() === day.getMonth() &&
             entryDate.getFullYear() === day.getFullYear()
@@ -111,9 +112,8 @@ const GridDays: FC = (): ReactElement => {
         );
       })}
       {isOpen && <Entry onClose={closeModal} entry={entryClicked} />}
-      </>
+    </>
   );
 };
-
 
 export default GridDays;

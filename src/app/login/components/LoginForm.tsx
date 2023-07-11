@@ -1,3 +1,5 @@
+"use client";
+
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import supabaseBrowser from "@/lib/browser/client";
@@ -7,9 +9,9 @@ import { useRouter } from "next/navigation";
 
 export default function Login() {
   // middleware should handle this
-  const [isLoggedIn, setIsLoggedIn] = useState(false) 
-  const router = useRouter() 
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+
   supabaseBrowser.auth.onAuthStateChange((event) => {
     if (event == "SIGNED_IN") setIsLoggedIn(true);
   });
@@ -18,12 +20,13 @@ export default function Login() {
     const validateUser = async () => {
       const session = await getSessionBrowser();
       const user = session?.user;
-      if (isLoggedIn || user) router.push('/');
+      if (isLoggedIn || user) router.push("/");
     };
     validateUser();
   }, [isLoggedIn]);
 
-    return (<Auth
+  return (
+    <Auth
       supabaseClient={supabaseBrowser}
       providers={["spotify"]}
       appearance={{
@@ -39,4 +42,6 @@ export default function Login() {
           },
         },
       }}
-    />) }
+    />
+  );
+}
