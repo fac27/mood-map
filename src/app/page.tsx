@@ -18,8 +18,8 @@ async function checkEntryForToday(userId: string): Promise<IEntry> {
 
 export default async function Home(): Promise<ReactElement> {
   const session = await protectServerRoute();
-  const user = session.user;
-  const entry: IEntry = await checkEntryForToday(user.id);
+  const user = session?.user;
+  const entry: IEntry = await checkEntryForToday(user ? user.id : "");
   const entryInfo = Object.values(entry).slice(2);
 
   const blobElements = entryInfo.map((info, idx) => {
@@ -56,7 +56,7 @@ export default async function Home(): Promise<ReactElement> {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>Hello, {user.email} </h1>
+        <h1>Hello, {user?.email} </h1>
         <p className={styles.moodHeader}>
           Mood for the day{" "}
           <Image
