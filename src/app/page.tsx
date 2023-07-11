@@ -67,8 +67,9 @@ export default async function Home(): Promise<ReactElement> {
           <Image
             src={`/images/emo${entry.mood}.svg`}
             alt="mood of the day"
-            width={60}
-            height={60}
+            width={40}
+            height={40}
+            style={{ marginLeft: "10px" }}
           />
         </p>
       </div>
