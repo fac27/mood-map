@@ -30,7 +30,7 @@ export default function Login() {
     <>
       <h1 className={styles.title}>Mood Map</h1>
       <div className={styles.wrapper}>
-        <LoginComp/>
+        <LoginComp />
         {/* <Auth
           supabaseClient={supabaseBrowser}
           providers={["spotify"]}

@@ -59,7 +59,7 @@ export interface EntriesDatabase {
           context_people: string | null;
           context_location: string | null;
           user_id: string | null;
-        }
+        };
         Insert: {
           mood: number;
           mood_date: Date;
@@ -67,7 +67,7 @@ export interface EntriesDatabase {
           context_people?: string;
           context_location?: string;
           user_id?: string;
-        }
+        };
         Update: {
           mood?: number;
           mood_date?: Date;
@@ -75,10 +75,10 @@ export interface EntriesDatabase {
           context_people?: string;
           context_location?: string;
           user_id?: string;
-        }
-      }
-    }
-  }
+        };
+      };
+    };
+  };
 }
 
 export interface Database {
@@ -96,14 +96,14 @@ export interface Database {
           user_metadata: object | null;
           created_at: Date;
           updated_at: Date;
-        }
+        };
         Insert: {
           aud: string;
           role: string;
           email?: string;
           app_metadata?: object;
           user_metadata?: object;
-        }
+        };
         Update: {
           aud?: string;
           role?: string;
@@ -112,8 +112,8 @@ export interface Database {
           last_sign_in_at?: Date;
           app_metadata?: object;
           user_metadata?: object;
-        }
-      }
-    }
-  }
+        };
+      };
+    };
+  };
 }
