@@ -34,3 +34,18 @@ export interface IDetailsModalProps {
   onClose: () => void;
   session: any; //supabase session object
 }
+
+export type hexValue = `#${string}`;
+
+export interface IBlobSvg {
+  id: number;
+  viewBox: string;
+  xmlns: string;
+  colour: "dark" | "light";
+  text?: string;
+  path: {
+    fill: hexValue;
+    d: string;
+    transform: string;
+  };
+}
