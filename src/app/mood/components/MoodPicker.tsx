@@ -7,6 +7,7 @@ import styles from "../page.module.css";
 import DetailsModal from "@/components/DetailsModal";
 import { updateOrCreateEntry } from "@/lib/models";
 import { useRouter } from "next/navigation";
+import { IUserEntry } from "@/types/types";
 
 export default function MoodPicker({ session }) {
   const [emotion, setEmotion] = useState(4);
@@ -16,6 +17,7 @@ export default function MoodPicker({ session }) {
 
   async function addMood() {
     if (!session) return setIsError(true);
+
     const error = await updateOrCreateEntry({
       mood: emotion,
       mood_date: new Date().toLocaleDateString("en-UK", {
@@ -24,12 +26,12 @@ export default function MoodPicker({ session }) {
         day: "numeric",
         year: "numeric",
       }),
-      user_id: session.user.id,
-    });
+      user_id: session?.user?.id,
+    } as IUserEntry);
     if (error) return setIsError(true);
     setIsError(false);
     router.push("/life-in-colour");
-  }
+  };
 
   return (
     <>
