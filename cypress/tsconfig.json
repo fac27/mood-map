@@ -4,6 +4,6 @@
     "lib": ["es5", "dom"],
     "types": ["cypress", "node"]
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "cypress/**/*.ts"],
   "testFiles": ["**/*.spec.ts", "**/*.cy.ts"]
 }
