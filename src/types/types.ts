@@ -7,8 +7,6 @@ export interface IEntry {
   id?: number;
 }
 
-
-
 export interface IUserEntry extends IEntry {
   user_id: string;
 }

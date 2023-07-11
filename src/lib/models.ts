@@ -4,7 +4,7 @@ import date from "./date";
 import { PostgrestError } from "@supabase/supabase-js";
 
 export async function getUserEntries(userId: string): Promise<IEntry | null> {
-  const { data, error }  = await supabaseBrowser
+  const { data, error } = await supabaseBrowser
     .from("entries")
     .select("mood, mood_date, journal_entry, context_people, context_location")
     .eq("user_id", userId)
@@ -14,7 +14,9 @@ export async function getUserEntries(userId: string): Promise<IEntry | null> {
   return data;
 }
 
-export async function updateOrCreateEntry(entry: IUserEntry):Promise<PostgrestError | null> {
+export async function updateOrCreateEntry(
+  entry: IUserEntry
+): Promise<PostgrestError | null> {
   //must already have user_id in mood
   const { data: existingEntry } = await supabaseBrowser
     .from("entries")
@@ -32,7 +34,10 @@ async function createEntry(entry: IUserEntry): Promise<PostgrestError | null> {
   return error;
 }
 
-async function updateEntry(entry: IUserEntry, id: number): Promise<PostgrestError | null> {
+async function updateEntry(
+  entry: IUserEntry,
+  id: number
+): Promise<PostgrestError | null> {
   const { error } = await supabaseBrowser
     .from("entries")
     .update(entry)
