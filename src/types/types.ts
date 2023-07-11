@@ -15,3 +15,22 @@ export interface IUsersEntry extends IEntry {
 export interface IEntryWithID extends IEntry {
   id: number;
 }
+
+export interface IFormElement {
+  name: string;
+  heading: string;
+  type: string;
+  options?: string[];
+}
+
+export interface IInputElementProps {
+  formElement: IFormElement;
+  value: string;
+  state: [any, any];
+}
+
+export interface IDetailsModalProps {
+  emotion: number;
+  onClose: () => void;
+  session: any; //supabase session object
+}
