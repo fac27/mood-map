@@ -44,7 +44,6 @@ export interface IBlobSvg {
   viewBox: string;
   xmlns: string;
   colour: "dark" | "light";
-  text?: string;
   path: {
     fill: hexValue;
     d: string;
