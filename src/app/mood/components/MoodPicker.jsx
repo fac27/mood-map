@@ -1,62 +1,39 @@
+"use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Exit from "@/components/Exit";
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 import DetailsModal from "@/components/DetailsModal";
 import { updateOrCreateEntry } from "@/lib/models";
-import { protectBrowserRoute } from "@/lib/browser/session";
 import { useRouter } from "next/navigation";
 
-export default function MoodPicker() {
-    const [emotion, setEmotion] = useState(4);
-    const [showDetails, setShowDetails] = useState(false);
-    const [isError, setIsError] = useState(false);
-    const [session, setSession] = useState({});
-    const router = useRouter();
-  
-    const closeModal = () => setShowDetails(false);
-  
-    const EmojiElements = () =>
-      [1, 2, 3, 4, 5].map((emotion) => (
-        <Image
-          key={emotion}
-          className={styles.emojiBox}
-          onClick={() => setEmotion(emotion)}
-          src={`/images/emo${emotion}.svg`}
-          alt="image"
-          width={60}
-          height={60}
-        />
-      ));
-  
-    async function addMood() {
-      if (!session) setIsError(true);
-      const error = await updateOrCreateEntry({
-        mood: emotion,
-        mood_date: new Date().toLocaleDateString("en-UK", {
-          weekday: "long",
-          month: "long",
-          day: "numeric",
-          year: "numeric",
-        }),
-        user_id: session.user.id,
-      });
-      if (error) return setIsError(true);
-      setIsError(false);
-      router.push("/life-in-colour");
-    }
-  
-    useEffect(() => {
-      const getUser = async () => {
-        const session = await protectBrowserRoute();
-        setSession({ ...session });
-      };
-      getUser();
-    }, []);
-    return (
+export default function MoodPicker({ session }) {
+  const [emotion, setEmotion] = useState(4);
+  const [showDetails, setShowDetails] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const router = useRouter();
+
+  async function addMood() {
+    if (!session) return setIsError(true);
+    const error = await updateOrCreateEntry({
+      mood: emotion,
+      mood_date: new Date().toLocaleDateString("en-UK", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      }),
+      user_id: session.user.id,
+    });
+    if (error) return setIsError(true);
+    setIsError(false);
+    router.push("/life-in-colour");
+  }
+
+  return (
     <>
-    <div className={styles.header}>
+      <div className={styles.header}>
         <Exit path={"/"} />
         <h1 className={styles.title}>How are you feeling today?</h1>
         <Image
@@ -69,7 +46,17 @@ export default function MoodPicker() {
       </div>
 
       <div className={styles.emojiContainer}>
-        <EmojiElements />
+        {[1, 2, 3, 4, 5].map((emotion) => (
+          <Image
+            key={emotion}
+            className={styles.emojiBox}
+            onClick={() => setEmotion(emotion)}
+            src={`/images/emo${emotion}.svg`}
+            alt="image"
+            width={60}
+            height={60}
+          />
+        ))}
       </div>
 
       <div className={styles.links}>
@@ -84,12 +71,11 @@ export default function MoodPicker() {
 
       {showDetails && (
         <DetailsModal
-
-        emotion={emotion}
-          onClose={closeModal}
+          emotion={emotion}
+          onClose={() => setShowDetails(false)}
           session={session}
-        />)}
+        />
+      )}
     </>
-
-      )
+  );
 }
