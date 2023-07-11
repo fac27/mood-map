@@ -3,6 +3,7 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 import type { Database } from "@/types/types";
 
@@ -11,6 +12,13 @@ export default function LoginComp() {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const supabase = createClientComponentClient<Database>();
+
+  async function signInWithSpotify() {
+    signIn("spotify", { callbackUrl: "http://localhost:3000" });
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "spotify",
+    });
+  }
 
   const handleSignUp = async () => {
     await supabase.auth.signUp({
@@ -49,6 +57,7 @@ export default function LoginComp() {
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />
+      <button onClick={signInWithSpotify}>Sign in with Spotify</button>
       <button onClick={handleSignUp}>Sign up</button>
       <button onClick={handleSignIn}>Sign in</button>
       <button onClick={handleSignOut}>Sign out</button>
