@@ -10,7 +10,11 @@ import { useRouter } from "next/navigation";
 import { IUserEntry } from "@/types/types";
 import { Session } from "@supabase/auth-helpers-nextjs"; //this Session type is just 'any'? its kind of redundant. would be nice to have a real type definition
 
-export default function MoodPicker({ session }: {session: Session}): ReactElement {
+export default function MoodPicker({
+  session,
+}: {
+  session: Session;
+}): ReactElement {
   const [emotion, setEmotion] = useState(4);
   const [showDetails, setShowDetails] = useState(false);
   const [isError, setIsError] = useState(false);
