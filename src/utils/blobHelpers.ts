@@ -4,7 +4,7 @@ import { IBlobSvg } from "@/types/types";
 import { hexValue } from "@/types/types";
 
 const checkBrightness = (rgb: number[]): number => {
-    const [r, g, b] = rgb;
+  const [r, g, b] = rgb;
   return Math.sqrt(r * r * 0.241 + g * g * 0.691 + b * b * 0.068);
 };
 

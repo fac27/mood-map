@@ -14,7 +14,7 @@ const hexValueChart: Record<string, number> = {
   c: 12,
   d: 13,
   e: 14,
-  f: 15
+  f: 15,
 };
 const rgbValueChart: Record<string, string | number> = {
   0: 0,
@@ -32,7 +32,7 @@ const rgbValueChart: Record<string, string | number> = {
   12: "c",
   13: "d",
   14: "e",
-  15: "f"
+  15: "f",
 };
 
 export const hexToRgb = (hex: `#${string}`): number[] | null => {
@@ -41,12 +41,12 @@ export const hexToRgb = (hex: `#${string}`): number[] | null => {
   const rgbValues =
     unhashedValues
       .match(/.{2}.{2}.{2}/g)
-      ?.map((pair) => hexValueChart[pair] * 16 + hexValueChart[pair[1]]) || null;
+      ?.map((pair) => hexValueChart[pair] * 16 + hexValueChart[pair[1]]) ||
+    null;
   return rgbValues;
 };
 
 export const rgbToHex = (rgb: number[]): (string | number)[] => {
-
   const firstPair = rgb[0];
   const secondPair = rgb[1];
   const thirdPair = rgb[2];
@@ -64,6 +64,6 @@ export const rgbToHex = (rgb: number[]): (string | number)[] => {
     thirdHexValue,
     fourthHexValue,
     fifthHexValue,
-    sixthHexValue
+    sixthHexValue,
   ];
 };
