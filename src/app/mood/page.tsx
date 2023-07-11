@@ -1,3 +1,4 @@
+"use client";
 import { useState, useRef, useEffect, ReactElement } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,9 +7,9 @@ import styles from "./page.module.css";
 import DetailsModal from "@/components/DetailsModal";
 import { updateOrCreateEntry } from "@/lib/models";
 import { protectBrowserRoute } from "@/lib/browser/session";
-import { useRouter } from "next/router";
 import { IUsersEntry } from "@/types/types";
 import { Session } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
 
 export default function MoodPicker(): ReactElement {
   const [emotion, setEmotion] = useState<number>(4);
@@ -85,9 +86,7 @@ export default function MoodPicker(): ReactElement {
       {isError ? (
         <b className={styles.errorDescription}>Already given your mood today</b>
       ) : null}
-      <Link href="/" passHref>
-        <a ref={redirect} />
-      </Link>
+      <Link href="/" passHref ref={redirect} />
 
       {showDetails && (
         <DetailsModal
