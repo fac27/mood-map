@@ -17,7 +17,6 @@ export async function getUserEntries(userId: string): Promise<IEntry | null> {
 export async function updateOrCreateEntry(
   entry: IUserEntry
 ): Promise<PostgrestError | null> {
-  //must already have user_id in mood
   const { data: existingEntry } = await supabaseBrowser
     .from("entries")
     .select("*")

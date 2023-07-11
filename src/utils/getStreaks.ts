@@ -32,7 +32,6 @@ export const getStreaks = async (
       streak = 0;
     }
   }
-  // Last streak will not have been pushed onto streaks array yet so push it
   if (streak) streaks.push(streak);
 
   return {

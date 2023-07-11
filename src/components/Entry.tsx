@@ -10,10 +10,9 @@ interface ModalProps {
   entry: IEntry | null;
 }
 
-//may need to changeReact.FC but version 5.1 should be fine now?
 const Entry: FC<ModalProps> = ({ onClose, entry }): ReactElement => {
   if (!entry) {
-    return <div>No entries available.</div>; // Replace with your own placeholder
+    return <div>No entries available.</div>; 
   }
   return (
     <>
