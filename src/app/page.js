@@ -1,30 +1,33 @@
 import styles from "@/app/page.module.css";
 import Navbar from "@/components/Navbar.tsx";
-import { formatText, generateBlobs } from "../utils/blobHelpers";
+import { formatText, generateBlob } from "../utils/blobHelpers";
 import { protectServerRoute } from "../lib/server/session";
 import { josefinSans } from "../utils/fonts";
 import { v4 as uuidv4 } from "uuid";
 import { getTodaysEntry } from "@/lib/models";
 import { redirect } from "next/navigation";
+import Image from "next/image";
 
 async function checkEntryForToday(userId) {
   const entry = await getTodaysEntry(userId);
-  console.log(entry);
   if (!entry) redirect("/mood");
+  return entry;
 }
 
 export default async function Home() {
   const session = await protectServerRoute();
   const user = session.user;
+  const entry = await checkEntryForToday(user.id);
+  const entryInfo = Object.values(entry).slice(2);
+  console.log(entryInfo);
 
-  await checkEntryForToday(user.id);
+  const blobElements = entryInfo.map((info, idx) => {
+    const svg = generateBlob();
 
-  const blobs = generateBlobs();
-  const blobElements = blobs.map((svg) => {
     return (
       <div key={uuidv4()} className={styles.blob}>
         <div className={`${styles.textContainer} ${josefinSans.className}`}>
-          {formatText(svg.text).map((line, idx) => (
+          {formatText(info).map((line) => (
             <p
               className={
                 svg.colour === "light"
@@ -37,6 +40,7 @@ export default async function Home() {
             </p>
           ))}
         </div>
+
         <svg viewBox={svg.viewBox} xmlns={svg.xmlns}>
           <path
             fill={svg.path.fill}
@@ -52,7 +56,15 @@ export default async function Home() {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>Hello, {user.email} </h1>
-        <p>Mood for the day</p>
+        <p className={styles.moodHeader}>
+          Mood for the day{" "}
+          <Image
+            src={`/images/emo${entry.mood}.svg`}
+            alt="mood of the day"
+            width={60}
+            height={60}
+          />
+        </p>
       </div>
 
       <div className={styles.blobContainer}>{blobElements}</div>
