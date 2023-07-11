@@ -38,6 +38,9 @@ export default function Login() {
   const handleSpotify = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "spotify",
+      options: {
+        redirectTo: `${location.origin}/auth/callback`,
+      },
     });
 
     console.log(data);

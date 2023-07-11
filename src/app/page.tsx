@@ -21,7 +21,7 @@ async function checkEntryForToday(userId: string): Promise<IEntry> {
 export default async function Home(): Promise<ReactElement> {
   const session = await protectServerRoute();
   const user = session?.user;
-  const entry: IEntry = await checkEntryForToday(user ? user.id : "");
+  const entry: IEntry = (await checkEntryForToday(user?.id ?? "")) || {};
   const entryInfo = Object.values(entry).slice(2);
   const moodHasDetails = Boolean(entry.journal_entry);
 
