@@ -1,39 +1,15 @@
 "use client";
 
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ReactElement, FC } from "react";
 import styles from "../page.module.css";
 import { getDaysInRange } from "@/utils/dateHelpers";
-import { getAllEntries } from "@/lib/models";
 import { IEntry } from "@/types/types";
-import { protectBrowserRoute } from "@/lib/browser/session";
 import Entry from "@/components/Entry";
 
-const GridDays: FC = (): ReactElement => {
+const GridDays: FC<{allEntries: IEntry[]}> = ({allEntries: entriesData}): ReactElement => {
   const [entryClicked, setEntryClicked] = useState<IEntry | null>(null);
-  const [entriesData, setEntriesData] = useState<IEntry[]>([]);
   const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const getUser = async () => {
-      const session = await protectBrowserRoute();
-
-      session &&
-        getAllEntries(session.user.id).then((entries) => {
-          // Sort entries by date
-          const entriesSortedByDate = entries.sort((a, b) => {
-            const dateA = new Date(a.mood_date);
-            const dateB = new Date(b.mood_date);
-
-            return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
-          });
-          setEntriesData(entriesSortedByDate);
-        });
-    };
-    getUser();
-  }, []);
-  console.log(entriesData)
 
   const openModal = (e: React.MouseEvent) => {
     const id = e.currentTarget.id;
