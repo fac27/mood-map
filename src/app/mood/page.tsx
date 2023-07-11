@@ -1,26 +1,26 @@
-"use client";
-
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, ReactElement } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Exit from "@/components/Exit";
 import styles from "./page.module.css";
-import DetailsModal from "@/components/DetailsModal.tsx";
+import DetailsModal from "@/components/DetailsModal";
 import { updateOrCreateEntry } from "@/lib/models";
 import { protectBrowserRoute } from "@/lib/browser/session";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
+import { IUsersEntry } from "@/types/types";
+import { Session } from "@supabase/auth-helpers-nextjs";
 
-export default function MoodPicker() {
-  const [emotion, setEmotion] = useState(4);
-  const [showDetails, setShowDetails] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [session, setSession] = useState({});
-  const redirect = useRef();
+export default function MoodPicker(): ReactElement {
+  const [emotion, setEmotion] = useState<number>(4);
+  const [showDetails, setShowDetails] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [session, setSession] = useState<Session | null>(null);
+  const redirect = useRef<HTMLAnchorElement | null>(null);
   const router = useRouter();
 
-  const closeModal = () => setShowDetails(false);
+  const closeModal = (): void => setShowDetails(false);
 
-  const EmojiElements = () =>
+  const EmojiElements = (): ReactElement[] =>
     [1, 2, 3, 4, 5].map((emotion) => (
       <Image
         key={emotion}
@@ -33,7 +33,7 @@ export default function MoodPicker() {
       />
     ));
 
-  async function addMood() {
+  const addMood = async (): Promise<void> => {
     if (!session) setIsError(true);
     const error = await updateOrCreateEntry({
       mood: emotion,
@@ -43,17 +43,17 @@ export default function MoodPicker() {
         day: "numeric",
         year: "numeric",
       }),
-      user_id: session.user.id,
-    });
+      user_id: session?.user?.id,
+    } as IUsersEntry);
     if (error) return setIsError(true);
     setIsError(false);
     router.push("/life-in-colour");
-  }
+  };
 
   useEffect(() => {
-    const getUser = async () => {
+    const getUser = async (): Promise<void> => {
       const session = await protectBrowserRoute();
-      setSession({ ...session });
+      setSession(session);
     };
     getUser();
   }, []);
@@ -85,7 +85,9 @@ export default function MoodPicker() {
       {isError ? (
         <b className={styles.errorDescription}>Already given your mood today</b>
       ) : null}
-      <Link href="/" ref={redirect} />
+      <Link href="/" passHref>
+        <a ref={redirect} />
+      </Link>
 
       {showDetails && (
         <DetailsModal
