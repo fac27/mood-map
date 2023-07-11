@@ -1,57 +1,71 @@
 "use client";
 
-import Link from "next/link";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-import supabaseBrowser from "../../lib/browser/client";
-import styles from "./page.module.css";
-import { getSessionBrowser } from "../../lib/browser/session";
-import { useEffect, useRef, useState, ReactElement } from "react";
-import { Session } from "@supabase/supabase-js";
-import React from "react";
-import LoginComp from "@/components/Login";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-export default function Login(): ReactElement {
-  const home = React.useRef<HTMLAnchorElement | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+import type { Database } from "@/types/types";
 
-  supabaseBrowser.auth.onAuthStateChange((event: string) => {
-    if (event == "SIGNED_IN") setIsLoggedIn(true);
-  });
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const supabase = createClientComponentClient<Database>();
 
-  useEffect(() => {
-    const validateUser = async (): Promise<void> => {
-      const session: Session | null = await getSessionBrowser();
-      const user = session?.user;
-      if (isLoggedIn || user) home.current?.click();
-    };
-    validateUser();
-  }, [isLoggedIn]);
+  const handleSignUp = async () => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${location.origin}/auth/callback`,
+      },
+    });
+
+    console.log(data);
+    router.refresh();
+  };
+
+  const handleSignIn = async () => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    console.log(data);
+    router.refresh();
+  };
+
+  const handleSpotify = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "spotify",
+    });
+
+    console.log(data);
+    router.refresh();
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    router.refresh();
+  };
 
   return (
     <>
-      <h1 className={styles.title}>Mood Map</h1>
-      <div className={styles.wrapper}>
-        <LoginComp />
-        {/* <Auth
-          supabaseClient={supabaseBrowser}
-          providers={["spotify"]}
-          appearance={{
-            theme: ThemeSupa,
-          }}
-          localization={{
-            variables: {
-              sign_in: {
-                email_label: "email",
-                password_label: "password",
-                button_label: "LOG IN",
-                social_provider_text: "{{provider}}",
-              },
-            },
-          }}
-        /> */}
-      </div>
-      <Link href={"/"} ref={home} />
+      <input
+        name="email"
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
+      />
+      <input
+        type="password"
+        name="password"
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
+      />
+      <button onClick={handleSignUp}>Sign up</button>
+      <button onClick={handleSignIn}>Sign in</button>
+      <button onClick={handleSpotify}>Spotify</button>
+      <button onClick={handleSignOut}>Sign out</button>
     </>
   );
 }
