@@ -5,14 +5,14 @@ import { protectServerRoute } from "../lib/server/session";
 import { josefinSans } from "../utils/fonts";
 import { v4 as uuidv4 } from "uuid";
 import { getTodaysEntry } from "@/lib/models";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 import Image from "next/image";
 import { ReactElement } from "react";
 import { IEntry } from "@/types/types";
 
 async function checkEntryForToday(userId: string): Promise<IEntry> {
   const entry: IEntry = await getTodaysEntry(userId);
-  if (!entry) redirect("/mood");
+  // if (!entry) redirect("/mood");
   return entry;
 }
 

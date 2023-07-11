@@ -16,6 +16,27 @@ export interface IEntryWithID extends IEntry {
   id: number;
 }
 
+export type FormElement = {
+  name: string;
+  heading: string;
+} & (RadioElement | { type: "date" | "text" });
+
+type RadioElement = {
+  type: "radio";
+  options: string[];
+};
+export interface IInputElementProps {
+  formElement: FormElement;
+  value: string;
+  state: [any, any];
+}
+
+export interface IDetailsModalProps {
+  emotion: number;
+  onClose: () => void;
+  session: any; //supabase session object
+}
+
 export type hexValue = `#${string}`;
 
 export interface IBlobSvg {
