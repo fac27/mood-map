@@ -17,12 +17,12 @@ export const getRandomColor = (): hexValue => {
 };
 
 export const formatText = (text: string): string[][] => {
-  const chars = text.split("");
+  const chars = text?.split("");
   const charGroups: string[][] = [];
 
-  for (let i = 0; i < chars.length; i += 14) {
+  for (let i = 0; i < chars?.length; i += 14) {
     const endIndex = Math.min(i + 14, chars.length);
-    const chunk = chars.slice(i, endIndex);
+    const chunk = chars?.slice(i, endIndex);
 
     charGroups.push(chunk);
   }
