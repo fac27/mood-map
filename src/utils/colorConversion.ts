@@ -1,5 +1,4 @@
-// calculation source: https://appkong.com/tools/hex-to-rgb/
-const hexValueChart = {
+const hexValueChart: Record<string, number> = {
   0: 0,
   1: 1,
   2: 2,
@@ -15,9 +14,9 @@ const hexValueChart = {
   c: 12,
   d: 13,
   e: 14,
-  f: 15,
+  f: 15
 };
-const rgbValueChart = {
+const rgbValueChart: Record<string, string | number> = {
   0: 0,
   1: 1,
   2: 2,
@@ -33,27 +32,21 @@ const rgbValueChart = {
   12: "c",
   13: "d",
   14: "e",
-  15: "f",
+  15: "f"
 };
 
-export const hexToRgb = (hex) => {
+export const hexToRgb = (hex: `#${string}`): number[] | null => {
   const unhashedValues = hex.slice(1);
 
-  const firstPair = unhashedValues.slice(0, 2);
-  const secondPair = unhashedValues.slice(2, 4);
-  const thirdPair = unhashedValues.slice(4);
-
-  const firstRgbValue =
-    hexValueChart[firstPair[0]] * 16 + hexValueChart[firstPair[1]];
-  const secondRgbValue =
-    hexValueChart[secondPair[0]] * 16 + hexValueChart[secondPair[1]];
-  const thirdRgbValue =
-    hexValueChart[thirdPair[0]] * 16 + hexValueChart[thirdPair[1]];
-
-  return [firstRgbValue, secondRgbValue, thirdRgbValue];
+  const rgbValues =
+    unhashedValues
+      .match(/.{2}.{2}.{2}/g)
+      ?.map((pair) => hexValueChart[pair] * 16 + hexValueChart[pair[1]]) || null;
+  return rgbValues;
 };
 
-export const rgbToHex = (rgb) => {
+export const rgbToHex = (rgb: number[]): (string | number)[] => {
+
   const firstPair = rgb[0];
   const secondPair = rgb[1];
   const thirdPair = rgb[2];
@@ -71,6 +64,6 @@ export const rgbToHex = (rgb) => {
     thirdHexValue,
     fourthHexValue,
     fifthHexValue,
-    sixthHexValue,
+    sixthHexValue
   ];
 };
