@@ -1,10 +1,15 @@
 import "./globals.css";
 import { yesevaOne } from "../utils/fonts";
 import Logout from "@/components/Logout";
+import { ReactNode } from "react";
 
-export const metadata = {};
+export const metadata: Record<string, any> = {};
 
-export default function RootLayout({ children }) {
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang="en">
