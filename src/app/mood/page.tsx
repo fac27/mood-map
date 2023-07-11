@@ -21,19 +21,6 @@ export default function MoodPicker(): ReactElement {
 
   const closeModal = (): void => setShowDetails(false);
 
-  const EmojiElements = (): ReactElement[] =>
-    [1, 2, 3, 4, 5].map((emotion) => (
-      <Image
-        key={emotion}
-        className={styles.emojiBox}
-        onClick={() => setEmotion(emotion)}
-        src={`/images/emo${emotion}.svg`}
-        alt="image"
-        width={60}
-        height={60}
-      />
-    ));
-
   const addMood = async (): Promise<void> => {
     if (!session) setIsError(true);
     const error = await updateOrCreateEntry({
@@ -74,7 +61,17 @@ export default function MoodPicker(): ReactElement {
       </div>
 
       <div className={styles.emojiContainer}>
-        <EmojiElements />
+        {[1, 2, 3, 4, 5].map((emotion) => (
+          <Image
+            key={emotion}
+            className={styles.emojiBox}
+            onClick={() => setEmotion(emotion)}
+            src={`/images/emo${emotion}.svg`}
+            alt="image"
+            width={60}
+            height={60}
+          />
+        ))}
       </div>
 
       <div className={styles.links}>
