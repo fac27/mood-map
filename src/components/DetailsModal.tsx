@@ -12,8 +12,11 @@ import Vector from "../../public/images/Vector.svg";
 import { useRouter } from "next/navigation";
 import { updateOrCreateEntry } from "@/lib/models";
 import date from "@/lib/date";
-import {IInputElementProps, IDetailsModalProps, IFormElement} from '@/types/types';
-
+import {
+  IInputElementProps,
+  IDetailsModalProps,
+  IFormElement,
+} from "@/types/types";
 
 const InputElement: FunctionComponent<IInputElementProps> = ({
   formElement,
