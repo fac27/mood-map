@@ -30,28 +30,18 @@ export const formatText = (text: string): string[][] => {
   return charGroups;
 };
 
-export const generateBlobs = (): IBlobSvg[] => {
-  const info: string[] = [
-    `Streak 7 days`,
-    `Favourite song - toxic by Britney Spears`,
-    `Better sleep is known to ward off stress & anxiety`,
-    `The last week you haven't been happy let's change that`,
-  ];
-  const blobs: IBlobSvg[] = [];
-
-  for (let i = 0; i < 4; i++) {
+export const generateBlob = (): IBlobSvg => {
     const randomBlobColour = getRandomColor();
     const randomBlobInt = Math.floor(Math.random() * blobSvgs.length);
-    const randomBlob = { ...blobSvgs[randomBlobInt] };
+    const randomBlob = blobSvgs[randomBlobInt];
     randomBlob.path.fill = randomBlobColour;
 
     const rgbColour = hexToRgb(randomBlob.path.fill) as number[];
     const colourBrightness = checkBrightness(rgbColour);
 
-    randomBlob.colour = colourBrightness < 130 ? "dark" : "light";
-    randomBlob.text = info[i];
-    blobs.push(randomBlob);
-  }
+    randomBlob.colour = colourBrightness < 135 ? "dark" : "light";
+  
 
-  return blobs;
+  return randomBlob;
 };
+
