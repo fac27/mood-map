@@ -11,37 +11,14 @@ import Link from "next/link";
 import Vector from "../../public/images/Vector.svg";
 import { useRouter } from "next/navigation";
 import { updateOrCreateEntry } from "@/lib/models";
-import { IEntry } from "@/types/types";
 import date from "@/lib/date";
+import {
+  IInputElementProps,
+  IDetailsModalProps,
+  FormElement,
+} from "@/types/types";
 
-interface FormElement {
-  name: string;
-  heading: string;
-  type: string;
-  options?: string[];
-}
-
-interface InputElementProps {
-  formElement: FormElement;
-  value: string;
-  state: [any, any];
-}
-
-interface DetailsModalProps {
-  emotion: number;
-  onClose: () => void;
-  session: any; //supabase session object
-}
-interface Mood {
-  mood: number;
-  mood_date: string;
-  journal_entry: string;
-  context_people: string;
-  context_location: string;
-  user_id: any;
-}
-
-const InputElement: FunctionComponent<InputElementProps> = ({
+const InputElement: FunctionComponent<IInputElementProps> = ({
   formElement,
   value,
   state: [mood, setMood],
@@ -67,7 +44,7 @@ const InputElement: FunctionComponent<InputElementProps> = ({
 const today = new Date();
 const trailingZero = (num: number) => num.toString().padStart(2, "0");
 
-const formElements = [
+const formElements: FormElement[] = [
   { name: "mood_date", heading: "Date", type: "date" },
   { name: "journal_entry", heading: "Journal Entry", type: "text" },
   {
@@ -90,7 +67,7 @@ const capitaliseWords = (str: string) => {
     .join(" ");
 };
 
-const DetailsModal: FunctionComponent<DetailsModalProps> = ({
+const DetailsModal: FunctionComponent<IDetailsModalProps> = ({
   emotion,
   onClose,
   session,
