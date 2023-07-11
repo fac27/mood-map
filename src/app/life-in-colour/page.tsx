@@ -7,15 +7,15 @@ import { redirect } from "next/navigation";
 import { getAllEntries } from "@/lib/models";
 
 const Grid: FC = async (): Promise<ReactElement> => {
-    const session = await getSessionServer();
-    if (!session) redirect('/login')
-    
-    const allEntries = await getAllEntries(session.user.id)
-    const entriesSortedByDate = allEntries.sort((a, b) => {
-      const dateA = new Date(a.mood_date);
-      const dateB = new Date(b.mood_date);
-      return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
-    });
+  const session = await getSessionServer();
+  if (!session) redirect("/login");
+
+  const allEntries = await getAllEntries(session.user.id);
+  const entriesSortedByDate = allEntries.sort((a, b) => {
+    const dateA = new Date(a.mood_date);
+    const dateB = new Date(b.mood_date);
+    return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
+  });
 
   return (
     <>
@@ -31,7 +31,7 @@ const Grid: FC = async (): Promise<ReactElement> => {
           <p>S</p>
         </div>
         <div className={styles.grid}>
-          <GridDays allEntries={entriesSortedByDate}/>
+          <GridDays allEntries={entriesSortedByDate} />
         </div>
       </div>
       <Navbar />
