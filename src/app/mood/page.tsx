@@ -7,7 +7,7 @@ import styles from "./page.module.css";
 import DetailsModal from "@/components/DetailsModal";
 import { updateOrCreateEntry } from "@/lib/models";
 import { protectBrowserRoute } from "@/lib/browser/session";
-import { IUsersEntry } from "@/types/types";
+import { IUserEntry } from "@/types/types";
 import { Session } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 
@@ -45,7 +45,7 @@ export default function MoodPicker(): ReactElement {
         year: "numeric",
       }),
       user_id: session?.user?.id,
-    } as IUsersEntry);
+    } as IUserEntry);
     if (error) return setIsError(true);
     setIsError(false);
     router.push("/life-in-colour");
