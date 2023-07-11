@@ -15,7 +15,7 @@ import date from "@/lib/date";
 import {
   IInputElementProps,
   IDetailsModalProps,
-  IFormElement,
+  FormElement,
 } from "@/types/types";
 
 const InputElement: FunctionComponent<IInputElementProps> = ({
@@ -44,7 +44,7 @@ const InputElement: FunctionComponent<IInputElementProps> = ({
 const today = new Date();
 const trailingZero = (num: number) => num.toString().padStart(2, "0");
 
-const formElements: IFormElement[] = [
+const formElements: FormElement[] = [
   { name: "mood_date", heading: "Date", type: "date" },
   { name: "journal_entry", heading: "Journal Entry", type: "text" },
   {

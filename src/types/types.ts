@@ -16,15 +16,17 @@ export interface IEntryWithID extends IEntry {
   id: number;
 }
 
-export interface IFormElement {
+export type FormElement = {
   name: string;
   heading: string;
-  type: string;
-  options?: string[];
-}
+} & (RadioElement | { type: "date" | "text" });
 
+type RadioElement = {
+  type: "radio";
+  options: string[];
+};
 export interface IInputElementProps {
-  formElement: IFormElement;
+  formElement: FormElement;
   value: string;
   state: [any, any];
 }
