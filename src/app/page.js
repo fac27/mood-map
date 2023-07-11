@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 import { getTodaysEntry } from "@/lib/models";
 import { redirect } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
+import { FaPersonSkating } from "react-icons/fa6";
 
 async function checkEntryForToday(userId) {
   const entry = await getTodaysEntry(userId);
@@ -19,38 +21,40 @@ export default async function Home() {
   const user = session.user;
   const entry = await checkEntryForToday(user.id);
   const entryInfo = Object.values(entry).slice(2);
-  console.log(entryInfo);
+  const moodHasDetails = Boolean(entry.journal_entry);
 
-  const blobElements = entryInfo.map((info, idx) => {
-    const svg = generateBlob();
+  const blobElements =
+    moodHasDetails &&
+    entryInfo.map((info) => {
+      const svg = generateBlob();
 
-    return (
-      <div key={uuidv4()} className={styles.blob}>
-        <div className={`${styles.textContainer} ${josefinSans.className}`}>
-          {formatText(info).map((line) => (
-            <p
-              className={
-                svg.colour === "light"
-                  ? `${styles.darkText}`
-                  : `${styles.lightText}`
-              }
-              key={uuidv4()}
-            >
-              {line.join("")}
-            </p>
-          ))}
+      return (
+        <div key={uuidv4()} className={styles.blob}>
+          <div className={`${styles.textContainer} ${josefinSans.className}`}>
+            {formatText(info).map((line) => (
+              <p
+                className={
+                  svg.colour === "light"
+                    ? `${styles.darkText}`
+                    : `${styles.lightText}`
+                }
+                key={uuidv4()}
+              >
+                {line.join("")}
+              </p>
+            ))}
+          </div>
+
+          <svg viewBox={svg.viewBox} xmlns={svg.xmlns}>
+            <path
+              fill={svg.path.fill}
+              d={svg.path.d}
+              transform={svg.path.transform}
+            />
+          </svg>
         </div>
-
-        <svg viewBox={svg.viewBox} xmlns={svg.xmlns}>
-          <path
-            fill={svg.path.fill}
-            d={svg.path.d}
-            transform={svg.path.transform}
-          />
-        </svg>
-      </div>
-    );
-  });
+      );
+    });
 
   return (
     <div className={styles.container}>
@@ -67,7 +71,21 @@ export default async function Home() {
         </p>
       </div>
 
-      <div className={styles.blobContainer}>{blobElements}</div>
+      {blobElements ? (
+        <div className={styles.blobContainer}>{blobElements}</div>
+      ) : (
+        <div className={styles.noDetailsContainer}>
+          <p>
+            You have not added details for your mood today{" "}
+            <spaan>
+              <FaPersonSkating />
+            </spaan>
+          </p>
+          <button>
+            <Link href={"/mood"}>Add details</Link>
+          </button>
+        </div>
+      )}
       <Navbar />
     </div>
   );
