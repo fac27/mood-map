@@ -1,9 +1,8 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 
 const supabaseServer = () =>
   createServerComponentClient({
-    headers,
     cookies,
   });
 
