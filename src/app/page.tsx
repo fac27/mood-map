@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 import { getTodaysEntry } from "@/lib/models";
 // import { redirect } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
+import { FaPersonSkating } from "react-icons/fa6";
 import { ReactElement } from "react";
 import { IEntry } from "@/types/types";
 
@@ -18,45 +20,48 @@ async function checkEntryForToday(userId: string): Promise<IEntry> {
 
 export default async function Home(): Promise<ReactElement> {
   const session = await protectServerRoute();
-  const user = session.user;
-  const entry: IEntry = await checkEntryForToday(user.id);
+  const user = session?.user;
+  const entry: IEntry = await checkEntryForToday(user ? user.id : "");
   const entryInfo = Object.values(entry).slice(2);
+  const moodHasDetails = Boolean(entry.journal_entry);
 
-  const blobElements = entryInfo.map((info, idx) => {
-    const svg = generateBlob();
+  const blobElements =
+    moodHasDetails &&
+    entryInfo.map((info) => {
+      const svg = generateBlob();
 
-    return (
-      <div key={uuidv4()} className={styles.blob}>
-        <div className={`${styles.textContainer} ${josefinSans.className}`}>
-          {formatText(info).map((line) => (
-            <p
-              className={
-                svg.colour === "light"
-                  ? `${styles.darkText}`
-                  : `${styles.lightText}`
-              }
-              key={uuidv4()}
-            >
-              {line.join("")}
-            </p>
-          ))}
+      return (
+        <div key={uuidv4()} className={styles.blob}>
+          <div className={`${styles.textContainer} ${josefinSans.className}`}>
+            {formatText(info).map((line) => (
+              <p
+                className={
+                  svg.colour === "light"
+                    ? `${styles.darkText}`
+                    : `${styles.lightText}`
+                }
+                key={uuidv4()}
+              >
+                {line.join("")}
+              </p>
+            ))}
+          </div>
+
+          <svg viewBox={svg.viewBox} xmlns={svg.xmlns}>
+            <path
+              fill={svg.path.fill}
+              d={svg.path.d}
+              transform={svg.path.transform}
+            />
+          </svg>
         </div>
-
-        <svg viewBox={svg.viewBox} xmlns={svg.xmlns}>
-          <path
-            fill={svg.path.fill}
-            d={svg.path.d}
-            transform={svg.path.transform}
-          />
-        </svg>
-      </div>
-    );
-  });
+      );
+    });
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>Hello, {user.email} </h1>
+        <h1>Hello, {user?.email} </h1>
         <p className={styles.moodHeader}>
           Mood for the day{" "}
           <Image
@@ -68,7 +73,21 @@ export default async function Home(): Promise<ReactElement> {
         </p>
       </div>
 
-      <div className={styles.blobContainer}>{blobElements}</div>
+      {blobElements ? (
+        <div className={styles.blobContainer}>{blobElements}</div>
+      ) : (
+        <div className={styles.noDetailsContainer}>
+          <p>
+            You have not added details for your mood today{" "}
+            <span>
+              <FaPersonSkating />
+            </span>
+          </p>
+          <button>
+            <Link href={"/mood"}>Add details</Link>
+          </button>
+        </div>
+      )}
       <Navbar />
     </div>
   );
