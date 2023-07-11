@@ -1,5 +1,4 @@
 export interface IEntry {
-  user_id?: string;
   mood: number;
   mood_date: string;
   journal_entry?: string;
@@ -8,10 +7,8 @@ export interface IEntry {
   id?: number;
 }
 
-export interface IUsersEntry extends IEntry {
-  user_id: string;
-}
 
-export interface IEntryWithID extends IEntry {
-  id: number;
+
+export interface IUserEntry extends IEntry {
+  user_id: string;
 }
