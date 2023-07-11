@@ -10,7 +10,6 @@ import { BsSpotify } from "react-icons/bs";
 import styles from "../page.module.css";
 
 export default function LoginForm({ session }: { session: any }) {
-  // middleware should handle this
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,8 +52,6 @@ export default function LoginForm({ session }: { session: any }) {
       email,
       password,
     });
-
-    console.log(data, error);
     router.refresh();
   };
 
