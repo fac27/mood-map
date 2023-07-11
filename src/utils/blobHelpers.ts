@@ -31,17 +31,15 @@ export const formatText = (text: string): string[][] => {
 };
 
 export const generateBlob = (): IBlobSvg => {
-    const randomBlobColour = getRandomColor();
-    const randomBlobInt = Math.floor(Math.random() * blobSvgs.length);
-    const randomBlob = blobSvgs[randomBlobInt];
-    randomBlob.path.fill = randomBlobColour;
+  const randomBlobColour = getRandomColor();
+  const randomBlobInt = Math.floor(Math.random() * blobSvgs.length);
+  const randomBlob = blobSvgs[randomBlobInt];
+  randomBlob.path.fill = randomBlobColour;
 
-    const rgbColour = hexToRgb(randomBlob.path.fill) as number[];
-    const colourBrightness = checkBrightness(rgbColour);
+  const rgbColour = hexToRgb(randomBlob.path.fill) as number[];
+  const colourBrightness = checkBrightness(rgbColour);
 
-    randomBlob.colour = colourBrightness < 135 ? "dark" : "light";
-  
+  randomBlob.colour = colourBrightness < 135 ? "dark" : "light";
 
   return randomBlob;
 };
-
