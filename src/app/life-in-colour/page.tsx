@@ -20,7 +20,7 @@ const Grid: FC = async (): Promise<ReactElement> => {
   return (
     <>
       <h1 className={styles.pageHeader}>My Life in Colour</h1>
-      <div className={styles.pageContainer}>
+      <div className={`${styles.pageContainer} ${styles.padBottom}`}>
         <div className={styles.grid}>
           <p>M</p>
           <p>T</p>
