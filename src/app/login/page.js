@@ -7,6 +7,7 @@ import supabaseBrowser from "../../lib/browser/client";
 import styles from "./page.module.css";
 import { getSessionBrowser } from "../../lib/browser/session";
 import { useEffect, useRef, useState } from "react";
+import LoginComp from "@/components/Login";
 
 export default function Login() {
   const home = useRef(null);
@@ -29,7 +30,8 @@ export default function Login() {
     <>
       <h1 className={styles.title}>Mood Map</h1>
       <div className={styles.wrapper}>
-        <Auth
+        <LoginComp/>
+        {/* <Auth
           supabaseClient={supabaseBrowser}
           providers={["spotify"]}
           appearance={{
@@ -45,7 +47,7 @@ export default function Login() {
               },
             },
           }}
-        />
+        /> */}
       </div>
       <Link href={"/"} ref={home} />
     </>
