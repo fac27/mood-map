@@ -22,7 +22,7 @@ export default async function Home() {
 
   const blobElements = entryInfo.map((info, idx) => {
     const svg = generateBlob();
-    console.log(info);
+
     return (
       <div key={uuidv4()} className={styles.blob}>
         <div className={`${styles.textContainer} ${josefinSans.className}`}>
