@@ -1,7 +1,5 @@
-import { protectServerRoute } from "../lib/server/session";
-
 export default async function getRecentlyPlayedSong(
-  session,
+  session: any,
   dateString: string,
   limit: number
 ) {
@@ -25,7 +23,7 @@ export default async function getRecentlyPlayedSong(
     );
     const responseJson = await response.json();
     // const tracks = responseJson.items.track.href;
-    const trackHrefs = responseJson.items.map((item) => item.track.href);
+    const trackHrefs = responseJson.items.map((item: any) => item.track.href);
 
     return trackHrefs;
   } catch (e) {
