@@ -1,4 +1,3 @@
-import { ReactElement, FC } from "react";
 import styles from "./page.module.css";
 import Navbar from "@/components/Navbar";
 import GridDays from "./components/GridDays";
@@ -6,7 +5,7 @@ import { getSessionServer } from "@/lib/server/session";
 import { redirect } from "next/navigation";
 import { getAllEntries } from "@/lib/models";
 
-const Grid: FC = async (): Promise<ReactElement<any, any>> => {
+const Grid = async ()=> {
   const session = await getSessionServer();
   if (!session) redirect("/login");
 
