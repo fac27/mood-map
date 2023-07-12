@@ -117,3 +117,7 @@ export interface Database {
     };
   };
 }
+
+export interface ISession {
+  access_token: string;
+}

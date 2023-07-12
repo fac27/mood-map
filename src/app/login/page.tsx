@@ -3,8 +3,7 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-import type { Database } from "@/types/types";
+import type { Database, ISession } from "@/types/types";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -20,8 +19,6 @@ export default function Login() {
         emailRedirectTo: `${location.origin}/auth/callback`,
       },
     });
-
-    console.log(data);
     router.refresh();
   };
 
@@ -30,8 +27,6 @@ export default function Login() {
       email,
       password,
     });
-
-    console.log(data);
     router.refresh();
   };
 
@@ -39,11 +34,13 @@ export default function Login() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "spotify",
       options: {
-        redirectTo: `${location.origin}/auth/callback`,
-      },
+        redirectTo: `${location.origin}/auth/callback`      },
     });
+    const session: ISession = data.session;
 
-    console.log(data);
+    if(session){
+      const oAuthToken =  data.session.access_token
+    }
     router.refresh();
   };
 
