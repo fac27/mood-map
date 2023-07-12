@@ -5,7 +5,7 @@ import { getSessionServer } from "@/lib/server/session";
 import { redirect } from "next/navigation";
 import { getAllEntries } from "@/lib/models";
 
-const Grid = async () => {
+const Grid = async ()=> {
   const session = await getSessionServer();
   if (!session) redirect("/login");
 
