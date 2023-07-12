@@ -6,7 +6,7 @@ import { getSessionServer } from "@/lib/server/session";
 import { redirect } from "next/navigation";
 import { getAllEntries } from "@/lib/models";
 
-const Grid: FC = async (): Promise<ReactElement> => {
+const Grid: FC = async (): Promise<ReactElement<any, any>> => {
   const session = await getSessionServer();
   if (!session) redirect("/login");
 
