@@ -4,7 +4,7 @@ import { getSessionBrowser } from "@/lib/browser/session";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import type { Database, ISession } from "@/types/types";
+import type { Database } from "@/types/types";
 
 export default function LoginComp() {
   // middleware should handle this
@@ -47,13 +47,13 @@ export default function LoginComp() {
   };
 
   const handleSpotify = async () => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = (await supabase.auth.signInWithOAuth({
       provider: "spotify",
       options: {
         redirectTo: `${location.origin}/auth/callback`,
       },
-    });
-    const session: ISession = data.session;
+    })) as any;
+    const session = data.session;
 
     if (session) {
       const oAuthToken = data.session.access_token;
