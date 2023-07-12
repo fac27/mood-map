@@ -199,6 +199,6 @@ export interface ISession {
 }
 
 export type StreakData = {
-  current: number,
-  allTime: number
-}
+  current: number;
+  allTime: number;
+};

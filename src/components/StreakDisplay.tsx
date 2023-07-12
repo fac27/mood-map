@@ -17,7 +17,7 @@ const StreakDisplay: FC<StreakDisplayProps> = async ({ today, userId }) => {
     <>
       <div className={`${styles.streakContainer} ${josefinSans.className}`}>
         <div className={styles.streakItem}>
-          <Image src={flameIcon} width={30} height={30} alt={'flame icon'}/>
+          <Image src={flameIcon} width={30} height={30} alt={"flame icon"} />
           <p className={styles.streakNumber}>
             {streakData.current} day{streakData.current > 1 ? "s" : ""}
           </p>
@@ -25,7 +25,7 @@ const StreakDisplay: FC<StreakDisplayProps> = async ({ today, userId }) => {
         </div>
 
         <div className={styles.streakItem}>
-          <Image src={flameIcon} width={30} height={30} alt={'flame icon'}/>
+          <Image src={flameIcon} width={30} height={30} alt={"flame icon"} />
           <p className={styles.streakNumber}>
             {streakData.allTime} day{streakData.allTime > 1 ? "s" : ""}
           </p>
