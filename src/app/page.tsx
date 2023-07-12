@@ -11,6 +11,7 @@ import Link from "next/link";
 import { FaPersonSkating } from "react-icons/fa6";
 import { ReactElement } from "react";
 import { IEntry } from "@/types/types";
+import StreakDisplay from "@/components/StreakDisplay";
 
 async function checkEntryForToday(userId: string): Promise<IEntry> {
   const entry: IEntry = await getTodaysEntry(userId);
@@ -18,16 +19,19 @@ async function checkEntryForToday(userId: string): Promise<IEntry> {
   return entry;
 }
 
+
+
 export default async function Home(): Promise<ReactElement> {
   const session = await protectServerRoute();
   const user = session?.user;
   const entry: IEntry = await checkEntryForToday(user ? user.id : "");
-  const entryInfo = Object.values(entry).slice(2);
-  const moodHasDetails = Boolean(entry.journal_entry);
+  const entryInfo = entry ? Object.values(entry).slice(2) : null;
+  const moodHasDetails = Boolean(entry?.journal_entry);
+  const today = new Date();
 
   const blobElements =
     moodHasDetails &&
-    entryInfo.map((info) => {
+    entryInfo?.map((info) => {
       const svg = generateBlob();
 
       return (
@@ -59,21 +63,23 @@ export default async function Home(): Promise<ReactElement> {
     });
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.padBottom}`}>
       <div className={styles.header}>
         <h1>Hello, {user?.email} </h1>
+        <StreakDisplay today={today} userId={user ? user.id : ""} />
         <p className={styles.moodHeader}>
           Mood for the day{" "}
           <Image
-            src={`/images/emo${entry.mood}.svg`}
+            src={`/images/emo${entry?.mood}.svg`}
             alt="mood of the day"
             width={40}
             height={40}
             style={{ marginLeft: "10px" }}
           />
         </p>
+        
       </div>
-
+      
       {blobElements ? (
         <div className={styles.blobContainer}>{blobElements}</div>
       ) : (

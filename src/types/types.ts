@@ -45,3 +45,8 @@ export interface IBlobSvg {
     transform: string;
   };
 }
+
+export type StreakData = {
+  current: number,
+  allTime: number
+}
