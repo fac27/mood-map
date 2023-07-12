@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { ReactElement, useEffect, useState } from "react";
 import styles from "./Entry.module.css";
@@ -16,16 +16,20 @@ interface ModalProps {
 
 //may need to changeReact.FC but version 5.1 should be fine now?
 const Entry: FC<ModalProps> = ({ onClose, entry, session }): ReactElement => {
-  const [href, setHref] = useState('')
-  
+  const [href, setHref] = useState("");
+
   useEffect(() => {
     async function getSong() {
-      const recentSong = await getRecentlyPlayedSong(session, entry?.mood_date as string, 1)
-      setHref(recentSong.href)
+      const recentSong = await getRecentlyPlayedSong(
+        session,
+        entry?.mood_date as string,
+        1
+      );
+      setHref(recentSong.href);
     }
-    getSong()
-  }, [entry])
-  
+    getSong();
+  }, [entry]);
+
   if (!entry) {
     return <div>No entries available.</div>; // Replace with your own placeholder
   }
@@ -71,7 +75,7 @@ const Entry: FC<ModalProps> = ({ onClose, entry, session }): ReactElement => {
               : "No journal entry recorded"}
           </p>
         </div>
-        <Player href={href}/>
+        <Player href={href} />
       </div>
     </>
   );
