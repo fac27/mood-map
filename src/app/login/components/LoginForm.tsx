@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import type { Database } from "@/types/types";
 
-export default function LoginComp() {
+export default function LoginForm({ session }: { session: any }) {
   // middleware should handle this
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
