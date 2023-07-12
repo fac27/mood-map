@@ -24,8 +24,6 @@ export default async function Home(): Promise<ReactElement> {
   const entryInfo = Object.values(entry).slice(2);
   const moodHasDetails = Boolean(entry.journal_entry);
 
-  console.log(session);
-
   const blobElements =
     moodHasDetails &&
     entryInfo.map((info) => {
