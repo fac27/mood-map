@@ -3,13 +3,11 @@ export default async function getRecentlyPlayedSong(
   dateString: string,
   limit: number
 ) {
-  const date = new Date(dateString);
-  const startOfDay = new Date(date.setHours(0, 0, 0, 0));
-
+  const date = new Date(dateString).getTime();
+  const startOfDay = date - (date % 86400000);
   // Convert the dates to Unix timestamps in milliseconds
-  const after = startOfDay.getTime();
-
-  const params = `?limit=${limit}&after=${after}`;
+  const before = startOfDay + 86400000;
+  const params = `?limit=${limit}&before=${before}`;
 
   try {
     const response = await fetch(
@@ -21,6 +19,7 @@ export default async function getRecentlyPlayedSong(
         },
       }
     );
+    console.log("🎶", response.status);
     const responseJson = await response.json();
     // const tracks = responseJson.items.track.href;
     const trackHrefs = responseJson.items.map((item: any) => item.track.href);

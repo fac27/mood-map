@@ -69,17 +69,17 @@ export default async function Home(): Promise<ReactElement> {
         <h1>Hello, {user?.email} </h1>
         {hasMood ? (
           <>
-          <StreakDisplay today={today} userId={user ? user.id : ""} />
-          <p className={styles.moodHeader}>
-            Mood for the day{" "}
-            <Image
-              src={`/images/emo${entry.mood}.svg`}
-              alt="mood of the day"
-              width={40}
-              height={40}
-              style={{ marginLeft: "10px" }}
+            <StreakDisplay today={today} userId={user ? user.id : ""} />
+            <p className={styles.moodHeader}>
+              Mood for the day{" "}
+              <Image
+                src={`/images/emo${entry.mood}.svg`}
+                alt="mood of the day"
+                width={40}
+                height={40}
+                style={{ marginLeft: "10px" }}
               />
-          </p>
+            </p>
           </>
         ) : (
           ""

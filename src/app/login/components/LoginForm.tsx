@@ -69,9 +69,6 @@ export default function LoginForm({ session }: { session: any }) {
     router.refresh();
   };
 
-    router.refresh();
-  };
-
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Mood Map</h1>
