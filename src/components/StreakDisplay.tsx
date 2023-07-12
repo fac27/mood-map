@@ -1,5 +1,7 @@
+"use client"
+
 import { getStreaks } from "../utils/getStreaks";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { josefinSans } from "../utils/fonts";
 import styles from "./StreakDisplay.module.css";
 import flameIcon from "public/images/flame.svg";
@@ -10,8 +12,17 @@ interface StreakDisplayProps {
   userId: string;
 }
 
-const StreakDisplay: FC<StreakDisplayProps> = async ({ today, userId }) => {
-  const streakData = await getStreaks(today, userId);
+const StreakDisplay: FC<StreakDisplayProps> = ({ today, userId }) => {
+  const [streakData, setStreakData] = useState({ current: 0, allTime: 0 });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getStreaks(today, userId);
+      setStreakData(data);
+    };
+
+    fetchData();
+  }, [today, userId]);
 
   return (
     <>
