@@ -13,7 +13,6 @@ import { IEntry } from "@/types/types";
 
 async function checkEntryForToday(userId: string): Promise<IEntry> {
   const entry: IEntry = await getTodaysEntry(userId);
-  // if (!entry) redirect("/mood");
   return entry;
 }
 
