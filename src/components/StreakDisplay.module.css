@@ -1,28 +1,28 @@
 .streakContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    font-size: 1.2rem;
-    gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 1.2rem;
+  gap: 1rem;
 }
 
 .streakItem {
-    width: 100%;
-    max-width: 12rem;
-    font-size: 1rem;
-    font-weight: 100;
-    color: var(--color-text);
+  width: 100%;
+  max-width: 12rem;
+  font-size: 1rem;
+  font-weight: 100;
+  color: var(--color-text);
 }
 
 .streakHeading {
-    font-weight: bold;
-    font-size: 0.8rem;
-    opacity: 0.8;
+  font-weight: bold;
+  font-size: 0.8rem;
+  opacity: 0.8;
 }
 
 .streakNumber {
-    font-size: 1.5rem;
-    font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: bold;
 }

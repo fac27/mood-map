@@ -19,8 +19,6 @@ async function checkEntryForToday(userId: string): Promise<IEntry> {
   return entry;
 }
 
-
-
 export default async function Home(): Promise<ReactElement> {
   const session = await protectServerRoute();
   const user = session?.user;
@@ -77,9 +75,8 @@ export default async function Home(): Promise<ReactElement> {
             style={{ marginLeft: "10px" }}
           />
         </p>
-        
       </div>
-      
+
       {blobElements ? (
         <div className={styles.blobContainer}>{blobElements}</div>
       ) : (
