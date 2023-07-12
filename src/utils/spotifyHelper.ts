@@ -3,7 +3,9 @@ export default async function getRecentlyPlayedSong(
   dateString: string,
   limit: number
 ) {
+  console.log("❌", dateString);
   const date = new Date(dateString);
+  console.log("🕰️", date);
   const startOfDay = new Date(date.setHours(0, 0, 0, 0));
 
   // Convert the dates to Unix timestamps in milliseconds

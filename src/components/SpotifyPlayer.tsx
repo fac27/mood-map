@@ -1,6 +1,6 @@
 "use client";
 
-export function Player({ href: href }: { href: string }) {
+export function Player({ href }: { href: string }) {
   const trackId = href.split("/").at(-1);
   return (
     <iframe
