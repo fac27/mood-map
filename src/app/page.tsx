@@ -21,12 +21,13 @@ async function checkEntryForToday(userId: string): Promise<IEntry> {
 export default async function Home(): Promise<ReactElement> {
   const session = await protectServerRoute();
   const user = session?.user;
-  const entry: IEntry = await checkEntryForToday(user ? user.id : "");
+  const entry: IEntry = await checkEntryForToday(user ? user.id : "") || {};
   const entryInfo = Object.values(entry).slice(2);
-  const moodHasDetails = Boolean(entry.journal_entry);
+  const hasMoodDetails = Boolean(entry.journal_entry);
+  const hasMood = Boolean(Object.keys(entry).length)
 
   const blobElements =
-    moodHasDetails &&
+    hasMoodDetails &&
     entryInfo.map((info) => {
       const svg = generateBlob();
 
@@ -62,19 +63,20 @@ export default async function Home(): Promise<ReactElement> {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>Hello, {user?.email} </h1>
-        <p className={styles.moodHeader}>
-          Mood for the day{" "}
-          <Image
-            src={`/images/emo${entry.mood}.svg`}
-            alt="mood of the day"
-            width={40}
-            height={40}
-            style={{ marginLeft: "10px" }}
-          />
-        </p>
+        {hasMood ?
+          <p className={styles.moodHeader}>
+            Mood for the day{" "}
+            <Image
+              src={`/images/emo${entry.mood}.svg`}
+              alt="mood of the day"
+              width={40}
+              height={40}
+              style={{ marginLeft: "10px" }}
+              />
+          </p>
+          : ''}
       </div>
-
-      {blobElements ? (
+       {blobElements ? (
         <div className={styles.blobContainer}>{blobElements}</div>
       ) : (
         <div className={styles.noDetailsContainer}>
@@ -88,7 +90,7 @@ export default async function Home(): Promise<ReactElement> {
             <Link href={"/mood"}>Add details</Link>
           </button>
         </div>
-      )}
+        )}
       <Navbar />
     </div>
   );

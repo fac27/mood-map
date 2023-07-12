@@ -118,9 +118,7 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "src/app/mood/components/MoodPicker.jsx",
-    "src/app/login/components/LoginForm.jsx"
+    "**/*.tsx"
   ],
   "exclude": ["node_modules"]
 }

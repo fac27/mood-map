@@ -16,6 +16,8 @@ const Grid = async ()=> {
     return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
   });
 
+  console.log(entriesSortedByDate.length ? true : false);
+
   return (
     <>
       <h1 className={styles.pageHeader}>My Life in Colour</h1>
@@ -29,9 +31,12 @@ const Grid = async ()=> {
           <p>S</p>
           <p>S</p>
         </div>
+        {entriesSortedByDate.length ? 
         <div className={styles.grid}>
           <GridDays allEntries={entriesSortedByDate} />
-        </div>
+        </div> 
+        : 'NO ENTRIES 😔'
+        }
       </div>
       <Navbar />
     </>
