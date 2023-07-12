@@ -5,7 +5,6 @@ import { protectServerRoute } from "../lib/server/session";
 import { josefinSans } from "../utils/fonts";
 import { v4 as uuidv4 } from "uuid";
 import { getTodaysEntry } from "@/lib/models";
-// import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { FaPersonSkating } from "react-icons/fa6";
@@ -22,9 +21,9 @@ async function checkEntryForToday(userId: string): Promise<IEntry> {
 export default async function Home(): Promise<ReactElement> {
   const session = await protectServerRoute();
   const user = session?.user;
-  const entry: IEntry = await checkEntryForToday(user ? user.id : "");
-  const entryInfo = entry ? Object.values(entry).slice(2) : null;
-  const moodHasDetails = Boolean(entry?.journal_entry);
+  const entry: IEntry = (await checkEntryForToday(user?.id ?? "")) || {};
+  const entryInfo = Object.values(entry).slice(2);
+  const moodHasDetails = Boolean(entry.journal_entry);
   const today = new Date();
 
   const blobElements =

@@ -1,13 +1,8 @@
-import styles from "./page.module.css";
+import { getSessionServer } from "@/lib/server/session";
+import { Session } from "@supabase/auth-helpers-nextjs";
 import LoginForm from "./components/LoginForm";
 
-export default function Login() {
-  return (
-    <>
-      <h1 className={styles.title}>Mood Map</h1>
-      <div className={styles.wrapper}>
-        <LoginForm />
-      </div>
-    </>
-  );
+export default async function Login() {
+  const session = (await getSessionServer()) as Session;
+  return <LoginForm session={session} />;
 }
