@@ -21,10 +21,10 @@ async function checkEntryForToday(userId: string): Promise<IEntry> {
 export default async function Home(): Promise<ReactElement> {
   const session = await protectServerRoute();
   const user = session?.user;
-  const entry: IEntry = await checkEntryForToday(user ? user.id : "") || {};
+  const entry: IEntry = (await checkEntryForToday(user ? user.id : "")) || {};
   const entryInfo = Object.values(entry).slice(2);
   const hasMoodDetails = Boolean(entry.journal_entry);
-  const hasMood = Boolean(Object.keys(entry).length)
+  const hasMood = Boolean(Object.keys(entry).length);
 
   const blobElements =
     hasMoodDetails &&
@@ -63,7 +63,7 @@ export default async function Home(): Promise<ReactElement> {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>Hello, {user?.email} </h1>
-        {hasMood ?
+        {hasMood ? (
           <p className={styles.moodHeader}>
             Mood for the day{" "}
             <Image
@@ -72,11 +72,13 @@ export default async function Home(): Promise<ReactElement> {
               width={40}
               height={40}
               style={{ marginLeft: "10px" }}
-              />
+            />
           </p>
-          : ''}
+        ) : (
+          ""
+        )}
       </div>
-       {blobElements ? (
+      {blobElements ? (
         <div className={styles.blobContainer}>{blobElements}</div>
       ) : (
         <div className={styles.noDetailsContainer}>
@@ -90,7 +92,7 @@ export default async function Home(): Promise<ReactElement> {
             <Link href={"/mood"}>Add details</Link>
           </button>
         </div>
-        )}
+      )}
       <Navbar />
     </div>
   );

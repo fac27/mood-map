@@ -5,7 +5,7 @@ import { getSessionServer } from "@/lib/server/session";
 import { redirect } from "next/navigation";
 import { getAllEntries } from "@/lib/models";
 
-const Grid = async ()=> {
+const Grid = async () => {
   const session = await getSessionServer();
   if (!session) redirect("/login");
 
@@ -31,12 +31,13 @@ const Grid = async ()=> {
           <p>S</p>
           <p>S</p>
         </div>
-        {entriesSortedByDate.length ? 
-        <div className={styles.grid}>
-          <GridDays allEntries={entriesSortedByDate} />
-        </div> 
-        : 'NO ENTRIES 😔'
-        }
+        {entriesSortedByDate.length ? (
+          <div className={styles.grid}>
+            <GridDays allEntries={entriesSortedByDate} />
+          </div>
+        ) : (
+          "NO ENTRIES 😔"
+        )}
       </div>
       <Navbar />
     </>
