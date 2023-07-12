@@ -33,7 +33,7 @@ const Grid = async () => {
         </div>
         {entriesSortedByDate.length ? (
           <div className={styles.grid}>
-            <GridDays allEntries={entriesSortedByDate} />
+            <GridDays session={session} allEntries={entriesSortedByDate} />
           </div>
         ) : (
           "NO ENTRIES 😔"

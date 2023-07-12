@@ -51,13 +51,9 @@ export default function LoginForm({ session }: { session: any }) {
       provider: "spotify",
       options: {
         redirectTo: `${location.origin}/auth/callback`,
+        scopes: 'user-read-recently-played user-read-currently-playing'
       },
     })) as any;
-    const session = data.session;
-
-    if (session) {
-      const oAuthToken = data.session.access_token;
-    }
     router.refresh();
   };
 
