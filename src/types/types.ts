@@ -117,3 +117,8 @@ export interface Database {
     };
   };
 }
+
+export type StreakData = {
+  current: number;
+  allTime: number;
+};

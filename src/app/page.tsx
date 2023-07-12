@@ -12,10 +12,10 @@ import getRecentlyPlayedSong from "@/utils/spotifyHelper";
 import Navbar from "@/components/Navbar";
 import { Player } from "@/components/SpotifyPlayer";
 import { ReactElement } from "react";
+import StreakDisplay from "@/components/StreakDisplay";
 
 async function checkEntryForToday(userId: string): Promise<IEntry> {
   const entry: IEntry = await getTodaysEntry(userId);
-  // if (!entry) redirect("/mood");
   return entry;
 }
 
@@ -28,6 +28,7 @@ export default async function Home(): Promise<ReactElement> {
   const hasMood = Boolean(Object.keys(entry).length);
   const provider = session?.user.app_metadata?.provider === "spotify";
   const recentlyPlayed = await getRecentlyPlayedSong(session, "2023-07-10", 1);
+  const today = new Date();
 
   const blobElements =
     hasMoodDetails &&
@@ -63,10 +64,12 @@ export default async function Home(): Promise<ReactElement> {
     });
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.padBottom}`}>
       <div className={styles.header}>
         <h1>Hello, {user?.email} </h1>
         {hasMood ? (
+          <>
+          <StreakDisplay today={today} userId={user ? user.id : ""} />
           <p className={styles.moodHeader}>
             Mood for the day{" "}
             <Image
@@ -75,8 +78,9 @@ export default async function Home(): Promise<ReactElement> {
               width={40}
               height={40}
               style={{ marginLeft: "10px" }}
-            />
+              />
           </p>
+          </>
         ) : (
           ""
         )}
