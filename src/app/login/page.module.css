@@ -1,34 +1,125 @@
-.wrapper {
-  margin: 3rem;
+/* .container {
+  background: url("/images/sunny1.jpg");
+  background-color: #cccccc;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+
+.container {
+  padding: 3rem 2rem;
+  display: grid;
+  place-items: center;
 }
 
-.wrapper form {
+.container form {
+  font-family: Josefin Sans;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.container form label {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.container form input {
+  padding: 0.8rem;
+  width: 30rem;
+  border-radius: 0.3rem;
+  border: 1px solid transparent;
+  background: #d9d9d9;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+.forgetPassword {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.forgetPassword p {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  font-weight: normal;
+  cursor: pointer;
+  color: rgb(114, 120, 133);
+}
+
+.forgetPassword p:hover {
+  color: rgb(210, 129, 117);
+}
+
+.loginBtn {
+  margin-top: 3rem;
+  width: 15rem;
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  align-self: center;
+
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: #75d7a1;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.loginBtn:hover {
+  border: 1px solid #fff;
+  box-shadow: none;
+}
+
+.delimiter {
+  margin-top: 3rem;
+  font-family: Josefin Sans;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.delimiter span {
+  width: 87px;
+  height: 1.5px;
+  background: #c7c2c2;
+}
+
+.spotifyBtn {
   margin-top: 2rem;
-}
-
-.title {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 50px;
-  margin-top: 100px;
-}
-
-.wrapper label {
-  padding-inline: 10;
-}
-
-.wrapper input {
-  background-color: rgb(210, 210, 210);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.4) !important;
-  display: flex;
-  align-self: center;
-}
-
-.wrapper button {
+  width: fit-content;
+  background: transparent;
   border: none;
-  max-width: 50%;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.4) !important;
-  display: flex;
   align-self: center;
-  color: #0d3b66;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #75d7a1;
+  cursor: pointer;
+}
+
+.spotifyBtn span {
+  font-size: 2.5rem;
+  color: #75d7a1;
+}
+
+.spotifyBtn:hover {
+  transform: translate(-2px, 1px);
+}
+
+@media screen and (max-width: 420px) {
+  .container form input {
+    width: 20rem;
+  }
+
+  .forgetPassword p {
+    font-size: 0.9rem;
+  }
 }
