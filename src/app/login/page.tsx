@@ -34,12 +34,13 @@ export default function Login() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "spotify",
       options: {
-        redirectTo: `${location.origin}/auth/callback`      },
+        redirectTo: `${location.origin}/auth/callback`,
+      },
     });
     const session: ISession = data.session;
 
-    if(session){
-      const oAuthToken =  data.session.access_token
+    if (session) {
+      const oAuthToken = data.session.access_token;
     }
     router.refresh();
   };
