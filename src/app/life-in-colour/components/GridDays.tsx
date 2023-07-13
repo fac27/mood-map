@@ -7,8 +7,9 @@ import { getDaysInRange } from "@/utils/dateHelpers";
 import { IEntry } from "@/types/types";
 import Entry from "@/components/Entry";
 
-const GridDays: FC<{ allEntries: IEntry[] }> = ({
+const GridDays: FC<{ session: any; allEntries: IEntry[] }> = ({
   allEntries: entriesData,
+  session,
 }): ReactElement => {
   const [entryClicked, setEntryClicked] = useState<IEntry | null>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -89,7 +90,9 @@ const GridDays: FC<{ allEntries: IEntry[] }> = ({
           </div>
         );
       })}
-      {isOpen && <Entry onClose={closeModal} entry={entryClicked} />}
+      {isOpen && (
+        <Entry onClose={closeModal} entry={entryClicked} session={session} />
+      )}
     </>
   );
 };
