@@ -1,6 +1,6 @@
 # Mood-Map
 This project was the in-house project for FAC27. 
-Mood Map is an app that allows you to visually record your moods or mediations so that you have something to look back on weekly, monthly, and annually.
+Mood Map is an app that allows you to visually record your moods or meditations so that you have something to look back on weekly, monthly, and annually.
 
 Please note:
 
@@ -15,7 +15,7 @@ Please note:
 2. As a user, I want to be able to log my mood for the day in 3 taps/clicks or fewer
 3. As a user, I want to be able to view my moods summarised in an easy to understand grid colour map
 
-### Instillation
+### Installation
 
 ```git clone https://github.com/fac27/mood-map```
 
