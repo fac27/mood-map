@@ -9,7 +9,7 @@ export default async function getRecentlyPlayedSong(
   // Convert the dates to Unix timestamps in milliseconds
   const after = startOfDay.getTime();
 
-  const params = `?limit=${limit}&after=${after}`;
+  const params = `?limit=50&after=${after}&before=${after}&after&after=${after}`;
 
   try {
     const response = await fetch(
@@ -34,9 +34,18 @@ export default async function getRecentlyPlayedSong(
       console.log("😡", responseJson);
       // const tracks = responseJson.items.track.href;
       const trackHrefs = Array.isArray(responseJson.items)
-        ? responseJson.items.map((item: any) => item.track.href)
+        ? responseJson.items.map((item: any) => ({
+            url: item.track.external_urls.spotify,
+            time: item.played_at,
+          }))
         : [];
-      return trackHrefs[trackHrefs.length - 1];
+      const track = trackHrefs.find((track: any) => {
+        const time = new Date(new Date(track.played_at).setHours(0, 0, 0, 0));
+        console.log(time, startOfDay);
+        return time <= startOfDay;
+      });
+      console.log(track);
+      return track.url;
     }
   } catch (e) {
     console.error("❌", e);

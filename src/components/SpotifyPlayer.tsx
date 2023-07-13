@@ -1,12 +1,12 @@
 "use client";
 
-export function Player({ href = "" }: { href?: string }) {
-  const trackId = href.split("/").at(-1);
-  console.log(trackId);
+export function Player({ href }: { href: string }) {
+  const track = href.split('/')
+  track.splice(3, 0, 'embed')
   return (
     <iframe
       style={{ borderRadius: "12px", border: "none" }}
-      src={`https://open.spotify.com/embed/track/${trackId}?utm_source=generator`}
+      src={track.join('/')}
       width="100%"
       height="200"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
