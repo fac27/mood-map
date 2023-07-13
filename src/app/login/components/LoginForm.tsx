@@ -10,11 +10,10 @@ import { BsSpotify } from "react-icons/bs";
 import styles from "../page.module.css";
 
 export default function LoginForm({ session }: { session: any }) {
-  // middleware should handle this
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isSignup, setIsSignUp] = useState(false);
+  const [error, setError] = useState("");
+
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 
@@ -26,7 +25,11 @@ export default function LoginForm({ session }: { session: any }) {
     const validateUser = async () => {
       const session = await getSessionBrowser();
       const user = session?.user;
-      if (isLoggedIn || user) router.push("/");
+
+      if (isLoggedIn || user) {
+        setError("");
+        router.push("/");
+      }
     };
 
     validateUser();
@@ -36,26 +39,43 @@ export default function LoginForm({ session }: { session: any }) {
     setIsSignUp((prevValue) => !prevValue);
   };
 
-  const handleSignUp = async () => {
+  const handleSignUp = async (payload) => {
     const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
+      email: payload.email,
+      password: payload.password,
       options: {
         emailRedirectTo: `${location.origin}/auth/callback`,
       },
     });
 
-    router.refresh();
+    if (error) {
+      setError(error.message);
+    } else {
+      window.location.reload();
+    }
   };
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (payload) => {
     const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+      email: payload.email,
+      password: payload.password,
     });
 
-    console.log(data, error);
-    router.refresh();
+    if (error) {
+      setError(error.message);
+    } else {
+      setError("");
+      window.location.reload();
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const formValues = Object.fromEntries(formData.entries());
+
+    isSignup ? handleSignUp(formValues) : handleSignIn(formValues);
   };
 
   const handleSpotify = async () => {
@@ -66,44 +86,32 @@ export default function LoginForm({ session }: { session: any }) {
       },
     })) as any;
 
-    const session = data.session;
-
-    if (session) {
-      const oAuthToken = data.session.access_token;
+    if (error) {
+      setError(error.message);
+    } else {
+      router.refresh();
     }
-
-    router.refresh();
   };
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Mood Map</h1>
-      <form>
+      <form method="post" onSubmit={handleSubmit}>
         <label htmlFor="email">email</label>
-        <input
-          id="email"
-          name="email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
+        <input id="email" name="email" />
 
         <label htmlFor="password">password</label>
-        <input
-          id="password"
-          type="password"
-          name="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
+        <input id="password" type="password" name="password" />
 
         <div className={styles.forgetPassword}>
-          <p onClick={handleFormChange}>No account? Sign Up</p>
+          <p onClick={handleFormChange}>
+            {isSignup ? "Have an account? Sign In" : "No account? Sign Up"}
+          </p>
           <p>Forget password</p>
         </div>
-        <button
-          onClick={isSignup ? handleSignUp : handleSignIn}
-          className={styles.loginBtn}
-        >
+
+        {error && <p className={styles.errorText}>{error}</p>}
+        <button className={styles.loginBtn}>
           {isSignup ? "Sign Up" : "Log in"}
         </button>
 
