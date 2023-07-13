@@ -8,7 +8,7 @@ import DetailsModal from "@/components/DetailsModal";
 import { updateOrCreateEntry } from "@/lib/models";
 import { useRouter } from "next/navigation";
 import { IUserEntry } from "@/types/types";
-import { Session } from "@supabase/auth-helpers-nextjs"; //this Session type is just 'any'? its kind of redundant. would be nice to have a real type definition
+import { Session } from "@supabase/auth-helpers-nextjs";
 
 export default function MoodPicker({
   session,

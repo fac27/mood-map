@@ -8,7 +8,7 @@ const Logout = () => {
   const router = useRouter();
   const logout = async () => {
     const { error } = await supabaseBrowser.auth.signOut();
-    if (error) console.log(error);
+    if (error) console.error(error);
     router.push("/login");
   };
 

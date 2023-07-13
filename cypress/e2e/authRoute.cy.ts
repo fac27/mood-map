@@ -6,7 +6,7 @@ PATHS.forEach((path: string) => {
   describe(`Test ${path} route redirects to login if no valid session`, () => {
     it("should redirect to login if no session", () => {
       cy.visit(baseUrl + path);
-      cy.url().should("eq", baseUrl + "/login"); // check redirect
+      cy.url().should("eq", baseUrl + "/login");
     });
     it("should not redirect but should instead show email", () => {
       cy.visit(baseUrl + "/mood");
@@ -16,7 +16,7 @@ PATHS.forEach((path: string) => {
       cy.visit(baseUrl + path);
       cy.url()
         .should("eq", baseUrl + "/login")
-        .not(baseUrl + "/"); // check redirect
+        .not(baseUrl + "/");
     });
   });
 });

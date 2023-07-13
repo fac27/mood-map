@@ -39,7 +39,7 @@ export default function LoginForm({ session }: { session: any }) {
     setIsSignUp((prevValue) => !prevValue);
   };
 
-  const handleSignUp = async (payload) => {
+  const handleSignUp = async (payload: any) => {
     const { data, error } = await supabase.auth.signUp({
       email: payload.email,
       password: payload.password,
@@ -55,7 +55,7 @@ export default function LoginForm({ session }: { session: any }) {
     }
   };
 
-  const handleSignIn = async (payload) => {
+  const handleSignIn = async (payload: any) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: payload.email,
       password: payload.password,
@@ -69,7 +69,7 @@ export default function LoginForm({ session }: { session: any }) {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
@@ -83,6 +83,7 @@ export default function LoginForm({ session }: { session: any }) {
       provider: "spotify",
       options: {
         redirectTo: `${location.origin}/auth/callback`,
+        scopes: "user-read-recently-played user-read-currently-playing",
       },
     })) as any;
 

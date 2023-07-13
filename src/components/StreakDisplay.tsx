@@ -30,7 +30,7 @@ const StreakDisplay: FC<StreakDisplayProps> = ({ today, userId }) => {
         <div className={styles.streakItem}>
           <Image src={flameIcon} width={30} height={30} alt={"flame icon"} />
           <p className={styles.streakNumber}>
-            {streakData.current} day{streakData.current > 1 ? "s" : ""}
+            {streakData.current} day{streakData.current !== 1 ? "s" : ""}
           </p>
           <p className={styles.streakHeading}>CURRENT STREAK</p>
         </div>
@@ -38,7 +38,7 @@ const StreakDisplay: FC<StreakDisplayProps> = ({ today, userId }) => {
         <div className={styles.streakItem}>
           <Image src={flameIcon} width={30} height={30} alt={"flame icon"} />
           <p className={styles.streakNumber}>
-            {streakData.allTime} day{streakData.allTime > 1 ? "s" : ""}
+            {streakData.allTime} day{streakData.allTime !== 1 ? "s" : ""}
           </p>
           <p className={styles.streakHeading}>LONGEST STREAK</p>
         </div>
