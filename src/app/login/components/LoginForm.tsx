@@ -10,7 +10,6 @@ import { BsSpotify } from "react-icons/bs";
 import styles from "../page.module.css";
 
 export default function LoginForm({ session }: { session: any }) {
-  // middleware should handle this
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,8 +52,6 @@ export default function LoginForm({ session }: { session: any }) {
       email,
       password,
     });
-
-    console.log(data, error);
     router.refresh();
   };
 
@@ -63,15 +60,9 @@ export default function LoginForm({ session }: { session: any }) {
       provider: "spotify",
       options: {
         redirectTo: `${location.origin}/auth/callback`,
+        scopes: "user-read-recently-played user-read-currently-playing",
       },
     })) as any;
-
-    const session = data.session;
-
-    if (session) {
-      const oAuthToken = data.session.access_token;
-    }
-
     router.refresh();
   };
 
