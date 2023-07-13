@@ -5,8 +5,6 @@ export default async function getRecentlyPlayedSong(
 ) {
   const date = new Date(dateString);
   const startOfDay = new Date(date.setHours(0, 0, 0, 0));
-
-  // Convert the dates to Unix timestamps in milliseconds
   const after = startOfDay.getTime();
 
   const params = `?limit=${limit}&after=${after}`;
