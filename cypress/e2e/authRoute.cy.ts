@@ -16,7 +16,7 @@ PATHS.forEach((path: string) => {
       cy.visit(baseUrl + path);
       cy.url()
         .should("eq", baseUrl + "/login")
-        .not(baseUrl + "/"); 
+        .not(baseUrl + "/");
     });
   });
 });

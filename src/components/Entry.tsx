@@ -1,18 +1,36 @@
-import React, { ReactElement } from "react";
+"use client";
+
+import React, { ReactElement, useEffect, useState } from "react";
 import styles from "./Entry.module.css";
 import Vector from "@/../public/images/Vector.svg";
 import Image from "next/image";
 import { FC } from "react";
 import { IEntry } from "@/types/types";
-
+import { Player } from "./SpotifyPlayer";
+import getRecentlyPlayedSong from "@/utils/spotifyHelper";
 interface ModalProps {
   onClose: () => void;
   entry: IEntry | null;
+  session: any;
 }
 
-const Entry: FC<ModalProps> = ({ onClose, entry }): ReactElement => {
+const Entry: FC<ModalProps> = ({ onClose, entry, session }): ReactElement => {
+  const [href, setHref] = useState("");
+
+  useEffect(() => {
+    async function getSong() {
+      const recentSong = await getRecentlyPlayedSong(
+        session,
+        entry?.mood_date as string,
+        1
+      );
+      setHref(recentSong[0]);
+    }
+    getSong();
+  }, [entry]);
+
   if (!entry) {
-    return <div>No entries available.</div>; 
+    return <div>No entries available.</div>;
   }
   return (
     <>
@@ -56,6 +74,7 @@ const Entry: FC<ModalProps> = ({ onClose, entry }): ReactElement => {
               : "No journal entry recorded"}
           </p>
         </div>
+        <Player href={href} />
       </div>
     </>
   );

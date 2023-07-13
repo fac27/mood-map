@@ -2,6 +2,7 @@ import supabaseBrowser from "./browser/client";
 import { IEntry, IUserEntry } from "@/types/types";
 import date from "./date";
 import { PostgrestError } from "@supabase/supabase-js";
+import sanitiseEntry from "@/utils/sanitize";
 
 export async function getUserEntries(userId: string): Promise<IEntry | null> {
   const { data, error } = await supabaseBrowser
@@ -17,6 +18,7 @@ export async function getUserEntries(userId: string): Promise<IEntry | null> {
 export async function updateOrCreateEntry(
   entry: IUserEntry
 ): Promise<PostgrestError | null> {
+  sanitiseEntry(entry);
   const { data: existingEntry } = await supabaseBrowser
     .from("entries")
     .select("*")
