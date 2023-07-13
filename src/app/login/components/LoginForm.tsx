@@ -113,4 +113,4 @@ export default function LoginForm({ session }: { session: any }) {
       </form>
     </div>
   );
-  }
+}
