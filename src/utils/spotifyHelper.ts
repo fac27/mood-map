@@ -39,11 +39,9 @@ export default async function getRecentlyPlayedSong(
             time: item.played_at,
           }))
         : [];
-      const track = trackHrefs.find((track: any) => {
-        const time = new Date(new Date(track.played_at).setHours(0, 0, 0, 0));
-        console.log(time, startOfDay);
-        return time <= startOfDay;
-      });
+      const track = trackHrefs.find(
+        (track: any) => new Date(track.played_at).getTime() <= after
+      );
       console.log(track);
       return track.url;
     }
