@@ -6,8 +6,8 @@ const sanitise = (inputString: string) => {
 };
 const sanitiseEntry = (entry: IUserEntry) => {
   for (const field in entry) {
-    if (typeof entry[field] === "string") {
-      entry[field] = sanitise(entry[field]);
+    if (typeof (entry as any)[field] === "string") {
+      (entry as any)[field] = sanitise((entry as any)[field]);
     }
   }
 };
