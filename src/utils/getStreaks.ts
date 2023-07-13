@@ -32,7 +32,7 @@ export const getStreaks = async (
       streak = 0;
     }
   }
-  if (streak) streaks.push(streak);
+  streaks.push(streak);
 
   return {
     current: streaks[streaks.length - 1],
