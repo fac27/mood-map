@@ -25,6 +25,7 @@ export default async function Home(): Promise<ReactElement> {
   const entry: IEntry = (await checkEntryForToday(user?.id ?? "")) || {};
   const entryInfo = Object.values(entry).slice(2);
   const hasMoodDetails = Boolean(entry.journal_entry);
+  const today = new Date();
   const hasMood = Boolean(Object.keys(entry).length);
   const provider = session?.user.app_metadata?.provider === "spotify";
   const recentlyPlayed = await getRecentlyPlayedSong(session, "2023-07-10", 1);
@@ -81,7 +82,7 @@ export default async function Home(): Promise<ReactElement> {
         ) : (
           ""
         )}
-        {provider ? <Player href={recentlyPlayed[0]} /> : ""}
+        {provider ? <Player href={recentlyPlayed} /> : ""}
       </div>
       {blobElements ? (
         <div className={styles.blobContainer}>{blobElements}</div>

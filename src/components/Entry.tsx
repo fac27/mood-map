@@ -24,7 +24,7 @@ const Entry: FC<ModalProps> = ({ onClose, entry, session }): ReactElement => {
         entry?.mood_date as string,
         1
       );
-      setHref(recentSong[0]);
+      setHref(recentSong);
     }
     getSong();
   }, [entry]);
